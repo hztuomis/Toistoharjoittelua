@@ -2,18 +2,33 @@
 
 Heikki Tuomisto (010366019)
 
-Ohjelma on tehty sanaparien harjoitteluun. Ohjelma kysyy sanaa ja opiskelija yrittää osata sanan parin. Sanaparit voivat olla esimerkiksi: 
-kahta eri kieltä 
+Tehdään ohjelma sanaparien harjoitteluun. Ohjelma kysyy sanaa ja opiskelija yrittää osata sanan parin. Sanaparit voivat olla esimerkiksi: 
+kahta eri kieltä (huom. tällöin sanavastineita voi olla useita!)
 pääkaupunkeja ja valtioita 
 alkuaineita ja kemiallisia merkkejä 
 ... 
 
-Sanaparit luetaan tekstitiedostosta. Ne kysellään satunnaisessa järjestyksessä. Jos vastaus on oikea, kysymystä ei uusita vaan siirrytään seuraavaan. Kun kaikki sanat on kertaalleen kysytty, aloitetaan uusi kierros siten, että sanojen järjestys on jälleen satunnainen. 
-Virheellinen vastaus aiheuttaa sanan kysymisen uudestaan satunnaisesti 3 – 10 kysymyksen jälkeen. Jos uusintakysymyskin menee väärin, arvotaan jälleen uusi kysymisen ajankohta.
-Kyselyn voi keskeyttää milloin tahansa. Tällöin tulostetaan virheettömästi vastattujen ja virheitä sisältäneiden sanojen lukumäärä. Tulostetaan myös lista sanoista, joissa on tullut virheitä ja sanakohtainen virheiden lukumäärä. Listan järjestys on laskeva eli eniten virheitä aiheuttanut sana on listassa ensimmäisenä.
+Sanaparit luetaan tekstitiedostosta. Ne kysellään satunnaisessa järjestyksessä. Jos vastaus on oikea, kysymystä ei uusita vaan siirrytään seuraavaan. Kun kaikki sanat on kertaalleen kysytty, aloitetaan uusi kierros siten, että sanojen järjestys on jälleen satunnainen.
+ 
+Virheellinen vastauksen jälkeen annetaan oikea vastaus ja kysytään sanaa uudestaan satunnaisesti 3 – 10 kysymyksen jälkeen. Jos uusintakysymyskin menee väärin, jatketaan samaan tapaan arpomalla seuraavan kysymisen ajankohta.
+
+Kyselyn voi keskeyttää milloin tahansa. Tällöin tulostetaan virheettömästi vastattujen ja virheitä sisältäneiden sanojen lukumäärä. Tulostetaan myös lista sanoista, joissa on tullut virheitä, oikeat vastaukset ja sanakohtainen virheiden lukumäärä. Listan järjestys on laskeva eli eniten virheitä aiheuttanut sana on listassa ensimmäisenä.
+
+OPTIO: haluttaessa kysellään vain niitä sanoja, joissa on tullut virheitä.
+
+----------------------------------------------------------------------
+----------- Suunniteltu vaiheittainen eteneminen: --------------------
+----------------------------------------------------------------------
+- sanaparien syöttö käsityönä (vasta myöhemmin lukeminen tiedostosta)
+- ei toistaiseksi synonyymejä, so. kysyttävällä sanalla on vain yksi vastine
+- ei toistaiseksi kysymysten satunnaistettua järjestystä
+- ei toistaiseksi sanakohtaista uusintakyselyä, vaan niistä sanoista, joissa tuli virhe, tehdään kierroksen loputtua uusi kyseltävä sanajoukko. Tätä voi jatkaa niin kauan kuin halutaan – esim. siihen asti, kunnes ainoatakaan virhettä ei enää tullut. Tällöin ohjelman suoritus viimeistään loppuu. (Suorituksen voi tietysti lopettaa milloin tahansa aiemmin.)
+
+
 
 ********** IDEOITA ALKUPERÄISESSÄ TEHTÄVÄNASETTELUSSA
 ********** NÄIHIN OTETTAVA VIELÄ KANTAA
 Jos intoa ja aikaa riittää, täydennä järjestelmää välineellä, jolla opettaja voi vaivatta laatia sanaparitiedostoja. Opettajalle voisi tarjota myös mahdollisuuden vaikuttaa sanaparien kyselyn logiikkaan: moneenko kertaan kysytään, miten kerrataan, jne. Tuo logiikka on syytä tavalla tai toisella koodaten tallettaa sanaparitiedostoon. 
 Ja jos intoa ja aikaa riittää vielä tämänkin jälkeen, voit laatia myös ohjelman, jolla järjestetään sanapareihin liittyviä tietokoneavusteisia kokeita. 
+Alussa voitaisiin antaa kysymysten määrä, esim. 50 kysymystä. 
 
