@@ -16,28 +16,18 @@ public class Toistoharjoittelua {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
-     
-        Scanner lukija = new Scanner(System.in);
-    
-        Sanapari sanapari = new Sanapari();
-        sanapari.annaSanapari();
-    
-        System.out.print("Anna vastaus: ");
-        String vastaus = lukija.nextLine();
-
-        if ( sanapari.vastausOikein(sanapari.getKysymys(),
-            vastaus) ) {
-            System.out.println("Oikein");
-        } else {
-            System.out.println("Väärin");
-        }    
-        /*
-        System.out.println(" --> " + sanapari.getKysymys() + " - " + 
-        *       sanapari.getVastaus());
-        */    
         Sanaparilista sanaPariLista = new Sanaparilista();
+        
+        System.out.println("Kysellään listan sanaparit");
+/*        System.out.println("Samaa ensimmäistä sanaa ei saa esiintyä.");*/
+        /* myöhemmin muutetaan: samaa sanaparia ei saa esiintyä);*/
         sanaPariLista.lueSanaparitListaan();
+        
+        System.out.println("Listan sisältö");
+        sanaPariLista.tulostaSanapariLista();
+        
+        System.out.println("Kysellään listan kysymykset kertaalleen");
+        sanaPariLista.kyseleJaTarkastaSanapariLista();
     }
 
 }

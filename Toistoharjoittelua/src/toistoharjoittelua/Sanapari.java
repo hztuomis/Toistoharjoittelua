@@ -14,12 +14,7 @@ import java.util.Scanner;
 public class Sanapari {
     private String kysymys;
     private String vastaus;
-    
-/*    Sanapari (String kysymys, String vastaus) {
-        this.kysymys = kysymys;
-        this.vastaus = vastaus;
-    }
-*/
+
     Sanapari () {
         
     }
@@ -40,11 +35,11 @@ public class Sanapari {
         this.vastaus = vastaus;
     }
     
-    public boolean kysymysTyhja(/*String kysymys*/) {
+    public boolean kysymysTyhja() {
         return kysymys.equals("");
     }
     
-    public boolean vastausTyhja(/*String vastaus'*/) {
+    public boolean vastausTyhja() {
         return vastaus.equals("");
     }
 
@@ -66,19 +61,34 @@ public class Sanapari {
         /* hyväksytkö vai hylkäätkö sanaparin?*/
     }
     
-    public boolean vastausOikein (String kysymys, String vastaus) {
-         return this.kysymys.equals(kysymys) && this.vastaus.equals(vastaus);
+    public boolean vastausOikein (String kysymys, 
+            String ehdotettuVastaus) {
+         return this.kysymys.equals(kysymys) && 
+                 this.vastaus.equals(ehdotettuVastaus);
     }
     
+    public void kysy() {
+        System.out.print(this.kysymys + "?: ");
+    }
+    
+    public String ehdotettuVastaus() {
+        kysy();
+        Scanner lukija = new Scanner(System.in);
+        return lukija.nextLine();
+    }
+    
+    public void kyseleJaTarkastaSanapari() {
+       String ehdotus = ehdotettuVastaus();
+       if (vastausOikein(getKysymys(), ehdotus )) {
+          System.out.println("Oikein");
+       } else {
+           System.out.println("Väärin");
+       }
+    }
+
+    
     public String toString() {
-        return kysymys + "  -  " + vastaus;
+        return kysymys + "  ->  " + vastaus;
     }
-/*
- *     public String toString() {
-        return tavarat.size() + " tavaraa (" + laukunPaino + " kg)";
-    }
-
-
- */
     
 }
