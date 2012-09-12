@@ -16,7 +16,7 @@ public class Sanaparilista {
    
     public void lueSanaparitListaan() {
         while (true) {
-            Sanapari syoteRivi = new Sanapari();
+            Sanapari syoteRivi = new Sanapari("","");
             syoteRivi.annaSanapari();
             if ( (syoteRivi.kysymysTyhja()) || syoteRivi.vastausTyhja() ) {
                 System.out.println("Lopetetaan!");
@@ -54,13 +54,6 @@ public class Sanaparilista {
         } // for
         return false;
     }    
-
-/*
-    public boolean onJoListassa(Sanapari syoteRivi) {
-        if (sanaParit.contains(syoteRivi)) return true;
-        return false;
-    }
-*/
 
 }
     

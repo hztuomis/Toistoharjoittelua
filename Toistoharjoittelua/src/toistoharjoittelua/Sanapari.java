@@ -15,8 +15,9 @@ public class Sanapari {
     private String kysymys;
     private String vastaus;
 
-    Sanapari () {
-        
+    public Sanapari (String kysymys, String vastaus) {
+        this.kysymys = kysymys;
+        this.vastaus = vastaus;        
     }
     
     public String getKysymys() {
@@ -78,12 +79,13 @@ public class Sanapari {
     }
     
     public void kyseleJaTarkastaSanapari() {
-       String ehdotus = ehdotettuVastaus();
-       if (vastausOikein(getKysymys(), ehdotus )) {
-          System.out.println("Oikein");
-       } else {
+        String ehdotus = ehdotettuVastaus();
+        if (vastausOikein(getKysymys(), ehdotus )) {
+        System.out.println("Oikein");
+        } else {
            System.out.println("Väärin");
-       }
+           System.out.println("Oikea vastaus on: " + getVastaus());
+        }
     }
 
     
