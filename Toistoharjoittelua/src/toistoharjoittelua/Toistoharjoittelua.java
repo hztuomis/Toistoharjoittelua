@@ -36,16 +36,19 @@ public class Toistoharjoittelua {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Sanaparilista sanaPariLista = new Sanaparilista();
+//        Sanaparilista sanaPariLista = new Sanaparilista();
+     //   kayttoliittyma.kaynnista();
+//        sanaPariLista.testaillaanHashMappia();
+        Kayttoliittyma kl = new Kayttoliittyma();
         
         System.out.println("Kysellään listan sanaparit");
-        sanaPariLista.lueSanaparitListaan();
+        kl.lueSanaparitListaan();
         
         System.out.println("Listan sisältö");
-        sanaPariLista.tulostaSanapariLista();
+        kl.tulostaSanapariLista();
         
         System.out.println("Kysellään listan kysymykset kertaalleen");
-        sanaPariLista.kyseleJaTarkastaSanapariLista();
+        kl.kyseleJaTarkastaSanapariLista();
     }
 
 }
