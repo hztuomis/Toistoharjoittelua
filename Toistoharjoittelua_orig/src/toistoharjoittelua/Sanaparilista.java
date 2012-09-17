@@ -14,32 +14,19 @@ import java.util.HashMap;
 public class Sanaparilista {
    
     private ArrayList<Sanapari> sanaParit = new ArrayList<Sanapari>();
-    private ArrayList<String> kysymykset = new ArrayList<String>();
-    ArrayList<String> vastine = new ArrayList<String>();
-//    private ArrayList<String> sananKoiraParit = new ArrayList<String>();
-    private HashMap<String,ArrayList<String>> sanaJoukot = new HashMap();
+    private ArrayList<String> sananKoiraParit = new ArrayList<String>();
+    private HashMap<String,ArrayList<String>> sanat = new HashMap();
     private HashMap<String,Integer> kuinkaMontaKertaaVastattuVaarin = 
             new HashMap();
     
-    public void LisaaPariJoukkoon (String kysymys, 
+    public void LisaaPariListaan (String kysymys, 
             String vastaus) {
-        vastine.add(vastaus);
-        sanaJoukot.put(kysymys, vastine);
-        if (! kysymysOnListassa(kysymys)){
-            kysymykset.add(kysymys);
-        }
+        Sanapari sp = new Sanapari( kysymys, vastaus);
+        sanaParit.add(sp);     
     }
-    
-    public boolean kysymysOnListassa(String kysymys) {
-       return kysymykset.contains(kysymys);
-    }
-                
-//        Sanapari sp = new Sanapari( kysymys, vastaus);
-//        sanaParit.add(sp);     
- 
 
-    public int SanaJoukonKoko (){
-        return kysymykset.size();
+    public int SanaPariListanKoko (){
+        return sanaParit.size();
     }
     
 //    public void testaillaanHashMappia() {
@@ -72,15 +59,10 @@ public class Sanaparilista {
 //    }}
    
     
-    public String toString() {
-        String tulos = "";
-        for (int i = 0; i < kysymykset.size(); ++i) {
-            String k = kysymykset.get(i);
-            tulos = tulos + k + " --> " +
-                (sanaJoukot.get(k) + " ") +
-                "\n";
+    public void tulostaSanapariLista() {
+        for (int i = 0; i < sanaParit.size(); ++i) {
+            System.out.println(sanaParit.get(i));
         }
-        return tulos;
     }    
 
     public Sanapari AnnaSanapariListasta (int i) {

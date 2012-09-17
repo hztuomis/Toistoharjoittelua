@@ -33,7 +33,7 @@ public class Kayttoliittyma {
             }
             /* samaa paria ei saa lisätä toiseen kertaan!*/
             if ( ! sl.onJoListassa(sp) ) { 
-                sl.LisaaPariJoukkoon(sp.getKysymys(),sp.getVastaus());
+                sl.LisaaPariListaan(sp.getKysymys(),sp.getVastaus());
                 System.out.println(sp);
             } else {
                 System.out.println("Rivi on jo listassa, " + 
@@ -63,14 +63,16 @@ public class Kayttoliittyma {
      */
     
     public void tulostaSanapariLista() {
-        System.out.print(sl);
+        for (int i = 0; i < sl.SanaPariListanKoko(); ++i) {
+            System.out.println(sl.AnnaSanapariListasta(i));
+        }
     }    
 
     /**
     * kysellään ja tarkastetaan
     */
     public void kyseleJaTarkastaSanapariLista() {
-        for (int i = 0; i < sl.SanaJoukonKoko(); ++i) {
+        for (int i = 0; i < sl.SanaPariListanKoko(); ++i) {
             Sanapari sp = new Sanapari(
                     sl.AnnaSanapariListasta(i).getKysymys(),
                     sl.AnnaSanapariListasta(i).getVastaus());
