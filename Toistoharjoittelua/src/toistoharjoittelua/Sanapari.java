@@ -13,11 +13,15 @@ import java.util.Scanner;
 
 public class Sanapari {
     private String kysymys;
-    private String vastaus;
+    private String vastaus; //ArrayList
 
     public Sanapari (String kysymys, String vastaus) {
         this.kysymys = kysymys;
         this.vastaus = vastaus;        
+    }
+    
+    public Sanapari() {
+        
     }
     
     public String getKysymys() {

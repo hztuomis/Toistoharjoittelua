@@ -11,35 +11,55 @@ import java.util.HashMap;
  *
  * @author hztuomis
  */
-public class Sanaparilista {
-   
-    private ArrayList<Sanapari> sanaParit = new ArrayList<Sanapari>();
-    private ArrayList<String> kysymykset = new ArrayList<String>();
-    ArrayList<String> vastine = new ArrayList<String>();
+public class Sanajoukkolista {
+    
+//    private ArrayList<Sanapari> sanaParit = new ArrayList<Sanapari>();
+//    private ArrayList<String> kysymykset = new ArrayList<String>();
+//    ArrayList<String> vastine = new ArrayList<String>();
 //    private ArrayList<String> sananKoiraParit = new ArrayList<String>();
-    private HashMap<String,ArrayList<String>> sanaJoukot = new HashMap();
+    private HashMap<String,Sanajoukko> joukkoLista = new HashMap();
     private HashMap<String,Integer> kuinkaMontaKertaaVastattuVaarin = 
             new HashMap();
+        
     
-    public void LisaaPariJoukkoon (String kysymys, 
+    public HashMap<String,Sanajoukko> GetJoukkoLista() {
+        return joukkoLista;
+    }
+    
+    public void LisaaSanajoukkoListaan (String kysymys, 
             String vastaus) {
-        vastine.add(vastaus);
-        sanaJoukot.put(kysymys, vastine);
-        if (! kysymysOnListassa(kysymys)){
-            kysymykset.add(kysymys);
+        if (kysymysOnListassa(kysymys)) {
+            Sanajoukko sj = new Sanajoukko(kysymys);
+            sj.lisaaVastausJoukkoon(kysymys, vastaus);
+            this.joukkoLista.put(kysymys, sj);
+        } else { 
+/*            Sanajoukko sj = new Sanajoukko(kysymys, vastaus); */
+            Sanajoukko sj = new Sanajoukko(kysymys);
+            sj.lisaaVastausJoukkoon(kysymys, vastaus);
         }
     }
     
     public boolean kysymysOnListassa(String kysymys) {
-       return kysymykset.contains(kysymys);
+        return ! joukkoLista.keySet().isEmpty();
     }
+
+    /*
+    public boolean kysymysOnListassa(String kysymys) {
+            for (String avain : sanaJoukot.keySet()) {
+                if (sanaJoukot.containsKey(kysymys)) {
+                    return true;
+                }
+            }
+            return false;
+    }
+*/
                 
 //        Sanapari sp = new Sanapari( kysymys, vastaus);
 //        sanaParit.add(sp);     
  
 
     public int SanaJoukonKoko (){
-        return kysymykset.size();
+        return joukkoLista.size();
     }
     
 //    public void testaillaanHashMappia() {
@@ -77,28 +97,17 @@ public class Sanaparilista {
     
     public String toString() {
         String tulos = "";
-        for (int i = 0; i < kysymykset.size(); ++i) {
-            String k = kysymykset.get(i);
-            tulos = tulos + k + " --> " +
-                (sanaJoukot.get(k) + " ") +
-                "\n";
+        for (String avain : joukkoLista.keySet()) {
+            tulos = joukkoLista.get(avain).getVastaus().toString();
         }
         return tulos;
-    }    
-
+    }
+ 
+/*
     public Sanapari AnnaSanapariListasta (int i) {
         return sanaParit.get(i);
-    }
-    
-    public boolean onJoListassa(Sanapari syoteRivi) {
-        for (int i = 0; i < sanaParit.size(); ++i) {
-           if (sanaParit.get(i).vastausOikein(syoteRivi.getKysymys(), 
-                   syoteRivi.getVastaus() )) {
-               return true;
-           } 
-        } // for
-        return false;
-    }    
+    }  
+*/
 
 }
     
