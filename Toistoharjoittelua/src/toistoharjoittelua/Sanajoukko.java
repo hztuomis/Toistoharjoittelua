@@ -13,8 +13,8 @@ import java.util.ArrayList;
  */
 public class Sanajoukko {
     
-    private String kysymys;
-    private ArrayList<String> vastaus;
+    private String kysymys = "";
+    private ArrayList<String> vastaukset;
 //    private HashMap<String,ArrayList<String>> sanaJoukot = new HashMap();
     
     public Sanajoukko() {    
@@ -29,16 +29,16 @@ public class Sanajoukko {
     public Sanajoukko (String kysymys, String vastaus) {
         if ( ! kysymys.isEmpty()) {
             this.kysymys = kysymys;
-            this.vastaus.add(vastaus);
+            this.vastaukset.add(vastaus);
         }    
     }
 
-    public void lisaaVastausJoukkoon (String kysymys, String vastausx) {
+    public void lisaaVastausJoukkoon (String kysymys, String vastaus) {
 //        if( (! this.vastaus.isEmpty() ) && this.kysymys.equals(kysymys)) {
-            System.out.println("printataan lisaa-metodista " + kysymys + "   " + vastausx);
+            System.out.println("printataan lisaa-metodista " + kysymys + "   " + vastaus);
 ArrayList<String> x = new ArrayList<String>();
 //            boolean b = this.vastaus.add(vastausx);            
-            boolean b = x.add(vastausx);
+            boolean b = x.add(vastaus);
 //       }
     }
       
@@ -50,28 +50,28 @@ ArrayList<String> x = new ArrayList<String>();
         this.kysymys = kysymys;
     }
     
-    public ArrayList<String> getVastaus() {
-        return this.vastaus;
+    public ArrayList<String> getVastaukset() {
+        return this.vastaukset;
     }
     
     public boolean kysymysTyhja() {
-        return kysymys.equals("");
+        return kysymys.equals(""); // isEmpty, length, ...
     }
     
-    public boolean vastausTyhja(String vastaus) {
+    public boolean vastauksetTyhja(String vastaus) {
 //        return vastaus.equals("");  // MIKSI EI ANNA VIRHEILMOITUSTA???
-        return this.vastaus.isEmpty(); 
+        return this.vastaukset.isEmpty(); 
     }
 
     public boolean vastausOikein (String kysymys, 
-            String ehdotettuVastaus) {
+            String vastaus) {
          return this.kysymys.equals(kysymys) && 
-                 this.vastaus.contains(ehdotettuVastaus);
+                 this.vastaukset.contains(vastaus);
     }
         
     @Override
     public String toString() {
-        return kysymys + "  ->  " + vastaus;
+        return kysymys + "  ->  " + vastaukset;
     }
 
     /*

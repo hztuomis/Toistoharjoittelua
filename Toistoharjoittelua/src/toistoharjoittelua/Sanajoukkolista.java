@@ -17,15 +17,20 @@ public class Sanajoukkolista {
 //    private ArrayList<String> kysymykset = new ArrayList<String>();
 //    ArrayList<String> vastine = new ArrayList<String>();
 //    private ArrayList<String> sananKoiraParit = new ArrayList<String>();
-    private HashMap<String,Sanajoukko> joukkoLista = new HashMap();
+    private HashMap<String,Sanajoukko> jl/*joukkoLista*/ = new HashMap();
     private HashMap<String,Integer> kuinkaMontaKertaaVastattuVaarin = 
             new HashMap();
         
     
     public HashMap<String,Sanajoukko> GetJoukkoLista() {
-        return joukkoLista;
+        return jl;
     }
     
+    public Sanajoukko GetJoukkoListasta(String avain) {
+        return jl.get(avain);
+    }
+    
+/**
     public void LisaaSanajoukkoListaan (String kysymys, 
             String vastaus) {
         if (kysymysOnListassa(kysymys)) {
@@ -33,14 +38,29 @@ public class Sanajoukkolista {
             sj.lisaaVastausJoukkoon(kysymys, vastaus);
             this.joukkoLista.put(kysymys, sj);
         } else { 
-/*            Sanajoukko sj = new Sanajoukko(kysymys, vastaus); */
+//            Sanajoukko sj = new Sanajoukko(kysymys, vastaus); 
             Sanajoukko sj = new Sanajoukko(kysymys);
             sj.lisaaVastausJoukkoon(kysymys, vastaus);
+  // lisästty           this.joukkoLista.put(kysymys, sj);
         }
+    }
+*/
+    public void LisaaSanajoukkoListaan (String kysymys, Sanajoukko joukko) {
+        jl.put(kysymys, joukko);
+//            String vastaus) {
+//        if (kysymysOnListassa(kysymys)) {
+//            Sanajoukko sj = new Sanajoukko(kysymys);
+//            sj.lisaaVastausJoukkoon(kysymys, vastaus);
+//            this.jl.put(kysymys, sj);
+//        } else { 
+///*            Sanajoukko sj = new Sanajoukko(kysymys, vastaus); */
+//            Sanajoukko sj = new Sanajoukko(kysymys);
+//            sj.lisaaVastausJoukkoon(kysymys, vastaus);
+//  /* lisästty */          this.jl.put(kysymys, sj);
     }
     
     public boolean kysymysOnListassa(String kysymys) {
-        return ! joukkoLista.keySet().isEmpty();
+        return ! jl.keySet().isEmpty();
     }
 
     /*
@@ -59,7 +79,7 @@ public class Sanajoukkolista {
  
 
     public int SanaJoukonKoko (){
-        return joukkoLista.size();
+        return jl.size();
     }
     
 //    public void testaillaanHashMappia() {
@@ -96,9 +116,9 @@ public class Sanajoukkolista {
    
     
     public String toString() {
-        String tulos = "";
-        for (String avain : joukkoLista.keySet()) {
-            tulos = joukkoLista.get(avain).getVastaus().toString();
+        String tulos = "listauksen alku\n";
+        for (String avain : jl.keySet()) {
+            tulos = tulos + avain + "  " + jl.get(avain).getVastaukset().toString();
         }
         return tulos;
     }

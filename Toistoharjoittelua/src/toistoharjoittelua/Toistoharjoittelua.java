@@ -45,7 +45,7 @@ public class Toistoharjoittelua {
         Kayttoliittyma kl = new Kayttoliittyma();
         
         System.out.println("Kysellään listan sanaparit");
-        kl.lueSanaparitListaan();
+        kl.lueSanaparitJoukkoon();
         
         System.out.println("Listan sisältö");
         kl.tulostaSanapariLista();
