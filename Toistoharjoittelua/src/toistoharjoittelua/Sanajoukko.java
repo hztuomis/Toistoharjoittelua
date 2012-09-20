@@ -15,6 +15,7 @@ public class Sanajoukko {
     
     private String kysymys = "";
     private ArrayList<String> vastaukset = new ArrayList<String>();
+    private Sanapari aloittavaSanapari = new Sanapari("","");
     
     public Sanajoukko() {    
     }
@@ -23,8 +24,8 @@ public class Sanajoukko {
         if ( ! kysymys.isEmpty()) {
             this.kysymys = kysymys;
         }    
-    }
-        
+    }    
+    
     public Sanajoukko (String kysymys, String vastaus) {
         if ( ! kysymys.isEmpty()) {
             this.kysymys = kysymys;
@@ -38,9 +39,9 @@ public class Sanajoukko {
             this.vastaukset.add(vastaus);
         }
       
-ArrayList<String> x = new ArrayList<String>();
+//ArrayList<String> x = new ArrayList<String>();
 //            boolean b = this.vastaus.add(vastausx);            
-            boolean b = x.add(vastaus);
+//            boolean b = x.add(vastaus);
 //       }
     }
       
@@ -50,6 +51,15 @@ ArrayList<String> x = new ArrayList<String>();
     
     public void setKysymys(String kysymys) {
         this.kysymys = kysymys;
+    }
+    
+    public Sanapari getAloittavaSanapari() {
+        return this.aloittavaSanapari;
+    }
+    
+    public void setAloittavaSanapari(String kysymys, String vastaus) {
+        this.aloittavaSanapari.setKysymys(kysymys);
+        this.aloittavaSanapari.setVastaus(vastaus);
     }
     
     public ArrayList<String> getVastaukset() {

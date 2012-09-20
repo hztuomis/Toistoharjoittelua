@@ -29,10 +29,18 @@ public class Sanajoukkolista {
     public Sanajoukko GetJoukkoListasta(String avain) {
         return jl.get(avain);
     }
-    
+    /*???*/
     public void LisaaSanajoukkoListaan (String kysymys, Sanajoukko joukko) {
         jl.put(kysymys, joukko);
     }
+
+    /* uusi 
+    public void LisaaSanapariListaan (String kysymys, Sanajoukko joukko) {
+        if (jl.get(kysymys) != null) {
+            jl.put(kysymys, joukko)
+         
+    }
+    */
     
     public boolean kysymysOnListassa(String kysymys) {
         return ! jl.keySet().isEmpty();
@@ -75,11 +83,24 @@ public class Sanajoukkolista {
 //        
 //    
    
-    
+
+/*
     public String toString() {
-        String tulos = "listauksen alku\n";
+//        String tulos = "listauksen alku\n";
+        String tulos = ""; 
         for (String avain : jl.keySet()) {
-            tulos = tulos + avain + "  " + jl.get(avain).getVastaukset().toString();
+            System.out.println("avain = " + jl.get(avain).getKysymys());
+//            tulos = tulos + avain + "  " + jl.get(avain).getVastaukset().toString() + "\n";
+            tulos = tulos + avain + "  " + jl.get(avain).toString() + "\n";
+        }
+        return tulos;
+    }
+*/
+    
+    public String toString() { 
+        String tulos = "";
+        for (String avain : jl.keySet()) {
+            tulos = tulos + jl.get(avain) + "\n";
         }
         return tulos;
     }

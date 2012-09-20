@@ -15,6 +15,8 @@ import java.util.Scanner;
 public class Sanapari {
     private String kysymys;
     private String vastaus; //ArrayList
+//    private String edellinenKysymys;
+//    private String edellinenVastaus;
 
     public Sanapari (String kysymys, String vastaus) {
         this.kysymys = kysymys;

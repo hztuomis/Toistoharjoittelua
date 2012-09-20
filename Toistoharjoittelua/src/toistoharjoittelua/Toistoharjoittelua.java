@@ -27,9 +27,6 @@ package toistoharjoittelua;
  */
 import java.util.Scanner;
 
-
-
-
 public class Toistoharjoittelua {
 
     /**
@@ -40,21 +37,18 @@ public class Toistoharjoittelua {
      */ 
     
     public static void main(String[] args) {
-//        Sanaparilista sanaPariLista = new Sanaparilista();
-     //   kayttoliittyma.kaynnista();
-//        sanaPariLista.testaillaanHashMappia();
         Sanajoukkolista jl = new Sanajoukkolista();
-        Kayttoliittyma kl = new Kayttoliittyma();
+        Kayttoliittyma kl = new Kayttoliittyma(jl);
         
         System.out.println("Muodostetaan sanajoukkojen lista kyselemällä" +
                 " sanapareja");
-        jl = kl.lueSanajoukotListaan();
+        jl = kl.lisaaSanajoukotListaan(jl);
         
         System.out.println("Listan sisältö");
-        kl.tulostaSanapariLista(jl);
+        kl.tulostaSanajoukkoLista(jl);
         
         System.out.println("Kysellään listan kysymykset kertaalleen");
-        kl.kyseleJaTarkastaSanapariLista(jl);
+        kl.kyseleJaTarkastaSanajoukkoLista(jl);
     }
 
 }
