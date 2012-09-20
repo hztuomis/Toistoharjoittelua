@@ -30,52 +30,13 @@ public class Sanajoukkolista {
         return jl.get(avain);
     }
     
-/**
-    public void LisaaSanajoukkoListaan (String kysymys, 
-            String vastaus) {
-        if (kysymysOnListassa(kysymys)) {
-            Sanajoukko sj = new Sanajoukko(kysymys);
-            sj.lisaaVastausJoukkoon(kysymys, vastaus);
-            this.joukkoLista.put(kysymys, sj);
-        } else { 
-//            Sanajoukko sj = new Sanajoukko(kysymys, vastaus); 
-            Sanajoukko sj = new Sanajoukko(kysymys);
-            sj.lisaaVastausJoukkoon(kysymys, vastaus);
-  // lisästty           this.joukkoLista.put(kysymys, sj);
-        }
-    }
-*/
     public void LisaaSanajoukkoListaan (String kysymys, Sanajoukko joukko) {
         jl.put(kysymys, joukko);
-//            String vastaus) {
-//        if (kysymysOnListassa(kysymys)) {
-//            Sanajoukko sj = new Sanajoukko(kysymys);
-//            sj.lisaaVastausJoukkoon(kysymys, vastaus);
-//            this.jl.put(kysymys, sj);
-//        } else { 
-///*            Sanajoukko sj = new Sanajoukko(kysymys, vastaus); */
-//            Sanajoukko sj = new Sanajoukko(kysymys);
-//            sj.lisaaVastausJoukkoon(kysymys, vastaus);
-//  /* lisästty */          this.jl.put(kysymys, sj);
     }
     
     public boolean kysymysOnListassa(String kysymys) {
         return ! jl.keySet().isEmpty();
     }
-
-    /*
-    public boolean kysymysOnListassa(String kysymys) {
-            for (String avain : sanaJoukot.keySet()) {
-                if (sanaJoukot.containsKey(kysymys)) {
-                    return true;
-                }
-            }
-            return false;
-    }
-*/
-                
-//        Sanapari sp = new Sanapari( kysymys, vastaus);
-//        sanaParit.add(sp);     
  
 
     public int SanaJoukonKoko (){
@@ -108,11 +69,11 @@ public class Sanajoukkolista {
 //        int indeksi = 0;  
 //        for (String avain : sanat.keySet()) {
 //            System.out.println(sanat.get(avain));
-      //      indeksi++;
-    //        if (indeksi == arvottu) kysy(avain);
+//            indeksi++;
+//            if (indeksi == arvottu) kysy(avain);
 //        }
 //        
-//    }}
+//    
    
     
     public String toString() {
@@ -123,11 +84,4 @@ public class Sanajoukkolista {
         return tulos;
     }
  
-/*
-    public Sanapari AnnaSanapariListasta (int i) {
-        return sanaParit.get(i);
-    }  
-*/
-
-}
-    
+}    

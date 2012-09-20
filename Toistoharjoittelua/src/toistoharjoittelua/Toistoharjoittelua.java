@@ -37,21 +37,24 @@ public class Toistoharjoittelua {
      * 
      * 
      * @param args the command line arguments
-     */
+     */ 
+    
     public static void main(String[] args) {
 //        Sanaparilista sanaPariLista = new Sanaparilista();
      //   kayttoliittyma.kaynnista();
 //        sanaPariLista.testaillaanHashMappia();
+        Sanajoukkolista jl = new Sanajoukkolista();
         Kayttoliittyma kl = new Kayttoliittyma();
         
-        System.out.println("Kysellään listan sanaparit");
-        kl.lueSanaparitJoukkoon();
+        System.out.println("Muodostetaan sanajoukkojen lista kyselemällä" +
+                " sanapareja");
+        jl = kl.lueSanajoukotListaan();
         
         System.out.println("Listan sisältö");
-        kl.tulostaSanapariLista();
+        kl.tulostaSanapariLista(jl);
         
         System.out.println("Kysellään listan kysymykset kertaalleen");
-        kl.kyseleJaTarkastaSanapariLista();
+        kl.kyseleJaTarkastaSanapariLista(jl);
     }
 
 }

@@ -14,8 +14,7 @@ import java.util.ArrayList;
 public class Sanajoukko {
     
     private String kysymys = "";
-    private ArrayList<String> vastaukset;
-//    private HashMap<String,ArrayList<String>> sanaJoukot = new HashMap();
+    private ArrayList<String> vastaukset = new ArrayList<String>();
     
     public Sanajoukko() {    
     }
@@ -34,8 +33,11 @@ public class Sanajoukko {
     }
 
     public void lisaaVastausJoukkoon (String kysymys, String vastaus) {
-//        if( (! this.vastaus.isEmpty() ) && this.kysymys.equals(kysymys)) {
-            System.out.println("printataan lisaa-metodista " + kysymys + "   " + vastaus);
+        if( (! vastaus.isEmpty() ) && this.kysymys.equals(kysymys)) {
+            this.kysymys = kysymys;
+            this.vastaukset.add(vastaus);
+        }
+      
 ArrayList<String> x = new ArrayList<String>();
 //            boolean b = this.vastaus.add(vastausx);            
             boolean b = x.add(vastaus);
