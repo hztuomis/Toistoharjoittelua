@@ -81,7 +81,7 @@ public class Sanajoukkolista {
 //            if (indeksi == arvottu) kysy(avain);
 //        }
 //        
-//    
+//    *
    
 
 /*

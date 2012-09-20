@@ -20,7 +20,7 @@ public class Kayttoliittyma {
     /**
     * - listan sanaparien lukeminen
     * - lopetetaan, jos vähintään toinen sana on tyhjä
-    * - jos rivi on jo talletettu, sitä ei viedä uudestaan
+    * - jos rivi on jo talletettu, sitä ei viedä uudestaan*
     */    
         
     

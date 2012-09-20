@@ -31,7 +31,7 @@ public class Toistoharjoittelua {
 
     /**
      * Tämä on pääohjelma
-     * 
+     *  *
      * 
      * @param args the command line arguments
      */ 

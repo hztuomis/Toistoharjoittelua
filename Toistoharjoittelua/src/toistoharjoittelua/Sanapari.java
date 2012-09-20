@@ -7,7 +7,7 @@ package toistoharjoittelua;
 /**
  *
  *
- * @author hztuomis
+ * @author hztuomis*
  */
 
 import java.util.Scanner;
