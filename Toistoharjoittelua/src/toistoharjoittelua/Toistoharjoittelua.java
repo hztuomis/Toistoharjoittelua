@@ -31,27 +31,23 @@ public class Toistoharjoittelua {
 
     /**
      * Tämä on pääohjelma
-     *  *
      * 
      * @param args the command line arguments
+     *
      */ 
     
     public static void main(String[] args) {
-        Sanajoukkolista jl = new Sanajoukkolista();
+        Sanajoukkolista jl = new Sanajoukkolista(); // huom. selvitä tämä!!!
         Kayttoliittyma kl = new Kayttoliittyma(jl);
         
         System.out.println("Muodostetaan sanajoukkojen lista kyselemällä" +
                 " sanapareja");
         jl = kl.lueSanaparitJoukkolistaan();
-//        System.out.println("Toistoharjoittelua: " + jl);
         
         System.out.println("Listan sisältö");
         kl.tulostaSanajoukkoLista(jl);
         
-    
         System.out.println("Kysellään listan kysymykset kertaalleen");
         kl.kyseleJaTarkastaSanajoukkoLista(jl);
-   
     }
-
 }

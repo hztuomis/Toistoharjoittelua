@@ -11,23 +11,14 @@ import java.util.ArrayList;
  *
  * @author hztuomis
  */
+
 public class Sanajoukko {
     
     private ArrayList<String> vastaukset = new ArrayList<String>();
     
     public Sanajoukko() {    
     }
-    
-    public void lisaaVastausSanajoukkoon (String vastaus) {
-        if (! vastausOnJoukossa(vastaus)) {
-            vastaukset.add(vastaus);
-        }    
-    }    
 
-    public boolean vastausOnJoukossa (String vastaus) {
-         return vastaukset.contains(vastaus);
-    }
-        
     public String getVastaus(int i) {
         return vastaukset.get(i);
     }
@@ -35,7 +26,18 @@ public class Sanajoukko {
     public boolean vastauksetTyhja() {
         return vastaukset.isEmpty(); 
     }
-    
+        
+    public void lisaaVastausSanajoukkoon (String vastaus) {
+        if (! vastausOnJoukossa(vastaus)) {
+            vastaukset.add(vastaus);
+        }    
+    }    
+
+// huom. seuraavassa voisi olla isojen ja pienien kirjainten samaistaminen
+    public boolean vastausOnJoukossa (String vastaus) {
+         return vastaukset.contains(vastaus);
+    }
+        
     public String toString() {
         String tulos = "[";
         if (! vastauksetTyhja() ) {

@@ -14,8 +14,8 @@ import java.util.HashMap;
 public class Sanajoukkolista {
     
     private HashMap<String,Sanajoukko> joukkoLista = new HashMap();
-    private HashMap<String,Integer> kuinkaMontaKertaaVastattuVaarin = 
-            new HashMap();
+//    private HashMap<String,Integer> kuinkaMontaKertaaVastattuVaarin = 
+//            new HashMap();
         
     
     public HashMap<String,Sanajoukko> getJoukkoLista() {
@@ -26,10 +26,6 @@ public class Sanajoukkolista {
         return joukkoLista.get(avain);
     }
     
-    public HashMap<String,Sanajoukko> GetJoukkoLista() {
-        return joukkoLista;
-    }
-    
     public void lisaaSanapariJoukkolistaan (String kysymys, String vastaus) {
         Sanajoukko j = new Sanajoukko();
         if (joukkoLista.containsKey(kysymys)) {
@@ -38,14 +34,17 @@ public class Sanajoukkolista {
         j.lisaaVastausSanajoukkoon(vastaus);
         joukkoLista.put(kysymys,j);
     }    
-    
-//    public boolean kysymysOnListassa(String kysymys) {
-//        return ! joukkoLista.keySet().isEmpty();
-//    }
- 
-//    public int sanaJoukonKoko (){
-//        return joukkoLista.size();
-//    }
+
+        public String toString() { 
+        String tulos = "";
+        for (String avain : joukkoLista.keySet()) {
+            tulos = tulos + avain + " --> " + 
+                    joukkoLista.get(avain).toString() + "\n";
+        }
+        return tulos;
+    }
+}
+
     
 //    public void testaillaanHashMappia() {
 //        sananKissaParit.add("cat");
@@ -64,11 +63,9 @@ public class Sanajoukkolista {
 //             kuinkaMontaKertaaVastattuVaarin.get("koira"));
 //        
 //        for (int i = 0; i < 1000; i++) {
-//            sananKissaParit = new ArrayList();
-//            
+//            sananKissaParit = new ArrayList();    
 //        }
-//        
-//        
+//                
 //        int arvottu = Random.nextInt(0,sanat.getSize());
 //        int indeksi = 0;  
 //        for (String avain : sanat.keySet()) {
@@ -76,14 +73,3 @@ public class Sanajoukkolista {
 //            indeksi++;
 //            if (indeksi == arvottu) kysy(avain);
 //        }
-//        
-//    *
-    
-    public String toString() { 
-        String tulos = "";
-        for (String avain : joukkoLista.keySet()) {
-            tulos = tulos + avain + " --> " + joukkoLista.get(avain).toString() + "\n";
-        }
-        return tulos;
-    }
-}    

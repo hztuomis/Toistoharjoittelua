@@ -14,6 +14,7 @@ import java.util.HashMap;
  * @author hztuomis
  * 
  */
+/*XXXXXXXXX TÄTÄ LUOKKAA EI KAI TARVITA XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 public class Sanaparilista {
    
     private ArrayList<Sanapari> sanaParit = new ArrayList<Sanapari>();
@@ -103,6 +104,6 @@ public class Sanaparilista {
         } // for
         return false;
     }    
----------------*/
-}
-    
+//---------------*/
+/*}
+ XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX */   

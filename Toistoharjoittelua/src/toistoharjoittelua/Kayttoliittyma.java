@@ -11,92 +11,19 @@ import java.util.Scanner;
  * @author hztuomis
  */
 public class Kayttoliittyma {
-    private Sanajoukkolista jl;
+    private Sanajoukkolista joukkoLista;
   
-    public Kayttoliittyma(Sanajoukkolista jl){
-//          jl = new Sanajoukkolista();
+    public Kayttoliittyma(Sanajoukkolista joukkoLista){
+
     }
     
     /**
     * - listan sanaparien lukeminen
     * - lopetetaan, jos vähintään toinen sana on tyhjä
-    * - jos rivi on jo talletettu, sitä ei viedä uudestaan*
+    * - jos rivi on jo talletettu, sitä ei viedä uudestaan
     */    
-        
-    
-/*
-    public Sanajoukkolista lisaaSanajoukotListaan(Sanajoukkolista jl) {
-        Sanajoukko sj = new Sanajoukko();
-        Sanapari s = new Sanapari();
-        s = lueSanapari();
-        sj.setAloittavaSanapari(s.getKysymys(),s.getVastaus());
-        while ((! sj.getAloittavaSanapari().getKysymys().trim().equals("")) && 
-               (! sj.getAloittavaSanapari().getVastaus().trim().equals("")) &&
-               (! sj.getAloittavaSanapari().getVastaus().isEmpty())  &&
-               (! sj.getAloittavaSanapari().getVastaus().isEmpty())) {
-            sj = lueSanaparitJoukkoon(sj);
-            jl.LisaaSanajoukkoListaan(sj.getKysymys(), sj);
-            System.out.println("TESTI: sanajoukko tallennettu");
-        }
-        System.out.println("Lopetetaan joukkojen syöttö!");
-        return jl;
-    }
-*/            
-    
-    /*
-    public Sanajoukko lueSanaparitJoukkoon(Sanajoukko sj) {
-        sj.lisaaVastausJoukkoon(sj.getAloittavaSanapari().getKysymys(),
-                sj.getAloittavaSanapari().getVastaus());
-        while (true) {
-            Sanapari sp = new Sanapari();
-            sp = lueSanapari();
-            if ( (sp.kysymysTyhja()) || sp.vastausTyhja() ) {
-                sj.setAloittavaSanapari(sp.getKysymys(),sp.getVastaus());
-                
-                System.out.println("Lopetetaan joukon sanojen syöttö!");
-                System.out.println("TESTI: kysymys tai vastaus tyhjä");
-                break; // <<<<<<<<<<<<< POISTUTAAN SILMUKASTA
-            }
-            if (! sp.getKysymys().equals(sj.getAloittavaSanapari().getKysymys())) {
-                sj.setAloittavaSanapari(sp.getKysymys(), sp.getVastaus());
-                break; // <<<<<<<<<<<<<<<<<<<< POISTUTAAN
-            }
-// -------------------------------------------            
-            if (sp.getKysymys() != aloittavaSanapari.getKysymys()) {
-                // sanajoukko vaihtuu
-                aloittavaSanapari.setKysymys(sp.getKysymys());
-                aloittavaSanapari.setVastaus(sp.getVastaus());
-            }
-/ -------------------------------------------------
-            
-//TÄHÄN LISÄTTÄVÄ:samaa paria ei saa lisätä toiseen kertaan! 
 
-            sj.lisaaVastausJoukkoon(sp.getKysymys(),sp.getVastaus());
-        }
-        return sj;
-    }
-
-*/
-
-    public Sanapari lueSanapari () {    
-        
-        Scanner lukija = new Scanner(System.in);
-        
-        System.out.print("Anna kysyttävä sana: ");
-        String sana = lukija.nextLine();
-        System.out.println("Sana oli: " + sana);
-
-        System.out.print("Anna vastine: ");
-        String vastine = lukija.nextLine();
-        System.out.println("Vastine oli: " + vastine);
-          
-        Sanapari sp = new Sanapari(sana, vastine);
-                  
-        return sp; 
-    }
-    
     public Sanajoukkolista lueSanaparitJoukkolistaan () {
-            System.out.println("lueSanaparitJoukkolistaan 1 alussa");
         Sanapari sanapari = new Sanapari();
         Sanajoukkolista joukkoLista = new Sanajoukkolista();
         sanapari = lueSanapari();
@@ -104,13 +31,28 @@ public class Kayttoliittyma {
             joukkoLista.lisaaSanapariJoukkolistaan(sanapari.getKysymys(),
                     sanapari.getVastaus());
             sanapari = lueSanapari();   
-            System.out.println("lueSanaparitJoukkolistaan 2 silmukassa");
         }   
         return joukkoLista;
     }
-    
-    
-    
+
+    public Sanapari lueSanapari () {    
+        
+        Scanner lukija = new Scanner(System.in);
+        
+        // seuraaviin trim???
+        System.out.print("Anna kysyttävä sana: ");
+        String sana = lukija.nextLine();
+//        System.out.println("Sana oli: " + sana);
+
+        System.out.print("Anna vastine: ");
+        String vastine = lukija.nextLine();
+//        System.out.println("Vastine oli: " + vastine);
+          
+        Sanapari sp = new Sanapari(sana, vastine);
+        System.out.println("Syötetty: " + sp);
+                  
+        return sp; 
+    }
     
     /**
      * tulostetaan lista
@@ -125,7 +67,7 @@ public class Kayttoliittyma {
     */
     
     public void kyseleJaTarkastaSanajoukkoLista(Sanajoukkolista jl) {
-        for (String avain : jl.GetJoukkoLista().keySet()) {
+        for (String avain : jl.getJoukkoLista().keySet()) {
             kyseleJaTarkastaVastaus(avain,jl.getJoukkoListasta(avain));
         }
     }

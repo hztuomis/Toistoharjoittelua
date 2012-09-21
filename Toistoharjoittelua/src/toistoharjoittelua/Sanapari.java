@@ -6,8 +6,7 @@ package toistoharjoittelua;
 
 /**
  *
- *
- * @author hztuomis*
+ * @author hztuomis
  */
 
 import java.util.Scanner;
@@ -31,15 +30,7 @@ public class Sanapari {
     public String getVastaus() {
         return vastaus;
     }
-/* -------------------   
-    public void setKysymys(String kysymys) {
-        this.kysymys = kysymys;
-    }
 
-    public void setVastaus(String vastaus) {
-        this.vastaus = vastaus;
-    }
-------------- */    
     public boolean kysymysTyhja() {
         return kysymys.equals("");
     }
@@ -48,14 +39,6 @@ public class Sanapari {
         return vastaus.equals("");
     }
 
-    //tarkastetaan sanajoukkolistaa käyttäen
-//    public boolean vastausOikein (String kysymys, 
-//            String ehdotettuVastaus) {
-//         return this.kysymys.equals(kysymys) && 
-//                 this.vastaus.equals(ehdotettuVastaus);
-//    }
-
-    
     public String toString() {
         return kysymys + "  ->  " + vastaus;
     }
