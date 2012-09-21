@@ -14,27 +14,24 @@ import java.util.Scanner;
 
 public class Sanapari {
     private String kysymys;
-    private String vastaus; //ArrayList
-//    private String edellinenKysymys;
-//    private String edellinenVastaus;
+    private String vastaus; 
 
+    public Sanapari() {        
+    }
+    
     public Sanapari (String kysymys, String vastaus) {
         this.kysymys = kysymys;
         this.vastaus = vastaus;        
     }
     
-    public Sanapari() {
-        
-    }
-    
     public String getKysymys() {
-        return this.kysymys;
+        return kysymys;
     }
 
     public String getVastaus() {
-        return this.vastaus;
+        return vastaus;
     }
-    
+/* -------------------   
     public void setKysymys(String kysymys) {
         this.kysymys = kysymys;
     }
@@ -42,7 +39,7 @@ public class Sanapari {
     public void setVastaus(String vastaus) {
         this.vastaus = vastaus;
     }
-    
+------------- */    
     public boolean kysymysTyhja() {
         return kysymys.equals("");
     }
@@ -51,12 +48,14 @@ public class Sanapari {
         return vastaus.equals("");
     }
 
-    public boolean vastausOikein (String kysymys, 
-            String ehdotettuVastaus) {
-         return this.kysymys.equals(kysymys) && 
-                 this.vastaus.equals(ehdotettuVastaus);
-    }
-        
+    //tarkastetaan sanajoukkolistaa käyttäen
+//    public boolean vastausOikein (String kysymys, 
+//            String ehdotettuVastaus) {
+//         return this.kysymys.equals(kysymys) && 
+//                 this.vastaus.equals(ehdotettuVastaus);
+//    }
+
+    
     public String toString() {
         return kysymys + "  ->  " + vastaus;
     }

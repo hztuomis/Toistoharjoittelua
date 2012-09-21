@@ -13,43 +13,39 @@ import java.util.HashMap;
  */
 public class Sanajoukkolista {
     
-//    private ArrayList<Sanapari> sanaParit = new ArrayList<Sanapari>();
-//    private ArrayList<String> kysymykset = new ArrayList<String>();
-//    ArrayList<String> vastine = new ArrayList<String>();
-//    private ArrayList<String> sananKoiraParit = new ArrayList<String>();
-    private HashMap<String,Sanajoukko> jl/*joukkoLista*/ = new HashMap();
+    private HashMap<String,Sanajoukko> joukkoLista = new HashMap();
     private HashMap<String,Integer> kuinkaMontaKertaaVastattuVaarin = 
             new HashMap();
         
     
+    public HashMap<String,Sanajoukko> getJoukkoLista() {
+        return joukkoLista;
+    }
+    
+    public Sanajoukko getJoukkoListasta(String avain) {
+        return joukkoLista.get(avain);
+    }
+    
     public HashMap<String,Sanajoukko> GetJoukkoLista() {
-        return jl;
+        return joukkoLista;
     }
     
-    public Sanajoukko GetJoukkoListasta(String avain) {
-        return jl.get(avain);
-    }
-    /*???*/
-    public void LisaaSanajoukkoListaan (String kysymys, Sanajoukko joukko) {
-        jl.put(kysymys, joukko);
-    }
-
-    /* uusi 
-    public void LisaaSanapariListaan (String kysymys, Sanajoukko joukko) {
-        if (jl.get(kysymys) != null) {
-            jl.put(kysymys, joukko)
-         
-    }
-    */
+    public void lisaaSanapariJoukkolistaan (String kysymys, String vastaus) {
+        Sanajoukko j = new Sanajoukko();
+        if (joukkoLista.containsKey(kysymys)) {
+            j = joukkoLista.get(kysymys);
+        }
+        j.lisaaVastausSanajoukkoon(vastaus);
+        joukkoLista.put(kysymys,j);
+    }    
     
-    public boolean kysymysOnListassa(String kysymys) {
-        return ! jl.keySet().isEmpty();
-    }
+//    public boolean kysymysOnListassa(String kysymys) {
+//        return ! joukkoLista.keySet().isEmpty();
+//    }
  
-
-    public int SanaJoukonKoko (){
-        return jl.size();
-    }
+//    public int sanaJoukonKoko (){
+//        return joukkoLista.size();
+//    }
     
 //    public void testaillaanHashMappia() {
 //        sananKissaParit.add("cat");
@@ -82,27 +78,12 @@ public class Sanajoukkolista {
 //        }
 //        
 //    *
-   
-
-/*
-    public String toString() {
-//        String tulos = "listauksen alku\n";
-        String tulos = ""; 
-        for (String avain : jl.keySet()) {
-            System.out.println("avain = " + jl.get(avain).getKysymys());
-//            tulos = tulos + avain + "  " + jl.get(avain).getVastaukset().toString() + "\n";
-            tulos = tulos + avain + "  " + jl.get(avain).toString() + "\n";
-        }
-        return tulos;
-    }
-*/
     
     public String toString() { 
         String tulos = "";
-        for (String avain : jl.keySet()) {
-            tulos = tulos + jl.get(avain) + "\n";
+        for (String avain : joukkoLista.keySet()) {
+            tulos = tulos + avain + " --> " + joukkoLista.get(avain).toString() + "\n";
         }
         return tulos;
     }
- 
 }    

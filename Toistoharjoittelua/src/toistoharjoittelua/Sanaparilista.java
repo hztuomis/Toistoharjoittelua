@@ -8,8 +8,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- *
+ *Sanaparilistaa ei kai tarvita lainkaan Toistoharjoittelussa
+ * 
+ * 
  * @author hztuomis
+ * 
  */
 public class Sanaparilista {
    
@@ -89,7 +92,8 @@ public class Sanaparilista {
     public Sanapari AnnaSanapariListasta (int i) {
         return sanaParit.get(i);
     }
-    
+/* tässä virhe, poistettu esteettisistä syistä 
+ * Sanaparilistaa ei kai tarvita lainkaan Toistoharjoittelussa
     public boolean onJoListassa(Sanapari syoteRivi) {
         for (int i = 0; i < sanaParit.size(); ++i) {
            if (sanaParit.get(i).vastausOikein(syoteRivi.getKysymys(), 
@@ -99,6 +103,6 @@ public class Sanaparilista {
         } // for
         return false;
     }    
-
+---------------*/
 }
     

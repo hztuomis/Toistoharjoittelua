@@ -42,13 +42,16 @@ public class Toistoharjoittelua {
         
         System.out.println("Muodostetaan sanajoukkojen lista kyselemällä" +
                 " sanapareja");
-        jl = kl.lisaaSanajoukotListaan(jl);
+        jl = kl.lueSanaparitJoukkolistaan();
+//        System.out.println("Toistoharjoittelua: " + jl);
         
         System.out.println("Listan sisältö");
         kl.tulostaSanajoukkoLista(jl);
         
+    
         System.out.println("Kysellään listan kysymykset kertaalleen");
         kl.kyseleJaTarkastaSanajoukkoLista(jl);
+   
     }
 
 }

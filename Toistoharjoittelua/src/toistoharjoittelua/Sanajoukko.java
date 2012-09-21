@@ -13,87 +13,37 @@ import java.util.ArrayList;
  */
 public class Sanajoukko {
     
-    private String kysymys = "";
     private ArrayList<String> vastaukset = new ArrayList<String>();
-    private Sanapari aloittavaSanapari = new Sanapari("","");
     
     public Sanajoukko() {    
     }
     
-    public Sanajoukko (String kysymys) {
-        if ( ! kysymys.isEmpty()) {
-            this.kysymys = kysymys;
+    public void lisaaVastausSanajoukkoon (String vastaus) {
+        if (! vastausOnJoukossa(vastaus)) {
+            vastaukset.add(vastaus);
         }    
     }    
-    
-    public Sanajoukko (String kysymys, String vastaus) {
-        if ( ! kysymys.isEmpty()) {
-            this.kysymys = kysymys;
-            this.vastaukset.add(vastaus);
-        }    
+
+    public boolean vastausOnJoukossa (String vastaus) {
+         return vastaukset.contains(vastaus);
+    }
+        
+    public String getVastaus(int i) {
+        return vastaukset.get(i);
     }
 
-    public void lisaaVastausJoukkoon (String kysymys, String vastaus) {
-        if( (! vastaus.isEmpty() ) && this.kysymys.equals(kysymys)) {
-            this.kysymys = kysymys;
-            this.vastaukset.add(vastaus);
+    public boolean vastauksetTyhja() {
+        return vastaukset.isEmpty(); 
+    }
+    
+    public String toString() {
+        String tulos = "[";
+        if (! vastauksetTyhja() ) {
+            tulos = tulos + getVastaus(0); 
         }
-      
-//ArrayList<String> x = new ArrayList<String>();
-//            boolean b = this.vastaus.add(vastausx);            
-//            boolean b = x.add(vastaus);
-//       }
-    }
-      
-    public String getKysymys() {
-        return this.kysymys;
-    }
-    
-    public void setKysymys(String kysymys) {
-        this.kysymys = kysymys;
-    }
-    
-    public Sanapari getAloittavaSanapari() {
-        return this.aloittavaSanapari;
-    }
-    
-    public void setAloittavaSanapari(String kysymys, String vastaus) {
-        this.aloittavaSanapari.setKysymys(kysymys);
-        this.aloittavaSanapari.setVastaus(vastaus);
-    }
-    
-    public ArrayList<String> getVastaukset() {
-        return this.vastaukset;
-    }
-    
-    public boolean kysymysTyhja() {
-        return kysymys.equals(""); // isEmpty, length, ...
-    }
-    
-    public boolean vastauksetTyhja(String vastaus) {
-//        return vastaus.equals("");  // MIKSI EI ANNA VIRHEILMOITUSTA???
-        return this.vastaukset.isEmpty(); 
-    }
-
-    public boolean vastausOikein (String kysymys, 
-            String vastaus) {
-         return this.kysymys.equals(kysymys) && 
-                 this.vastaukset.contains(vastaus);
-    }
-        
-    @Override
-    public String toString() {
-        return kysymys + "  ->  " + vastaukset;
-    }
-
-    /*
-    public String toString() {
-       String tulos = "";
-//        for (int i = 0; i < kysymykset.size(); ++i) {
-//            String k = kysymykset.get(i);
-        
-        tulos = this.getKysymys() + " --> " + vastaus + "\n";
-        
-        return tulos;
-    } */   
+        for (int i = 1; i < vastaukset.size(); ++i) {
+            tulos = tulos + "," + getVastaus(i);
+        }
+        return tulos + "]";
+    }   
 }
