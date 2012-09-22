@@ -6,6 +6,7 @@ package toistoharjoittelua;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 
 /**
  *
@@ -34,8 +35,21 @@ public class Sanajoukkolista {
         j.lisaaVastausSanajoukkoon(vastaus);
         joukkoLista.put(kysymys,j);
     }    
-
-        public String toString() { 
+    
+    public int listanAlkioidenLkm(){
+        int i = 0; 
+        for (String avain : joukkoLista.keySet()) {
+            i++;
+        }
+        return i;
+    }
+    
+    public int arvottuListanAlkionJarjestysnumero(int lukumaara){
+        int r = new Random().nextInt(lukumaara);
+        return r;
+    }
+      
+    public String toString() { 
         String tulos = "";
         for (String avain : joukkoLista.keySet()) {
             tulos = tulos + avain + " --> " + 

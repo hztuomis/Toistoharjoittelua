@@ -41,13 +41,14 @@ public class Toistoharjoittelua {
         Kayttoliittyma kl = new Kayttoliittyma(jl);
         
         System.out.println("Muodostetaan sanajoukkojen lista kyselemällä" +
-                " sanapareja");
+                " sanapareja \n" + "Tyhjä arvo lopettaa");
         jl = kl.lueSanaparitJoukkolistaan();
         
         System.out.println("Listan sisältö");
         kl.tulostaSanajoukkoLista(jl);
         
-        System.out.println("Kysellään listan kysymykset kertaalleen");
-        kl.kyseleJaTarkastaSanajoukkoLista(jl);
+        System.out.println("Kysellään listan kysymyksiä \n" +
+                "Tyhjä vastaus lopettaa");
+        while (kl.kyseleJaTarkastaSanajoukkoLista(jl)) {} // end while
     }
 }

@@ -38,16 +38,19 @@ public class Kayttoliittyma {
     public Sanapari lueSanapari () {    
         
         Scanner lukija = new Scanner(System.in);
-        
+        String vastine = "";
         // seuraaviin trim???
         System.out.print("Anna kysyttävä sana: ");
         String sana = lukija.nextLine();
 //        System.out.println("Sana oli: " + sana);
-
-        System.out.print("Anna vastine: ");
-        String vastine = lukija.nextLine();
-//        System.out.println("Vastine oli: " + vastine);
-          
+        if (! sana.equals("")) {
+            System.out.print("Anna vastine: ");
+            vastine = lukija.nextLine();
+//            System.out.println("Vastine oli: " + vastine);
+        } else {
+            vastine = "";
+        }
+      
         Sanapari sp = new Sanapari(sana, vastine);
         System.out.println("Syötetty: " + sp);
                   
@@ -66,21 +69,45 @@ public class Kayttoliittyma {
     * kysellään ja tarkastetaan
     */
     
-    public void kyseleJaTarkastaSanajoukkoLista(Sanajoukkolista jl) {
-        for (String avain : jl.getJoukkoLista().keySet()) {
-            kyseleJaTarkastaVastaus(avain,jl.getJoukkoListasta(avain));
+    public boolean kyseleJaTarkastaSanajoukkoLista(Sanajoukkolista jl) {
+        boolean jatkuu = true;
+        int lkm = jl.listanAlkioidenLkm();
+        while (jatkuu) {
+            jatkuu = kyseleJaTarkastaArvottuKysymys(jl, 
+                jl.arvottuListanAlkionJarjestysnumero(lkm));
         }
+        return false;
+    }
+    
+    public boolean kyseleJaTarkastaArvottuKysymys(Sanajoukkolista jl,
+            int arvottuNro) {
+        int i = 0;
+        for (String avain : jl.getJoukkoLista().keySet()) {
+            if (arvottuNro == i) {
+                boolean jatkuu = kyseleJaTarkastaVastaus(avain,
+                    jl.getJoukkoListasta(avain));
+                if (!jatkuu) {
+                    return false; // <<<<<<<<<<< poistutaan                        
+                }
+            }    
+            i++;    
+        }
+        return true;
     }
 
-    public void kyseleJaTarkastaVastaus(String avain, Sanajoukko sj) {
+    public boolean kyseleJaTarkastaVastaus(String avain, Sanajoukko sj) {
         kysy(avain); 
         String ehdotus = ehdotettuVastaus();
-        if (sj.vastausOnJoukossa(ehdotus)) {
-            System.out.println("Oikein");
-        } else {
-            System.out.println("Väärin");
-            System.out.println("Oikeat vastaukset ovat: " + sj);
+        if (!(ehdotus.equals(""))) {
+            if (sj.vastausOnJoukossa(ehdotus)) {
+                System.out.println("Oikein");
+            } else {
+                System.out.println("Väärin");
+                System.out.println("Oikeat vastaukset ovat: " + sj);
+            }
+            return true;
         }
+        return false;
     }
     
     public void kysy(String avain) {
