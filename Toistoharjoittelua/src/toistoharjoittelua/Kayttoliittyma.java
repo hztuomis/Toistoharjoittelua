@@ -63,6 +63,7 @@ public class Kayttoliittyma {
     
     public void tulostaSanajoukkoLista(Sanajoukkolista jl) {
         System.out.println(jl);
+        System.out.println("Kyseltäviä sanoja: " + jl.listanAlkioidenLkm());
     }    
 
     /**
@@ -72,6 +73,7 @@ public class Kayttoliittyma {
     public boolean kyseleJaTarkastaSanajoukkoLista(Sanajoukkolista jl) {
         boolean jatkuu = true;
         int lkm = jl.listanAlkioidenLkm();
+        jl.setKyseltaviaSanojaJaljella(lkm);
         while (jatkuu) {
             jatkuu = kyseleJaTarkastaArvottuKysymys(jl, 
                 jl.arvottuListanAlkionJarjestysnumero(lkm));
@@ -83,12 +85,30 @@ public class Kayttoliittyma {
             int arvottuNro) {
         int i = 0;
         for (String avain : jl.getJoukkoLista().keySet()) {
-            if (arvottuNro == i) {
+            if ((arvottuNro == i) 
+               && (jl.getJoukkoListasta(avain).getOikeidenVastaustenLukumaara()
+                    == 0)) {
+                
                 boolean jatkuu = kyseleJaTarkastaVastaus(avain,
                     jl.getJoukkoListasta(avain));
                 if (!jatkuu) {
                     return false; // <<<<<<<<<<< poistutaan                        
                 }
+                // tämä logiikka perustuu siihen, että oikeiden vastausten 
+                // lukumäärä on aina vain 0 tai 1 -- KORJATTAVA !!!
+                if (jl.getJoukkoListasta(avain).
+                        getOikeidenVastaustenLukumaara() > 0) {
+                    jl.setKyseltaviaSanojaJaljella(
+                        jl.getKyseltaviaSanojaJaljella() - 1);
+                }
+// TESTIÄ
+                System.out.println("Kyseltäviä sanoja jäljellä: " + 
+                        jl.getKyseltaviaSanojaJaljella());
+                
+                if (jl.getKyseltaviaSanojaJaljella() <= 0) {
+                    System.out.println("Kaikkiin kysymyksiin saatu oikea vastaus");
+                    return false; 
+                }            
             }    
             i++;    
         }
@@ -101,17 +121,28 @@ public class Kayttoliittyma {
         if (!(ehdotus.equals(""))) {
             if (sj.vastausOnJoukossa(ehdotus)) {
                 System.out.println("Oikein");
+                sj.setOikeidenVastaustenLukumaara(
+                    sj.getOikeidenVastaustenLukumaara() + 1);
             } else {
                 System.out.println("Väärin");
                 System.out.println("Oikeat vastaukset ovat: " + sj);
+                sj.setVaarienVastaustenLukumaara(
+                    sj.getVaarienVastaustenLukumaara() + 1);
+// ========== MIETI TÄTÄ ================
+//                sj.setOikeidenVastaustenLukumaara(0);
+// ======================================               
             }
+// TESTIÄ
+            System.out.println("Tämän sanajoukon oikeiden vastausten lukumäärä: " + sj.getOikeidenVastaustenLukumaara());
+            System.out.println("Tämän sanajoukon väärien vastausten lukumäärä:  " + sj.getVaarienVastaustenLukumaara());
+
             return true;
         }
         return false;
     }
     
     public void kysy(String avain) {
-        System.out.print(avain + "?: ");
+        System.out.print(avain + " ?: ");
     }
 
     public String ehdotettuVastaus() {      

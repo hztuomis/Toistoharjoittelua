@@ -4,7 +4,7 @@
  */
 package toistoharjoittelua;
 
-import java.util.ArrayList;
+//import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -17,8 +17,11 @@ public class Sanajoukkolista {
     private HashMap<String,Sanajoukko> joukkoLista = new HashMap();
 //    private HashMap<String,Integer> kuinkaMontaKertaaVastattuVaarin = 
 //            new HashMap();
-        
-    
+    private int kyseltaviaSanojaJaljella = 0; // kertoo, montako sellaista
+        // sanaa on listassa, joille ei ole vielä saatu oikeaa vastausta;
+        // kun kaikille on saatu oikea vastaus, ohjelma päättyy (tai sitten
+        // palautetaan kaikki sanat uudelleen kyseltäviksi tms.)
+            
     public HashMap<String,Sanajoukko> getJoukkoLista() {
         return joukkoLista;
     }
@@ -49,11 +52,19 @@ public class Sanajoukkolista {
         return r;
     }
       
+    public int getKyseltaviaSanojaJaljella() {
+        return kyseltaviaSanojaJaljella;
+    }
+    
+    public void setKyseltaviaSanojaJaljella(int lkm) {
+        kyseltaviaSanojaJaljella = lkm;
+    }
+    
     public String toString() { 
         String tulos = "";
         for (String avain : joukkoLista.keySet()) {
             tulos = tulos + avain + " --> " + 
-                    joukkoLista.get(avain).toString() + "\n";
+                    joukkoLista.get(avain).toString() + "\n"; // lopussa ei tarvittaisi rivinvaihtoa!!
         }
         return tulos;
     }

@@ -15,6 +15,8 @@ import java.util.ArrayList;
 public class Sanajoukko {
     
     private ArrayList<String> vastaukset = new ArrayList<String>();
+    private int oikeidenVastaustenLukumaara = 0;    
+    private int vaarienVastaustenLukumaara = 0;
     
     public Sanajoukko() {    
     }
@@ -38,6 +40,22 @@ public class Sanajoukko {
          return vastaukset.contains(vastaus);
     }
         
+    public int getOikeidenVastaustenLukumaara() {
+        return oikeidenVastaustenLukumaara;
+    }
+    
+    public void setOikeidenVastaustenLukumaara(int lkm) {
+        oikeidenVastaustenLukumaara = lkm;
+    }
+    
+    public int getVaarienVastaustenLukumaara() {
+        return vaarienVastaustenLukumaara;
+    }
+    
+    public void setVaarienVastaustenLukumaara(int lkm) {
+        vaarienVastaustenLukumaara = lkm;
+    }
+    
     public String toString() {
         String tulos = "[";
         if (! vastauksetTyhja() ) {
