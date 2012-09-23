@@ -74,20 +74,61 @@ public class Kayttoliittyma {
         boolean jatkuu = true;
         int lkm = jl.listanAlkioidenLkm();
         jl.setKyseltaviaSanojaJaljella(lkm);
+        int perakkaisiaOikeitaVastauksiaVaaditaan =
+                montakoPerakkaistaOikeaaVastaustaVaaditaan();
         while (jatkuu) {
             jatkuu = kyseleJaTarkastaArvottuKysymys(jl, 
-                jl.arvottuListanAlkionJarjestysnumero(lkm));
+                jl.arvottuListanAlkionJarjestysnumero(lkm),
+                perakkaisiaOikeitaVastauksiaVaaditaan);
         }
-        return false;
+//        return aloitatkoUudenKyselykierroksen();
+//        return false; // tässä vaiheessa suoritetaan tämä metodi vain kerran
+        System.out.println("==================KIERROS PÄÄTTYI================"+
+                "==");
+        System.out.println("============= JATKETAANKO? VASTAA k/e ==========="+
+                "==");
+        System.out.println("================================================="+
+                "==");
+        for (String avain : jl.getJoukkoLista().keySet()) {
+            jl.getJoukkoListasta(avain).setOikeidenVastaustenLukumaara(0);
+            jl.getJoukkoListasta(avain).setVaarienVastaustenLukumaara(0);
+        }    
+        return kysellaankoUusiKierros();
     }
     
+    public int montakoPerakkaistaOikeaaVastaustaVaaditaan() {
+        Scanner lukija = new Scanner(System.in);
+        int maara = 1;
+        while (true) {
+            System.out.print("Montako peräkkäistä oikeaa vastausta " +
+                "vaaditaan (luvut 1-3 kelpaavat)?: ");
+            maara = lukija.nextInt();
+            // ---------------
+            if ((maara >= 1) && (maara <= 3) ) return maara; // <<<<<POIS
+            //
+            System.out.println("Vastaus ei kelpaa, anna luku välillä 1-3");
+        }       
+    }     
+    
+    public boolean kysellaankoUusiKierros() {
+        Scanner lukija = new Scanner(System.in);
+        boolean uusiKierros = false;
+        while (true) {
+            System.out.print("Jatketaanko uudella kierroksella (k/e): ");
+            String vastaus = lukija.nextLine();
+            if (vastaus.equals("k")) return true; // <<<<<<<<<<< poistutaan
+            if (vastaus.equals("e")) return false; // <<<<<<<<<<< poistutaan
+            System.out.println("Vastaus ei kelpaa, vastaa k tai e");
+        }       
+    }     
+    
     public boolean kyseleJaTarkastaArvottuKysymys(Sanajoukkolista jl,
-            int arvottuNro) {
+            int arvottuNro, int perakkaisiaOikeitaVastauksiaVaaditaan) {
         int i = 0;
         for (String avain : jl.getJoukkoLista().keySet()) {
-            if ((arvottuNro == i) 
+            if ( (arvottuNro == i) 
                && (jl.getJoukkoListasta(avain).getOikeidenVastaustenLukumaara()
-                    == 0)) {
+                     <= (perakkaisiaOikeitaVastauksiaVaaditaan - 1)) ) {
                 
                 boolean jatkuu = kyseleJaTarkastaVastaus(avain,
                     jl.getJoukkoListasta(avain));
@@ -95,9 +136,13 @@ public class Kayttoliittyma {
                     return false; // <<<<<<<<<<< poistutaan                        
                 }
                 // tämä logiikka perustuu siihen, että oikeiden vastausten 
-                // lukumäärä on aina vain 0 tai 1 -- KORJATTAVA !!!
+                // lukumäärä on aina korkeintaan 
+                // 'perakkaisiaOikeitaVastauksiaVaaditaan';
+                // VÄÄRÄ VASTAUS NOLLAA OIKEIDEN VASTAUSTEN LASKURIN,
+                // KS. METODI kyseleJaTarkastaVastaus!!!
                 if (jl.getJoukkoListasta(avain).
-                        getOikeidenVastaustenLukumaara() > 0) {
+                        getOikeidenVastaustenLukumaara() >= 
+                        perakkaisiaOikeitaVastauksiaVaaditaan) {
                     jl.setKyseltaviaSanojaJaljella(
                         jl.getKyseltaviaSanojaJaljella() - 1);
                 }
@@ -106,7 +151,9 @@ public class Kayttoliittyma {
                         jl.getKyseltaviaSanojaJaljella());
                 
                 if (jl.getKyseltaviaSanojaJaljella() <= 0) {
-                    System.out.println("Kaikkiin kysymyksiin saatu oikea vastaus");
+                    System.out.println("Kaikkiin kysymyksiin on saatu "+
+                            perakkaisiaOikeitaVastauksiaVaaditaan +
+                            " peräkkäistä oikeata vastausta");
                     return false; 
                 }            
             }    
@@ -114,7 +161,7 @@ public class Kayttoliittyma {
         }
         return true;
     }
-
+    
     public boolean kyseleJaTarkastaVastaus(String avain, Sanajoukko sj) {
         kysy(avain); 
         String ehdotus = ehdotettuVastaus();
@@ -128,13 +175,15 @@ public class Kayttoliittyma {
                 System.out.println("Oikeat vastaukset ovat: " + sj);
                 sj.setVaarienVastaustenLukumaara(
                     sj.getVaarienVastaustenLukumaara() + 1);
-// ========== MIETI TÄTÄ ================
-//                sj.setOikeidenVastaustenLukumaara(0);
+// ========== HUOM. OIKEIDEN VASTAUSTEM KERÄILY ALOITETAAM ALUSTA ================
+                sj.setOikeidenVastaustenLukumaara(0);
 // ======================================               
             }
 // TESTIÄ
-            System.out.println("Tämän sanajoukon oikeiden vastausten lukumäärä: " + sj.getOikeidenVastaustenLukumaara());
-            System.out.println("Tämän sanajoukon väärien vastausten lukumäärä:  " + sj.getVaarienVastaustenLukumaara());
+            System.out.println("Tämän sanajoukon oikeiden vastausten "+
+                    "lukumäärä: " + sj.getOikeidenVastaustenLukumaara());
+            System.out.println("Tämän sanajoukon väärien vastausten "+
+                    "lukumäärä:  " + sj.getVaarienVastaustenLukumaara());
 
             return true;
         }
