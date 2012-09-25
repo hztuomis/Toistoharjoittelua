@@ -13,7 +13,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import toistoharjoittelua.Sanapari;
-import toistoharjoittelua.Sanaparilista;
+//import toistoharjoittelua.Sanaparilista;
 
 /**
  *
@@ -21,7 +21,8 @@ import toistoharjoittelua.Sanaparilista;
  */
 public class SanapariTest {
     
-    Sanaparilista s;
+    //Sanaparilista s;
+    Sanapari s;
     
     public SanapariTest() {
     }

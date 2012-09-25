@@ -18,10 +18,10 @@ public class Kayttoliittyma {
     }
     
     /**
-    * - listan sanaparien lukeminen
-    * - lopetetaan, jos vähintään toinen sana on tyhjä
-    * - jos rivi on jo talletettu, sitä ei viedä uudestaan
-    */    
+     *   Ohjelmasilmukka sanajoukkolistan päivittämiseksi.
+     *   Lopetetaan, jos annetaan tyhjä kysymys tai vastaus
+     *
+     */    
 
     public Sanajoukkolista lueSanaparitJoukkolistaan () {
         Sanapari sanapari = new Sanapari();
@@ -35,6 +35,13 @@ public class Kayttoliittyma {
         return joukkoLista;
     }
 
+    /**
+     * 
+     * Yksittäisen sanaparin lukeminen ja tulostaminen näkyviin
+     * 
+     * @return  luettu sanapari
+     * 
+     */
     public Sanapari lueSanapari () {    
         
         Scanner lukija = new Scanner(System.in);
@@ -58,7 +65,10 @@ public class Kayttoliittyma {
     }
     
     /**
-     * tulostetaan lista
+     * 
+     * Näytetään sanajoukkolistan sisältö
+     * 
+     * @param  jl   käsiteltävä sanajoukkolista
      */
     
     public void tulostaSanajoukkoLista(Sanajoukkolista jl) {
@@ -67,8 +77,15 @@ public class Kayttoliittyma {
     }    
 
     /**
-    * kysellään ja tarkastetaan
-    */
+     * 
+     * Toteutetaan sanajoukkolistan sanojen kyselykierros. Otetaan huomioon 
+     * käyttäjän antama tieto siitä, montako sanakohtaista oikeaa 
+     * vastausta vaaditaan, jotta sana katsottaisiin osatuksi.
+     * 
+     * @param jl (Sanajoukkolista)
+     * 
+     * @return palauttaa tiedon, jatketaanko uudella kierroksella
+     */
     
     public boolean kyseleJaTarkastaSanajoukkoLista(Sanajoukkolista jl) {
         boolean jatkuu = true;
@@ -76,13 +93,13 @@ public class Kayttoliittyma {
         jl.setKyseltaviaSanojaJaljella(lkm);
         int perakkaisiaOikeitaVastauksiaVaaditaan =
                 montakoPerakkaistaOikeaaVastaustaVaaditaan();
+
         while (jatkuu) {
             jatkuu = kyseleJaTarkastaArvottuKysymys(jl, 
                 jl.arvottuListanAlkionJarjestysnumero(lkm),
                 perakkaisiaOikeitaVastauksiaVaaditaan);
         }
-//        return aloitatkoUudenKyselykierroksen();
-//        return false; // tässä vaiheessa suoritetaan tämä metodi vain kerran
+
         System.out.println("==================KIERROS PÄÄTTYI================"+
                 "==");
         System.out.println("============= JATKETAANKO? VASTAA k/e ==========="+
@@ -96,6 +113,14 @@ public class Kayttoliittyma {
         return kysellaankoUusiKierros();
     }
     
+    /**
+     *  Kysytään käyttäjältä ohjaava paramentriarvo, montako peräkkäistä
+     *  oikeaa vastausta kysymykseen on saatava, ennen kuin se katsotaan 
+     *  osatuksi. Luvut 1 - 3 kelpaavat.
+     * 
+     * @return   oikeiden vastausten määrä
+     */
+    
     public int montakoPerakkaistaOikeaaVastaustaVaaditaan() {
         Scanner lukija = new Scanner(System.in);
         int maara = 1;
@@ -103,13 +128,17 @@ public class Kayttoliittyma {
             System.out.print("Montako peräkkäistä oikeaa vastausta " +
                 "vaaditaan (luvut 1-3 kelpaavat)?: ");
             maara = lukija.nextInt();
-            // ---------------
-            if ((maara >= 1) && (maara <= 3) ) return maara; // <<<<<POIS
-            //
+            if ((maara >= 1) && (maara <= 3) ) return maara;
             System.out.println("Vastaus ei kelpaa, anna luku välillä 1-3");
         }       
     }     
     
+    /**
+     * 
+     * Kysytään, haluaako käyttäja aloittaa uuden kyselykierroksen.
+     * 
+     * @return jatketaanko uudella kierroksella?
+     */
     public boolean kysellaankoUusiKierros() {
         Scanner lukija = new Scanner(System.in);
         boolean uusiKierros = false;
@@ -122,6 +151,18 @@ public class Kayttoliittyma {
         }       
     }     
     
+    /**
+     * Arvotun kysymyksen kyseleminen ja vastauksen tarkastaminen.
+     * (Arpomista ei suoriteta tässä metodissa vaan arvottu järjestysnumero
+     * tulee parametrina.)
+     * 
+     * @param jl   käsiteltävä sanajoukkolista, josta kysymys valitaan
+     * @param arvottuNro    kysymyksen järjestysnumero listassa    
+     * @param perakkaisiaOikeitaVastauksiaVaaditaan montako peräkkäistä oikeaa
+     *          vastausta täytyy saada ennen kuin kysymys katsotaan osatuksi?
+     * 
+     * @return 
+     */
     public boolean kyseleJaTarkastaArvottuKysymys(Sanajoukkolista jl,
             int arvottuNro, int perakkaisiaOikeitaVastauksiaVaaditaan) {
         int i = 0;
@@ -135,11 +176,10 @@ public class Kayttoliittyma {
                 if (!jatkuu) {
                     return false; // <<<<<<<<<<< poistutaan                        
                 }
-                // tämä logiikka perustuu siihen, että oikeiden vastausten 
-                // lukumäärä on aina korkeintaan 
+                // oikeiden vastausten lukumäärä on aina korkeintaan 
                 // 'perakkaisiaOikeitaVastauksiaVaaditaan';
                 // VÄÄRÄ VASTAUS NOLLAA OIKEIDEN VASTAUSTEN LASKURIN,
-                // KS. METODI kyseleJaTarkastaVastaus!!!
+                // ks. metodi kyseleJaTarkastaVastaus!!!
                 if (jl.getJoukkoListasta(avain).
                         getOikeidenVastaustenLukumaara() >= 
                         perakkaisiaOikeitaVastauksiaVaaditaan) {
@@ -161,7 +201,15 @@ public class Kayttoliittyma {
         }
         return true;
     }
-    
+    /**
+     * Kysytään käyttäjältä sanan vastinetta ja tarkastetaan, 
+     * menikö oikein
+     * 
+     * @param avain kysyttävä sana
+     * @param sj    vastineiden joukko
+     * 
+     * @return  palautetaan tieto siitä, osuiko kohdalleen
+     */
     public boolean kyseleJaTarkastaVastaus(String avain, Sanajoukko sj) {
         kysy(avain); 
         String ehdotus = ehdotettuVastaus();
@@ -190,10 +238,20 @@ public class Kayttoliittyma {
         return false;
     }
     
+    /**
+     * Esitetään kysymys
+     * 
+     * @param avain kysyttävä sana
+     */
     public void kysy(String avain) {
         System.out.print(avain + " ?: ");
     }
 
+    /**
+     * Käyttäjän antaman vastauksen lukeminen
+     * 
+     * @return palauttaa käyttäjän antaman vastauksen
+     */
     public String ehdotettuVastaus() {      
         Scanner lukija = new Scanner(System.in);
         return lukija.nextLine();

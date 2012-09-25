@@ -31,6 +31,16 @@ public class Sanapari {
         return vastaus;
     }
 
+    // seuraavat kaksi on tehty testejä varten    
+    public void setKysymys(String kysymys) {
+        this.kysymys = kysymys;
+    }
+
+    public void setVastaus(String vastaus) {
+        this.vastaus = vastaus;
+    }
+    // end "testejä varten"
+
     public boolean kysymysTyhja() {
         return kysymys.equals("");
     }
