@@ -7,6 +7,9 @@ package toistoharjoittelua;
 /**
  *
  * @author hztuomis
+ * 
+ * Sanaparien käsittely
+ * Yksityisinä muuttujina merkkijonot "kysymys" ja "vastaus"
  */
 
 import java.util.Scanner;

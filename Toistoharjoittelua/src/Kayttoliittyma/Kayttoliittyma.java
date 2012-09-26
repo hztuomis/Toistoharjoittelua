@@ -2,9 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package toistoharjoittelua;
+package Kayttoliittyma;
 
 import java.util.Scanner;
+import toistoharjoittelua.Sanajoukko;
+import toistoharjoittelua.Sanajoukkolista;
+import toistoharjoittelua.Sanapari;
 
 /**
  *
@@ -135,7 +138,7 @@ public class Kayttoliittyma {
     
     /**
      * 
-     * Kysytään, haluaako käyttäja aloittaa uuden kyselykierroksen.
+     * Kysytään, haluaako käyttäjä aloittaa uuden kyselykierroksen.
      * 
      * @return jatketaanko uudella kierroksella?
      */
@@ -156,18 +159,23 @@ public class Kayttoliittyma {
      * (Arpomista ei suoriteta tässä metodissa vaan arvottu järjestysnumero
      * tulee parametrina.)
      * 
+     *------------
+     * TÄMÄ ALGORITMI TÄYTYY VIELÄ TARKISTAA: TEHDÄÄNKÖ TURHAA TYÖTÄ?
+     * LISÄKSI TÄMÄ METODI ON AIVAN LIIAN PITKÄ
+     * -----------
+     * 
      * @param jl   käsiteltävä sanajoukkolista, josta kysymys valitaan
      * @param arvottuNro    kysymyksen järjestysnumero listassa    
      * @param perakkaisiaOikeitaVastauksiaVaaditaan montako peräkkäistä oikeaa
      *          vastausta täytyy saada ennen kuin kysymys katsotaan osatuksi?
      * 
-     * @return 
+     * @return false, jos käsittely lopetetaan, muuten true
      */
     public boolean kyseleJaTarkastaArvottuKysymys(Sanajoukkolista jl,
             int arvottuNro, int perakkaisiaOikeitaVastauksiaVaaditaan) {
-        int i = 0;
+        int i = 0; // laskuri, joka kertoo, kuinka monennella "rivillä" ollaan
         for (String avain : jl.getJoukkoLista().keySet()) {
-            if ( (arvottuNro == i) 
+            if ( (arvottuNro == i)  // huom. !!!
                && (jl.getJoukkoListasta(avain).getOikeidenVastaustenLukumaara()
                      <= (perakkaisiaOikeitaVastauksiaVaaditaan - 1)) ) {
                 
@@ -186,7 +194,7 @@ public class Kayttoliittyma {
                     jl.setKyseltaviaSanojaJaljella(
                         jl.getKyseltaviaSanojaJaljella() - 1);
                 }
-// TESTIÄ
+
                 System.out.println("Kyseltäviä sanoja jäljellä: " + 
                         jl.getKyseltaviaSanojaJaljella());
                 
@@ -196,7 +204,7 @@ public class Kayttoliittyma {
                             " peräkkäistä oikeata vastausta");
                     return false; 
                 }            
-            }    
+            }  // end if "(arvottuNro == i) ..."  
             i++;    
         }
         return true;
@@ -239,7 +247,7 @@ public class Kayttoliittyma {
     }
     
     /**
-     * Esitetään kysymys
+     * Esitetään käyttäjälle kysymys (sana) vastattavaksi
      * 
      * @param avain kysyttävä sana
      */

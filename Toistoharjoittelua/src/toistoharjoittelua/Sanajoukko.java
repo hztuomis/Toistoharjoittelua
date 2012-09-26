@@ -13,7 +13,16 @@ import java.util.ArrayList;
  */
 
 public class Sanajoukko {
-    
+/**
+ * Sanajoukko koostuu joukosta jonkin kysymyksen oikeita vastauksia;
+ * Sanajoukko kytketään kysymykseen vasta Sanajoukkolistassa, ts.
+ * Sanajoukossa ei ole kysymys-kenttää.
+ * 
+ * Yksityiset kentät:
+ * @ vastaukset  Sanojen joukko (lista)
+ * @ oikeidenVastaustenLukumaara
+ * @ vaarienVastaustenLukumaara
+ */    
     private ArrayList<String> vastaukset = new ArrayList<String>();
     private int oikeidenVastaustenLukumaara = 0;    
     private int vaarienVastaustenLukumaara = 0;
@@ -29,12 +38,22 @@ public class Sanajoukko {
         return vastaukset.isEmpty(); 
     }
         
+/**
+ * Lisätään vastaus joukkoon, jos sitä ei siellä vielä ole
+ * 
+ * @param vastaus - joukkoon lisättävä vastaus
+ */
     public void lisaaVastausSanajoukkoon (String vastaus) {
         if (! vastausOnJoukossa(vastaus)) {
             vastaukset.add(vastaus);
         }    
     }    
-
+/**
+ * Kertoo, onko sana joukossa
+ * 
+ * @param vastaus  - testattava vastaus  
+ * @return  true, jos vastaus oli joukossa, muuten false 
+ */
 // huom. seuraavassa voisi olla isojen ja pienien kirjainten samaistaminen
     public boolean vastausOnJoukossa (String vastaus) {
          return vastaukset.contains(vastaus);

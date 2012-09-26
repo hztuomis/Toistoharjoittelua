@@ -11,12 +11,16 @@ import java.util.Random;
 /**
  *
  * @author hztuomis
+ * 
+ * @ sisältää Sanajoukkojen listan, joka on toteutettu HashMap:ina sekä
+ * tiedon listalla kyseltävissä olevien Sanajoukkojen lukumäärästä. Huom.
+ * oikeat vastaukset vähentävät kyseltävänä olevien sanojen (Sanajoukkojen)
+ * määrää
  */
 public class Sanajoukkolista {
     
     private HashMap<String,Sanajoukko> joukkoLista = new HashMap();
-//    private HashMap<String,Integer> kuinkaMontaKertaaVastattuVaarin = 
-//            new HashMap();
+
     private int kyseltaviaSanojaJaljella = 0; // kertoo, montako sellaista
         // sanaa on listassa, joille ei ole vielä saatu oikeaa vastausta;
         // kun kaikille on saatu oikea vastaus, ohjelma päättyy (tai sitten
@@ -29,8 +33,14 @@ public class Sanajoukkolista {
     public Sanajoukko getJoukkoListasta(String avain) {
         return joukkoLista.get(avain);
     }
-    
-    public void lisaaSanapariJoukkolistaan (String kysymys, String vastaus) {
+    /**
+     * Lisätään sanapari (Sanapari-)joukkolistaan
+     * 
+     * @param kysymys  talletettava kysymys
+     * @param vastaus  talletettava vastaus
+     */    
+    public void lisaaSanapariJoukkolistaan (String kysymys, 
+            String vastaus) {
         Sanajoukko j = new Sanajoukko();
         if (joukkoLista.containsKey(kysymys)) {
             j = joukkoLista.get(kysymys);
@@ -38,15 +48,25 @@ public class Sanajoukkolista {
         j.lisaaVastausSanajoukkoon(vastaus);
         joukkoLista.put(kysymys,j);
     }    
-    
-    public int listanAlkioidenLkm(){
+    /**
+     * Sanaparilistan alkioiden lkm
+     * 
+     * @return alkioiden lkm
+     */    
+        public int listanAlkioidenLkm(){
         int i = 0; 
         for (String avain : joukkoLista.keySet()) {
             i++;
         }
         return i;
     }
-    
+
+    /**
+     * Arvotaan luku 0:n ja listan Sanajoukkojen lukumäärän -1 välillä
+     * HUOM. ENTÄ JOS LISTA ON TYHJÄ??
+     * @param lukumaara listan alkioiden määrä
+     * @return arvottu luku
+     */    
     public int arvottuListanAlkionJarjestysnumero(int lukumaara){
         int r = new Random().nextInt(lukumaara);
         return r;
@@ -64,7 +84,8 @@ public class Sanajoukkolista {
         String tulos = "";
         for (String avain : joukkoLista.keySet()) {
             tulos = tulos + avain + " --> " + 
-                    joukkoLista.get(avain).toString() + "\n"; // lopussa ei tarvittaisi rivinvaihtoa!!
+                    joukkoLista.get(avain).toString() + "\n"; // lopussa ei 
+                                                  //tarvittaisi rivinvaihtoa!!
         }
         return tulos;
     }
