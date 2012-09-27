@@ -37,6 +37,15 @@ public class Sanajoukko {
     public boolean vastauksetTyhja() {
         return vastaukset.isEmpty(); 
     }
+
+/** seuraava metodi tehty testejä varten:
+ * Palauttaa sanajoukon alkioiden määrän
+ * 
+ * @return - alkioiden määrä
+ */
+    public int vastaustenLukumaaraJoukossa() {
+        return vastaukset.size();
+    }
         
 /**
  * Lisätään vastaus joukkoon, jos sitä ei siellä vielä ole

@@ -85,6 +85,5 @@ public class SanapariTest {
         s.setVastaus("heihei");        
         Assert.assertEquals("heihei", s.getVastaus());
     }
-        
-        
+                
 }

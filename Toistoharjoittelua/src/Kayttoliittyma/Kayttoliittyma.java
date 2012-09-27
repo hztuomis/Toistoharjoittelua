@@ -81,8 +81,8 @@ public class Kayttoliittyma {
 
     /**
      * 
-     * Toteutetaan sanajoukkolistan sanojen kyselykierros. Otetaan huomioon 
-     * käyttäjän antama tieto siitä, montako sanakohtaista oikeaa 
+     * Toteutetaan sanajoukkolistan sanojen kyselykierros. Otetaan  
+     * huomioon käyttäjän antama tieto siitä, montako sanakohtaista oikeaa 
      * vastausta vaaditaan, jotta sana katsottaisiin osatuksi.
      * 
      * @param jl (Sanajoukkolista)
@@ -103,12 +103,12 @@ public class Kayttoliittyma {
                 perakkaisiaOikeitaVastauksiaVaaditaan);
         }
 
-        System.out.println("==================KIERROS PÄÄTTYI================"+
-                "==");
-        System.out.println("============= JATKETAANKO? VASTAA k/e ==========="+
-                "==");
-        System.out.println("================================================="+
-                "==");
+        System.out.println("==================KIERROS PÄÄTTYI============="+
+                "=====");
+        System.out.println("============= JATKETAANKO? VASTAA k/e ========"+
+                "=====");
+        System.out.println("=============================================="+
+                "=====");
         for (String avain : jl.getJoukkoLista().keySet()) {
             jl.getJoukkoListasta(avain).setOikeidenVastaustenLukumaara(0);
             jl.getJoukkoListasta(avain).setVaarienVastaustenLukumaara(0);
@@ -117,9 +117,9 @@ public class Kayttoliittyma {
     }
     
     /**
-     *  Kysytään käyttäjältä ohjaava paramentriarvo, montako peräkkäistä
-     *  oikeaa vastausta kysymykseen on saatava, ennen kuin se katsotaan 
-     *  osatuksi. Luvut 1 - 3 kelpaavat.
+     *  Kysytään käyttäjältä ohjaava paramentriarvo, montako
+     *  peräkkäistä oikeaa vastausta kysymykseen on saatava, ennen 
+     *  kuin se katsotaan osatuksi. Luvut 1 - 3 kelpaavat.
      * 
      * @return   oikeiden vastausten määrä
      */
@@ -166,17 +166,19 @@ public class Kayttoliittyma {
      * 
      * @param jl   käsiteltävä sanajoukkolista, josta kysymys valitaan
      * @param arvottuNro    kysymyksen järjestysnumero listassa    
-     * @param perakkaisiaOikeitaVastauksiaVaaditaan montako peräkkäistä oikeaa
-     *          vastausta täytyy saada ennen kuin kysymys katsotaan osatuksi?
+     * @param perakkaisiaOikeitaVastauksiaVaaditaan montako peräkkäistä
+     *          oikeaa vastausta täytyy saada ennen kuin kysymys katsotaan 
+     *          osatuksi?
      * 
      * @return false, jos käsittely lopetetaan, muuten true
      */
     public boolean kyseleJaTarkastaArvottuKysymys(Sanajoukkolista jl,
             int arvottuNro, int perakkaisiaOikeitaVastauksiaVaaditaan) {
-        int i = 0; // laskuri, joka kertoo, kuinka monennella "rivillä" ollaan
+        int i = 0; // laskuri, joka kertoo, monennellako "rivillä" ollaan
         for (String avain : jl.getJoukkoLista().keySet()) {
             if ( (arvottuNro == i)  // huom. !!!
-               && (jl.getJoukkoListasta(avain).getOikeidenVastaustenLukumaara()
+               && (jl.getJoukkoListasta(avain).
+                                    getOikeidenVastaustenLukumaara()
                      <= (perakkaisiaOikeitaVastauksiaVaaditaan - 1)) ) {
                 
                 boolean jatkuu = kyseleJaTarkastaVastaus(avain,
@@ -231,7 +233,7 @@ public class Kayttoliittyma {
                 System.out.println("Oikeat vastaukset ovat: " + sj);
                 sj.setVaarienVastaustenLukumaara(
                     sj.getVaarienVastaustenLukumaara() + 1);
-// ========== HUOM. OIKEIDEN VASTAUSTEM KERÄILY ALOITETAAM ALUSTA ================
+// ========== HUOM. OIKEIDEN VASTAUSTEM KERÄILY ALOITETAAM ALUSTA ========
                 sj.setOikeidenVastaustenLukumaara(0);
 // ======================================               
             }
