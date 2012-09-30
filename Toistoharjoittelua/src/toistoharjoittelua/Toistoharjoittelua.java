@@ -25,15 +25,17 @@ public class Toistoharjoittelua {
         Sanajoukkolista jl = new Sanajoukkolista(); // huom. selvitä tämä!!!
         Kayttoliittyma kl = new Kayttoliittyma(jl);
         
-        System.out.println("Muodostetaan sanajoukkojen lista kyselemällä" +
-                " sanapareja \n" + "Tyhjä arvo lopettaa");
+
+        kl.ohje_LueSanaparitJoukkolistaan(); // toimintaohje
+        // sanajoukkolistan kyseleminen
         jl = kl.lueSanaparitJoukkolistaan();
         
-        System.out.println("Listan sisältö");
+//        System.out.println("Listan sisältö");
+        // tulostetaan listan sisältö
         kl.tulostaSanajoukkoLista(jl);
         
-        System.out.println("Kysellään listan kysymyksiä \n" +
-                "Tyhjä vastaus lopettaa");
+        kl.ohje_kyseleJaTarkastaSanajoukkoLista(); // toimintaohje
+        // kyseleminen ja tarkastaminen
         while (kl.kyseleJaTarkastaSanajoukkoLista(jl)) {} // end while
     }
 }
