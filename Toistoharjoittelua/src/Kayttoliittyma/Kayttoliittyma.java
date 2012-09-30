@@ -17,7 +17,6 @@ public class Kayttoliittyma {
     private Sanajoukkolista joukkoLista;
   
     public Kayttoliittyma(Sanajoukkolista joukkoLista){
-
     }
     
     /**
@@ -25,7 +24,7 @@ public class Kayttoliittyma {
     */    
     public void ohje_lueSanaparitJoukkolistaan(){
         System.out.println("Muodostetaan sanajoukkojen lista kyselemällä" +
-                " sanapareja \n" + "Tyhjä arvo lopettaa");
+                " sanapareja\n" + "Tyhjä arvo lopettaa");
     }
        
     /**

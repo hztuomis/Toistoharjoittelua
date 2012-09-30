@@ -23,17 +23,21 @@ public class Toistoharjoittelua {
     
     public static void main(String[] args) {
         Sanajoukkolista jl = new Sanajoukkolista();
-        Ohjaus oh = new Ohjaus(jl); // <<<<<        
+        Ohjaus oh = new Ohjaus(jl); // <<<<< 
+        Tiedosto ti = new Tiedosto();
 
-        oh.kaynnista_ohje_lueSanaparitJoukkolistaan(); // toimintaohje
+//test        oh.kaynnista_ohje_lueSanaparitJoukkolistaan(); // toimintaohje
         // sanajoukkolistan kyseleminen
-        jl = oh.lueSanaparitJoukkolistaan(); // <<<<<<<<<<
+//test        jl = oh.lueSanaparitJoukkolistaan(); // <<<<<<<<<<
+        jl = ti.lueTiedostonRivit();
         
         // tulostetaan listan sisältö
+        // HUOM. VAIN JOS LISTA EI OLE TYHJÄ - LISÄTTÄVÄ TESTI
         oh.kaynnista_tulostaSanajoukkoLista(jl);
         
         oh.kaynnista_ohje_kyseleJaTarkastaSanajoukkoLista(); // toimintaohje
         // kyseleminen ja tarkastaminen
+        // HUOM. VAIN JOS LISTA EI OLE TYHJÄ - LISÄTTÄVÄ TESTI
         while (oh.kyseleJaTarkastaSanajoukkoLista(jl)) {} // end while
     }
 }
