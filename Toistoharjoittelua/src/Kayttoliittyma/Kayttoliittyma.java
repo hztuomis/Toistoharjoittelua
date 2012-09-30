@@ -23,7 +23,7 @@ public class Kayttoliittyma {
     /**
     * Opastetaan käyttäjää sanaparilistan manuaalisessa täyttämisessä
     */    
-    public void ohje_LueSanaparitJoukkolistaan(){
+    public void ohje_lueSanaparitJoukkolistaan(){
         System.out.println("Muodostetaan sanajoukkojen lista kyselemällä" +
                 " sanapareja \n" + "Tyhjä arvo lopettaa");
     }
@@ -76,8 +76,7 @@ public class Kayttoliittyma {
      *  kuin se katsotaan osatuksi. Luvut 1 - 3 kelpaavat.
      * 
      * @return   oikeiden vastausten määrä
-     */
-    
+     */    
     public int montakoPerakkaistaOikeaaVastaustaVaaditaan() {
         Scanner lukija = new Scanner(System.in);
         int maara = 1;
@@ -99,11 +98,11 @@ public class Kayttoliittyma {
     }    
 
     /**
-     * 
-     * Kysytään, haluaako käyttäjä aloittaa uuden kyselykierroksen.
-     * 
-     * @return jatketaanko uudella kierroksella?
-     */
+    * 
+    * Kysytään, haluaako käyttäjä aloittaa uuden kyselykierroksen.
+    * 
+    * @return jatketaanko uudella kierroksella?
+    */
     public boolean kysellaankoUusiKierros() {
         Scanner lukija = new Scanner(System.in);
         boolean uusiKierros = false;
@@ -173,15 +172,10 @@ public class Kayttoliittyma {
                     sj.getVaarienVastaustenLukumaara() + 1);
 //              === HUOM. KO. KYSYMYKSEN OIKEIDEN VASTAUSTEM KERÄILY 
 //                          ALOITETAAM ALUSTA ELI LASKURI --> 0
-                sj.setOikeidenVastaustenLukumaara(0);
-// ======================================               
+                sj.setOikeidenVastaustenLukumaara(0);              
             }
-// TESTIÄ
+            
             ilmoitaOikeidenJaVaarienLukumaara(sj);
-//            System.out.println("Tämän sanajoukon oikeiden vastausten "+
-//                    "lukumäärä: " + sj.getOikeidenVastaustenLukumaara());
-//            System.out.println("Tämän sanajoukon väärien vastausten "+
-//                    "lukumäärä:  " + sj.getVaarienVastaustenLukumaara());
 
             return true;
         }
@@ -219,126 +213,5 @@ public class Kayttoliittyma {
         Scanner lukija = new Scanner(System.in);
         return lukija.nextLine();
     }
-
-    
-//=======================================================
-//    TÄSTÄ ALKAA OHJAUS-MODUULI
-//=======================================================    
-    
-    
-    /**
-    *   Ohjelmasilmukka sanajoukkolistan tietojen syöttämiseksi.
-    *   Lopetetaan, jos annetaan tyhjä kysymys tai vastaus
-    */    
-    public Sanajoukkolista lueSanaparitJoukkolistaan () {
-        Sanapari sanapari = new Sanapari();
-        Sanajoukkolista joukkoLista = new Sanajoukkolista();
-        sanapari = lueSanapari();
-        while ((!sanapari.kysymysTyhja()) && (!sanapari.vastausTyhja())) {
-            joukkoLista.lisaaSanapariJoukkolistaan(sanapari.getKysymys(),
-                    sanapari.getVastaus());
-            sanapari = lueSanapari();   
-        }   
-        return joukkoLista;
-    }
-
-    /**
-     * 
-     * Toteutetaan sanajoukkolistan sanojen kyselykierros. Otetaan  
-     * huomioon käyttäjän antama tieto siitä, montako sanakohtaista oikeaa 
-     * vastausta vaaditaan, jotta sana katsottaisiin osatuksi.
-     * 
-     * @param jl (Sanajoukkolista)
-     * 
-     * @return palauttaa tiedon, jatketaanko uudella kierroksella
-     */    
-    public boolean kyseleJaTarkastaSanajoukkoLista(Sanajoukkolista jl) {
-        boolean jatkuu = true;
-        int lkm = jl.listanAlkioidenLkm();
-        jl.setKyseltaviaSanojaJaljella(lkm);
-        int perakkaisiaOikeitaVastauksiaVaaditaan =
-                montakoPerakkaistaOikeaaVastaustaVaaditaan();
-
-        while (jatkuu) {
-            jatkuu = kyseleJaTarkastaArvottuKysymys(jl, 
-                jl.arvottuListanAlkionJarjestysnumero(lkm),
-                perakkaisiaOikeitaVastauksiaVaaditaan);
-        }
-
-        for (String avain : jl.getJoukkoLista().keySet()) {
-            jl.getJoukkoListasta(avain).setOikeidenVastaustenLukumaara(0);
-            jl.getJoukkoListasta(avain).setVaarienVastaustenLukumaara(0);
-        }    
-        return kysellaankoUusiKierros();
-    }
-    
-    /**
-     * Arvotun kysymyksen kyseleminen ja vastauksen tarkastaminen.
-     * (Arpomista ei suoriteta tässä metodissa vaan arvottu järjestysnumero
-     * tulee parametrina.)
-     * 
-     *------------
-     * TÄMÄ ALGORITMI TÄYTYY VIELÄ TARKISTAA: TEHDÄÄNKÖ TURHAA TYÖTÄ?
-     * LISÄKSI TÄMÄ METODI ON AIVAN LIIAN PITKÄ
-     * -----------
-     * 
-     * @param jl   käsiteltävä sanajoukkolista, josta kysymys valitaan
-     * @param arvottuNro    kysymyksen järjestysnumero listassa    
-     * @param perakkaisiaOikeitaVastauksiaVaaditaan montako peräkkäistä
-     *          oikeaa vastausta täytyy saada ennen kuin kysymys katsotaan 
-     *          osatuksi?
-     * 
-     * @return false, jos käsittely lopetetaan, muuten true
-     */
-    public boolean kyseleJaTarkastaArvottuKysymys(Sanajoukkolista jl,
-            int arvottuNro, int perakkaisiaOikeitaVastauksiaVaaditaan) {
-        int i = 0; // laskuri, joka kertoo, monennellako joukkolistan
-                    // "rivillä" ollaan;
-                    // joukkolistasta etsitään aina näin se alkio, jolla
-                    // järjestysluku i = parametrina annettu
-                    // arvottu järjestysluku, ks. alla   
-        for (String avain : jl.getJoukkoLista().keySet()) {
-            if ( (arvottuNro == i)  // huom. !!! ks. yllä
-               && (jl.getJoukkoListasta(avain).
-                                    getOikeidenVastaustenLukumaara()
-                     < perakkaisiaOikeitaVastauksiaVaaditaan) ) {
-                
-                boolean jatkuu = kyseleJaTarkastaVastaus(avain,
-                    jl.getJoukkoListasta(avain));
-                if (!jatkuu) {
-                    return false; // <<<<<<<<<<< poistutaan                        
-                }
-
-                paivitaJaljellaOlevienKyseltavienSanojenMaara(jl, avain,
-                        perakkaisiaOikeitaVastauksiaVaaditaan);
-
-                if (! onVielaKyseltaviaSanoja(jl,
-                        perakkaisiaOikeitaVastauksiaVaaditaan)) {
-                    return false;
-                }    
-            }  // end if "(arvottuNro == i) ..."  
-            i++; // onko seuraava "rivin" järjestysnumero = arvottu? 
-        }
-        return true;
-    }
-    
-    /**
-    * Päivittää vielä kyseltävien sanojen lukumäärän
-    * 
-    * Huom. oikeiden vastausten lukumäärä sanakohtaisesti on aina 
-    *       korkeintaan 'perakkaisiaOikeitaVastauksiaVaaditaan'
-    */ 
-    public void paivitaJaljellaOlevienKyseltavienSanojenMaara(
-                Sanajoukkolista jl, String avain, 
-                int perakkaisiaOikeitaVastauksiaVaaditaan){
-                
-                if (jl.getJoukkoListasta(avain).
-                       getOikeidenVastaustenLukumaara() >= 
-                       perakkaisiaOikeitaVastauksiaVaaditaan)
-                    
-                    jl.setKyseltaviaSanojaJaljella(
-                        jl.getKyseltaviaSanojaJaljella() - 1);
-                }
-    
 
 }

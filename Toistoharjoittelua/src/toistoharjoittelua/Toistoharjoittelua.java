@@ -22,20 +22,18 @@ public class Toistoharjoittelua {
      */ 
     
     public static void main(String[] args) {
-        Sanajoukkolista jl = new Sanajoukkolista(); // huom. selvitä tämä!!!
-        Kayttoliittyma kl = new Kayttoliittyma(jl);
-        
+        Sanajoukkolista jl = new Sanajoukkolista();
+        Ohjaus oh = new Ohjaus(jl); // <<<<<        
 
-        kl.ohje_LueSanaparitJoukkolistaan(); // toimintaohje
+        oh.kaynnista_ohje_lueSanaparitJoukkolistaan(); // toimintaohje
         // sanajoukkolistan kyseleminen
-        jl = kl.lueSanaparitJoukkolistaan();
+        jl = oh.lueSanaparitJoukkolistaan(); // <<<<<<<<<<
         
-//        System.out.println("Listan sisältö");
         // tulostetaan listan sisältö
-        kl.tulostaSanajoukkoLista(jl);
+        oh.kaynnista_tulostaSanajoukkoLista(jl);
         
-        kl.ohje_kyseleJaTarkastaSanajoukkoLista(); // toimintaohje
+        oh.kaynnista_ohje_kyseleJaTarkastaSanajoukkoLista(); // toimintaohje
         // kyseleminen ja tarkastaminen
-        while (kl.kyseleJaTarkastaSanajoukkoLista(jl)) {} // end while
+        while (oh.kyseleJaTarkastaSanajoukkoLista(jl)) {} // end while
     }
 }
