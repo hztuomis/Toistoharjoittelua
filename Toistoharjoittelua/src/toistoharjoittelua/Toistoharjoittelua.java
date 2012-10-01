@@ -37,7 +37,7 @@ public class Toistoharjoittelua {
         
             // kyselyvaiheen toimintaohje
             oh.kaynnista_ohje_kyseleJaTarkastaSanajoukkoLista(); 
-            // kyseleminen ja tarkastaminen
+            // kyseleminen, tarkastaminen ja tilastointi
             while (oh.kyseleJaTarkastaSanajoukkoLista(jl)) {} // end while
         }
     }

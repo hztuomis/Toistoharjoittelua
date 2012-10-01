@@ -114,6 +114,28 @@ public class Kayttoliittyma {
     }    
 
     /**
+     * Tulostetaan lista kysymyksistä, joihin on vastattu virheellisesti.
+     * Listalla on myös virheiden lukumäärä. Listan järjestys on käänteinen, 
+     * ts. eniten virheellisiä vastauksia saanut kysymys on listan
+     * alussa.
+     * @param  jl   käsiteltävä sanajoukkolista
+     */
+    public void listaaVirheidenMaaratKysymyskohtaisesti(
+            Sanajoukkolista jl) {
+        System.out.println("Virheellisten vastausten lkm/kysymys: ");
+        for (int i = jl.korkeinVirhemaaraSanajoukkolistanAlkiolla();
+                i > 0; --i) {
+            for (String avain : jl.getJoukkoLista().keySet()) {
+                if (jl.getJoukkoListasta(avain).
+                        getVaarienVastaustenLukumaara() == i) {
+                    System.out.println(i + "\t" + avain);
+                }
+            }
+        }
+    }
+    
+    
+    /**
     * 
     * Kysytään, haluaako käyttäjä aloittaa uuden kyselykierroksen.
     * 
@@ -140,8 +162,8 @@ public class Kayttoliittyma {
     
     
     /**
-    * Raportoidaan, oko kyseltäviä sanoja vielä listassa ottaen huomioon,
-    * montako oikeaa perättäistä vastausta vaaditaan
+    * Raportoidaan, onko kyseltäviä sanoja vielä listassa ottaen huomioon,
+    * montako perättäistä oikeaa vastausta vaaditaan
     * 
     * @param jl    käsiteltävä joukkolista
     * @param perakkaisiaOikeitaVastauksiaVaaditaan 

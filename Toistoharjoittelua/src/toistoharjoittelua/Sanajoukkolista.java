@@ -79,13 +79,40 @@ public class Sanajoukkolista {
     public void setKyseltaviaSanojaJaljella(int lkm) {
         kyseltaviaSanojaJaljella = lkm;
     }
-    
+   
+     /**
+     * laskee, mikä on sanajoukkolistan alkioiden virhemäärän maksimiarvo
+     */
+    public int korkeinVirhemaaraSanajoukkolistanAlkiolla() {
+        int maksimi = 0;
+        for (String avain : joukkoLista.keySet()) {
+            if ( getJoukkoListasta(avain).getVaarienVastaustenLukumaara()
+                   > maksimi ) {
+                maksimi = getJoukkoListasta(avain).
+                        getVaarienVastaustenLukumaara();
+            }     
+        }
+        return maksimi; 
+    }
+   
+    /**
+     * Tässä on hiukan kikkailtu, jotta loppuun ei tulisi rivinvaihtoa
+     * 
+     * @return merkkiesitys sanajoukkolistan sisällöstä
+     */
     public String toString() { 
         String tulos = "";
+        int i = 0;
         for (String avain : joukkoLista.keySet()) {
-            tulos = tulos + avain + " --> " + 
-                    joukkoLista.get(avain).toString() + "\n"; // lopussa ei 
-                                                  //tarvittaisi rivinvaihtoa!!
+            if (i == 0) {
+                tulos = avain + " --> " + 
+                    joukkoLista.get(avain).toString();
+            }    
+            if (i > 0) {
+                tulos = tulos + "\n" + avain + " --> " + 
+                    joukkoLista.get(avain).toString();
+            }
+            ++i;
         }
         return tulos;
     }

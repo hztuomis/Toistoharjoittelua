@@ -89,6 +89,7 @@ public class Ohjaus {
      * Toteutetaan sanajoukkolistan sanojen kyselykierros. Otetaan  
      * huomioon käyttäjän antama tieto siitä, montako sanakohtaista oikeaa 
      * vastausta vaaditaan, jotta sana katsottaisiin osatuksi.
+     * Käynnistetään myös virheiden tilastointi ennen uutta kyselykierrosta
      * 
      * @param jl (Sanajoukkolista)
      * 
@@ -108,24 +109,23 @@ public class Ohjaus {
                 perakkaisiaOikeitaVastauksiaVaaditaan);
         }
 
+        // päättyneen kierroksen tilastointi
+        kl.listaaVirheidenMaaratKysymyskohtaisesti(jl);
+        
+        // laskurien nollaus
         for (String avain : jl.getJoukkoLista().keySet()) {
             jl.getJoukkoListasta(avain).setOikeidenVastaustenLukumaara(0);
             jl.getJoukkoListasta(avain).setVaarienVastaustenLukumaara(0);
-        }    
+        } 
+             
         return kl.kysellaankoUusiKierros();
     }
    
-        
     /**
      * Arvotun kysymyksen kyseleminen ja vastauksen tarkastaminen.
      * (Arpomista ei suoriteta tässä metodissa vaan arvottu järjestysnumero
      * tulee parametrina.)
-     * 
-     *------------
-     * TÄMÄ ALGORITMI TÄYTYY VIELÄ TARKISTAA: TEHDÄÄNKÖ TURHAA TYÖTÄ?
-     * LISÄKSI TÄMÄ METODI ON AIVAN LIIAN PITKÄ
-     * -----------
-     * 
+     *       
      * @param jl   käsiteltävä sanajoukkolista, josta kysymys valitaan
      * @param arvottuNro    kysymyksen järjestysnumero listassa    
      * @param perakkaisiaOikeitaVastauksiaVaaditaan montako peräkkäistä
@@ -185,5 +185,5 @@ public class Ohjaus {
                     jl.getKyseltaviaSanojaJaljella() - 1);
         }
     }
-    
+ 
 }

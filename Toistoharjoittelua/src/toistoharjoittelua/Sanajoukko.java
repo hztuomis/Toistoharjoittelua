@@ -34,6 +34,7 @@ public class Sanajoukko {
         return vastaukset.get(i);
     }
 
+
     public boolean vastauksetTyhja() {
         return vastaukset.isEmpty(); 
     }
