@@ -9,35 +9,36 @@ package toistoharjoittelua;
  * @author hztuomis
  *
  */
-import Kayttoliittyma.Kayttoliittyma;
+//import Kayttoliittyma.Kayttoliittyma;
 import java.util.Scanner;
 
 public class Toistoharjoittelua {
 
     /**
-     * Tämä on pääohjelma
+     * Pääohjelma:
+     *      - syötteen lukeminen
+     *      - kysymys ja vastaus -listan tulostaminen
+     *      - kysely ja vastausten tarkastaminen
      * 
-     * @param args the command line arguments
+     * @param args the command line arguments, ei käytetä tässä ohjelmassa
      *
      */ 
     
     public static void main(String[] args) {
         Sanajoukkolista jl = new Sanajoukkolista();
-        Ohjaus oh = new Ohjaus(jl); // <<<<< 
-        Tiedosto ti = new Tiedosto();
-
-//test        oh.kaynnista_ohje_lueSanaparitJoukkolistaan(); // toimintaohje
-        // sanajoukkolistan kyseleminen
-//test        jl = oh.lueSanaparitJoukkolistaan(); // <<<<<<<<<<
-        jl = ti.lueTiedostonRivit();
+        Ohjaus oh = new Ohjaus(jl);
         
-        // tulostetaan listan sisältö
-        // HUOM. VAIN JOS LISTA EI OLE TYHJÄ - LISÄTTÄVÄ TESTI
-        oh.kaynnista_tulostaSanajoukkoLista(jl);
+        // syöte luetaan joko tiedostosta tai näppäimistöltä
+        jl = oh.syotteenLukeminen();
         
-        oh.kaynnista_ohje_kyseleJaTarkastaSanajoukkoLista(); // toimintaohje
-        // kyseleminen ja tarkastaminen
-        // HUOM. VAIN JOS LISTA EI OLE TYHJÄ - LISÄTTÄVÄ TESTI
-        while (oh.kyseleJaTarkastaSanajoukkoLista(jl)) {} // end while
+        if (oh.syoteEiOleTyhja(jl)) {
+            // tulostetaan listan sisältö
+            oh.kaynnista_tulostaSanajoukkoLista(jl);
+        
+            // kyselyvaiheen toimintaohje
+            oh.kaynnista_ohje_kyseleJaTarkastaSanajoukkoLista(); 
+            // kyseleminen ja tarkastaminen
+            while (oh.kyseleJaTarkastaSanajoukkoLista(jl)) {} // end while
+        }
     }
 }

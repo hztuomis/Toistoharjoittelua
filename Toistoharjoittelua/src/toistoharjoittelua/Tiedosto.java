@@ -8,6 +8,7 @@ package toistoharjoittelua;
  *
  * @author Heikki Tuomisto
  */
+import Kayttoliittyma.Kayttoliittyma;
 import java.util.Scanner;
 import java.io.*;
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 public class Tiedosto {
     private Scanner lukija = new Scanner(System.in);
     private Sanajoukkolista joukkoLista = new Sanajoukkolista();
+    private Kayttoliittyma kl = new Kayttoliittyma(joukkoLista);
     
     Tiedosto() {        
     }
@@ -26,19 +28,18 @@ public class Tiedosto {
      * @return tiedostokahva
      * @throws FileNotFoundException tiedostoa ei löydy 
      */
-//============================================
-//============= testisyötetiedosto eka.txt
-//============================================ 
-    public File lue() throws FileNotFoundException {
-        System.out.print("Anna tiedoston nimi: ");  // anna: eka.txt
+//=====================================================
+//============= käytä testisyötetiedostoa eka.txt  ====
+//===================================================== 
+    public File lueTiedostoJaEtsi() throws FileNotFoundException {
+        kl.ohje_annaTiedostonNimi();  // anna: eka.txt
         String nykytiedosto = 
                 "D:\\Omat Tiedostot\\GitHub\\Toistoharjoittelua\\" 
                 + "Toistoharjoittelua\\src\\toistoharjoittelua\\" 
-                + lukija.nextLine();        
-               
+                + lukija.nextLine();                       
         File nykytiedostoKahva = new File (nykytiedosto);
         if (!nykytiedostoKahva.exists()) {
-            System.out.println("Tiedostoa " + nykytiedosto + " ei löydy");
+            kl.ohje_tiedostoaEiLoydy(nykytiedosto);
             return null;
         } else {
             return nykytiedostoKahva;
@@ -52,14 +53,14 @@ public class Tiedosto {
      * @return palauttaa valmiiksi päivitetyn sanajoukkolistan 
      *  kutsuvalle ohjelmalle
      */
-    public Sanajoukkolista lueTiedostonRivit() {
+    public Sanajoukkolista lueJaKasitteleTiedostonRivit() {
         Sanajoukkolista joukkoLista = new Sanajoukkolista();
 
         File nykytiedostoKahva = null;
         try {
-            nykytiedostoKahva = lue();
+            nykytiedostoKahva = lueTiedostoJaEtsi();
         } catch (FileNotFoundException e) {
-            System.out.println("Syöttötiedostoa ei voitu avata");
+            kl.ohje_syottoTiedostoaEiVoituAvata();
             return null;
         }    
 
@@ -68,15 +69,14 @@ public class Tiedosto {
                 Scanner syottotiedosto = new Scanner(nykytiedostoKahva);
                     
                 while ( syottotiedosto.hasNextLine() ) {
-                    String r = syottotiedosto.nextLine();
-                    // tallenna tai laita muistiin
-//                    inTempFile.add(r);
-                    joukkoLista = lisaaTiedostonSanapariSanajoukkoon(r);                }    
+                    String rivi = syottotiedosto.nextLine();
+                    joukkoLista = lisaaTiedostonSanapariSanajoukkoon(rivi);
+                }    
                 syottotiedosto.close();
                 return joukkoLista;
                     
             } catch (FileNotFoundException e) {
-                System.out.println("Syöttötiedostoa ei voitu avata");
+                kl.ohje_syottoTiedostoaEiVoituAvata();
                 return null;
             }    
         }
@@ -86,21 +86,21 @@ public class Tiedosto {
     /**
      * Lisää tiedostosta luetun yksittäisen rivin tiedot sanajoukkolistaan
      * 
-     * @param r tiedostosta luettu rivi
+     * @param rivi tiedostosta luettu rivi
      * @return päivitetty sanajoukkolista
      */
-    public Sanajoukkolista lisaaTiedostonSanapariSanajoukkoon(String r){     
-        int pos = r.indexOf("/");
+    public Sanajoukkolista lisaaTiedostonSanapariSanajoukkoon(String rivi){     
+        int pos = rivi.indexOf("/");
         if (pos < 0) return joukkoLista; // <<<<<<<< virhe, poistutaan!
         
-        String kysymys = r.substring(0, pos);
-        String vastaus = r.substring(pos + 1);
+        String kysymys = rivi.substring(0, pos);
+        String vastaus = rivi.substring(pos + 1);
         
         Sanapari sanapari = new Sanapari(kysymys, vastaus);
                     
         if ((!sanapari.kysymysTyhja()) && (!sanapari.vastausTyhja())) {
-            joukkoLista.lisaaSanapariJoukkolistaan(sanapari.getKysymys(), 
-                    sanapari.getVastaus());
+            joukkoLista.lisaaSanapariJoukkolistaan(/*sanapari.getKysymys(), 
+                    sanapari.getVastaus()*/ kysymys, vastaus);
         }
         return joukkoLista;   
     }

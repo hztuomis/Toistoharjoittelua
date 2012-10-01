@@ -18,6 +18,23 @@ public class Kayttoliittyma {
   
     public Kayttoliittyma(Sanajoukkolista joukkoLista){
     }
+
+    /**
+     * Kysytään käyttäjältä, mistä syöte saadaan (tiedosto/näppäimistö)
+     * 
+     * @return true=tiedosto, false=näppäimistö 
+     */
+    public boolean syoteTiedostosta_EiNappaimistolta() {
+        Scanner lukija = new Scanner(System.in);
+        while (true) {
+            System.out.print("Syöte tiedostosta vai näppäimistöltä" +
+                    " (t/n)?: ");
+            String vastaus = lukija.nextLine();
+            if (vastaus.equals("t")) return true; // <<<<<<<< poistutaan
+            if (vastaus.equals("n")) return false; // <<<<<<< poistutaan
+            System.out.println("Vastaus ei kelpaa, vastaa t tai n");
+        }       
+    }
     
     /**
     * Opastetaan käyttäjää sanaparilistan manuaalisessa täyttämisessä
@@ -114,8 +131,9 @@ public class Kayttoliittyma {
         while (true) {
             System.out.print("Jatketaanko uudella kierroksella (k/e): ");
             String vastaus = lukija.nextLine();
-            if (vastaus.equals("k")) return true; // <<<<<<<<<<< poistutaan
-            if (vastaus.equals("e")) return false; // <<<<<<<<<<< poistutaan
+            if (vastaus.equals("k")) return true; // <<<<<<<<< poistutaan
+            if (vastaus.equals("e")/* || vastaus.isEmpty()*/) 
+                return false; // <<<< poistutaan
             System.out.println("Vastaus ei kelpaa, vastaa k tai e");
         }       
     }     
@@ -211,6 +229,27 @@ public class Kayttoliittyma {
     public String ehdotettuVastaus() {      
         Scanner lukija = new Scanner(System.in);
         return lukija.nextLine();
+    }
+
+//    
+//  Tiedostokäsittelyn metodit    
+//    
+    public void ohje_annaTiedostonNimi() {
+        System.out.print("Anna tiedoston nimi: ");
+    }
+
+    public void ohje_tiedostoaEiLoydy(String nykytiedosto) {
+        System.out.println("Tiedostoa " + nykytiedosto + " ei löydy");;
+    }
+
+    public void ohje_syottoTiedostoaEiVoituAvata() {
+        System.out.println("Syöttötiedostoa ei voitu avata");
+    }
+
+    public void ohje_ilmoitaTyhjastaSyotteesta() {
+        System.out.println("==============================================");
+        System.out.println("== Ohjelmalla ei ole syötettä, keskeytetään ==");
+        System.out.println("==============================================");
     }
 
 }

@@ -13,8 +13,39 @@ import Kayttoliittyma.Kayttoliittyma;
 public class Ohjaus {
     private Sanajoukkolista jl;
     Kayttoliittyma kl = new Kayttoliittyma(jl);
+    Tiedosto ti = new Tiedosto();
 
     public Ohjaus(Sanajoukkolista jl) {
+    }
+    
+    /**
+     * Hakee syötteen joko tiedostosta tai näppäimistöltä
+     * 
+     * @return sanajoukkolista tai null
+     */
+    public Sanajoukkolista syotteenLukeminen() {
+        if (kl.syoteTiedostosta_EiNappaimistolta()) {
+            jl = ti.lueJaKasitteleTiedostonRivit();
+        } else {
+            kaynnista_ohje_lueSanaparitJoukkolistaan(); // toimintaohje
+            // sanajoukkolistan kyseleminen
+            jl = lueSanaparitJoukkolistaan();
+        }
+        return jl; // palauttaa null:in, jos syötettä ei saada
+    }
+
+    /**
+     * 
+     * @param jl tarkasteltava sanajoukkolista
+     * @return true, jos listassa on alkioita, muuten false
+     */
+    public boolean syoteEiOleTyhja(Sanajoukkolista jl){
+        if (jl.listanAlkioidenLkm() > 0){
+            return true;
+        } else {
+            kl.ohje_ilmoitaTyhjastaSyotteesta();
+            return false;
+        }
     }
     
     /**
@@ -108,12 +139,15 @@ public class Ohjaus {
         int i = 0; // laskuri, joka kertoo, monennellako joukkolistan
                     // "rivillä" ollaan;
                     // joukkolistasta etsitään aina näin se alkio, jolla
-                    // järjestysluku i = parametrina annettu
-                    // arvottu järjestysluku, ks. alla   
+                    // järjestysluku i on yhtä kuin parametrina annettu
+                    // arvottu järjestysluku; huom. jos arvottu kysymys
+                    // on jo "vastattu valmiiksi", sitä ei kysytä, vaan
+                    // mennnään arpomaan seuraava; TARKASTA TÄTÄ VIELÄ!!!
+                    // arvonta ks. arvottuListanAlkionJarjestysnumero
+                    // luokassa Sanajoukkolista    
         for (String avain : jl.getJoukkoLista().keySet()) {
-            if ( (arvottuNro == i)  // huom. !!! ks. yllä
-               && (jl.getJoukkoListasta(avain).
-                                    getOikeidenVastaustenLukumaara()
+            if ( (arvottuNro == i) && 
+               (jl.getJoukkoListasta(avain).getOikeidenVastaustenLukumaara()
                      < perakkaisiaOikeitaVastauksiaVaaditaan) ) {
                 
                 boolean jatkuu = kl.kyseleJaTarkastaVastaus(avain,
@@ -130,7 +164,7 @@ public class Ohjaus {
                     return false;
                 }    
             }  // end if "(arvottuNro == i) ..."  
-            i++; // onko seuraava "rivin" järjestysnumero = arvottu? 
+            i++; // 
         }
         return true;
     }

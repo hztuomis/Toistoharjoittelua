@@ -62,8 +62,8 @@ public class Sanajoukkolista {
     }
 
     /**
-     * Arvotaan luku 0:n ja listan Sanajoukkojen lukumäärän -1 välillä
-     * HUOM. ENTÄ JOS LISTA ON TYHJÄ??
+     * Arvotaan luku 0:n ja listan Sanajoukkojen lukumäärä-1:n välillä
+     *
      * @param lukumaara listan alkioiden määrä
      * @return arvottu luku
      */    
