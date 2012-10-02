@@ -61,7 +61,7 @@ public class SanajoukkoTest {
     }
     
     @Test
-    public void TyhjanVastauksenTallennusJoukkoonOnnistuu(){
+    public void tyhjanVastauksenTallennusJoukkoonOnnistuu(){
         Sanajoukko sj = new Sanajoukko();
         sj.lisaaVastausSanajoukkoon("");
         assertEquals(sj.getVastaus(0),"");
@@ -88,34 +88,34 @@ public class SanajoukkoTest {
         Sanajoukko sj = new Sanajoukko();
         sj.lisaaVastausSanajoukkoon("A");
         sj.lisaaVastausSanajoukkoon("B");
-        assertEquals(sj.vastausOnJoukossa("A"),true);
-        assertEquals(sj.vastausOnJoukossa("B"),true);
+        assertEquals(sj.trimmattuVastausOnJoukossa("A"),true);
+        assertEquals(sj.trimmattuVastausOnJoukossa("B"),true);
     }
     
     @Test
     public void tallettamatonSanaEiOleJoukossa(){
         Sanajoukko sj = new Sanajoukko();
         sj.lisaaVastausSanajoukkoon("A");
-        assertEquals(sj.vastausOnJoukossa("B"),false);
+        assertEquals(sj.trimmattuVastausOnJoukossa("B"),false);
     }
     
     @Test
     public void sanaEiOleTyhjassaJoukossa(){
         Sanajoukko sj = new Sanajoukko();
-        assertEquals(sj.vastausOnJoukossa("A"),false);
+        assertEquals(sj.trimmattuVastausOnJoukossa("A"),false);
     }
     
     @Test
-    public void TyhjaSanaEiOleTyhjassaJoukossa(){
+    public void tyhjaSanaEiOleTyhjassaJoukossa(){
         Sanajoukko sj = new Sanajoukko();
-        assertEquals(sj.vastausOnJoukossa(""),false);
+        assertEquals(sj.trimmattuVastausOnJoukossa(""),false);
     }
     
     @Test
     public void tyhjaSanaOnJoukossaJohonOnSyotettyTyhjaSana(){
         Sanajoukko sj = new Sanajoukko();
         sj.lisaaVastausSanajoukkoon("");
-        assertEquals(sj.vastausOnJoukossa(""),true);
+        assertEquals(sj.trimmattuVastausOnJoukossa(""),true);
     }
 
 }

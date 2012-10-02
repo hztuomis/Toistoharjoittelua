@@ -76,15 +76,15 @@ public class Ohjaus {
     public Sanajoukkolista lueSanaparitJoukkolistaan () {
         Sanapari sanapari = new Sanapari();
         Sanajoukkolista joukkoLista = new Sanajoukkolista();
-        sanapari = kl.lueSanapari();
+        sanapari = kl.lueSanapariTrimmaten();
         while ((!sanapari.kysymysTyhja()) && (!sanapari.vastausTyhja())) {
             joukkoLista.lisaaSanapariJoukkolistaan(sanapari.getKysymys(),
                     sanapari.getVastaus());
-            sanapari = kl.lueSanapari();   
+            sanapari = kl.lueSanapariTrimmaten();   
         }   
         return joukkoLista;
     }
-        /**
+    /**
      * 
      * Toteutetaan sanajoukkolistan sanojen kyselykierros. Otetaan  
      * huomioon käyttäjän antama tieto siitä, montako sanakohtaista oikeaa 

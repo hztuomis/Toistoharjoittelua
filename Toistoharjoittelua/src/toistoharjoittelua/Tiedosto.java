@@ -33,15 +33,16 @@ public class Tiedosto {
 //===================================================== 
     public File lueTiedostoJaEtsi() throws FileNotFoundException {
         kl.ohje_annaTiedostonNimi();  // anna: eka.txt
-        String nykytiedosto = 
-                "D:\\Omat Tiedostot\\GitHub\\Toistoharjoittelua\\" 
-                + "Toistoharjoittelua\\src\\toistoharjoittelua\\" 
-                + lukija.nextLine();                       
+        String nykytiedosto =
+//                "D:\\Omat Tiedostot\\GitHub\\Toistoharjoittelua\\" 
+//                + "Toistoharjoittelua\\src\\toistoharjoittelua\\" 
+                lukija.nextLine();                       
         File nykytiedostoKahva = new File (nykytiedosto);
         if (!nykytiedostoKahva.exists()) {
             kl.ohje_tiedostoaEiLoydy(nykytiedosto);
             return null;
         } else {
+            kl.ohje_tiedostoLoytyi(nykytiedosto);
             return nykytiedostoKahva;
         }    
     }
@@ -70,7 +71,8 @@ public class Tiedosto {
                     
                 while ( syottotiedosto.hasNextLine() ) {
                     String rivi = syottotiedosto.nextLine();
-                    joukkoLista = lisaaTiedostonSanapariSanajoukkoon(rivi);
+                    joukkoLista = 
+                        lisaaTiedostonSanapariTrimmattunaSanajoukkoon(rivi);
                 }    
                 syottotiedosto.close();
                 return joukkoLista;
@@ -84,17 +86,20 @@ public class Tiedosto {
     }
 
     /**
-     * Lisää tiedostosta luetun yksittäisen rivin tiedot sanajoukkolistaan
+     * Lisää tiedostosta luetun yksittäisen rivin tiedot 
+     * sanajoukkolistaan
      * 
      * @param rivi tiedostosta luettu rivi
      * @return päivitetty sanajoukkolista
      */
-    public Sanajoukkolista lisaaTiedostonSanapariSanajoukkoon(String rivi){     
+    public Sanajoukkolista lisaaTiedostonSanapariTrimmattunaSanajoukkoon(
+            String rivi) {     
         int pos = rivi.indexOf("/");
         if (pos < 0) return joukkoLista; // <<<<<<<< virhe, poistutaan!
-        
-        String kysymys = rivi.substring(0, pos);
-        String vastaus = rivi.substring(pos + 1);
+
+        // HUOM. TRIM SEURAAVASSA
+        String kysymys = rivi.substring(0, pos).trim();
+        String vastaus = rivi.substring(pos + 1).trim();
         
         Sanapari sanapari = new Sanapari(kysymys, vastaus);
                     

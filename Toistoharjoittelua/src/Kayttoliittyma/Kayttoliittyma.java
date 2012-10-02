@@ -5,9 +5,9 @@
 package Kayttoliittyma;
 
 import java.util.Scanner;
+import toistoharjoittelua.Sanapari;
 import toistoharjoittelua.Sanajoukko;
 import toistoharjoittelua.Sanajoukkolista;
-import toistoharjoittelua.Sanapari;
 
 /**
  *
@@ -51,17 +51,16 @@ public class Kayttoliittyma {
      * @return  luettu sanapari
      * 
      */
-    public Sanapari lueSanapari () {    
+    public Sanapari lueSanapariTrimmaten () {    
         
         Scanner lukija = new Scanner(System.in);
         String vastine = "";
-        // seuraaviin trim???
         System.out.print("Anna kysyttävä sana: ");
-        String sana = lukija.nextLine();
+        String sana = lukija.nextLine().trim();
 //        System.out.println("Sana oli: " + sana);
         if (! sana.equals("")) {
             System.out.print("Anna vastine: ");
-            vastine = lukija.nextLine();
+            vastine = lukija.nextLine().trim();
 //            System.out.println("Vastine oli: " + vastine);
         } else {
             vastine = "";
@@ -99,7 +98,12 @@ public class Kayttoliittyma {
         while (true) {
             System.out.print("Montako peräkkäistä oikeaa vastausta " +
                 "vaaditaan (luvut 1-3 kelpaavat)?: ");
-            maara = lukija.nextInt();
+            try {
+                maara = Integer.parseInt(lukija.nextLine());
+            }
+            catch (NumberFormatException e) {
+                maara = -1; //dummy-arvo, joka jää kiinni alla testissä
+            }
             if ((maara >= 1) && (maara <= 3) ) return maara;
             System.out.println("Vastaus ei kelpaa, anna luku välillä 1-3");
         }       
@@ -200,7 +204,7 @@ public class Kayttoliittyma {
         kysy(avain); 
         String ehdotus = ehdotettuVastaus();
         if (!(ehdotus.equals(""))) {
-            if (sj.vastausOnJoukossa(ehdotus)) {
+            if (sj.trimmattuVastausOnJoukossa(ehdotus)) {
                 System.out.println("Oikein");
                 sj.setOikeidenVastaustenLukumaara(
                     sj.getOikeidenVastaustenLukumaara() + 1);
@@ -253,21 +257,45 @@ public class Kayttoliittyma {
         return lukija.nextLine();
     }
 
-//    
-//  Tiedostokäsittelyn metodit    
-//    
+    
+//******************************************************************    
+//  Tästä eteen päin tiedostokäsittelyn metodit    
+//******************************************************************    
+
+ /**
+ *  pyydetään käyttäjää antamaan tiedoston nimi
+ */
     public void ohje_annaTiedostonNimi() {
         System.out.print("Anna tiedoston nimi: ");
     }
 
+/**
+ * ilmoitetaan, että tiedostoa ei ole olemassa
+ * @param nykytiedosto tiedosto, jota yritetään löytää
+ */    
     public void ohje_tiedostoaEiLoydy(String nykytiedosto) {
         System.out.println("Tiedostoa " + nykytiedosto + " ei löydy");;
     }
 
+/**
+ * ilmoitetaan, että tiedosto on olemassa
+ * @param nykytiedosto tiedosto, jota yritetään löytää
+ */    
+    public void ohje_tiedostoLoytyi(String nykytiedosto) {
+        System.out.println("Tiedosto " + nykytiedosto + " löytyi");
+    }
+
+    /**
+     *  ilmoitetaan, että syöttötiedoston avaus ei onnistunut
+     */
     public void ohje_syottoTiedostoaEiVoituAvata() {
         System.out.println("Syöttötiedostoa ei voitu avata");
     }
 
+    /**
+     * ilmoitetaan, että syötettä ei ole saatu tiedostosta tai 
+     *      näppäimistöltä
+     */
     public void ohje_ilmoitaTyhjastaSyotteesta() {
         System.out.println("==============================================");
         System.out.println("== Ohjelmalla ei ole syötettä, keskeytetään ==");

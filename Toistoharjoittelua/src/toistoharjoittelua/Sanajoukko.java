@@ -29,12 +29,20 @@ public class Sanajoukko {
     
     public Sanajoukko() {    
     }
-
+/**
+ * 
+ * @param i vastauksen järjestysnumero arraylistissa
+ * @return yksittäinen vastaus
+ */
     public String getVastaus(int i) {
         return vastaukset.get(i);
     }
 
-
+/**
+ * 
+ * @return true, jos vastausjoukko on tyhjä
+ */
+    
     public boolean vastauksetTyhja() {
         return vastaukset.isEmpty(); 
     }
@@ -54,7 +62,7 @@ public class Sanajoukko {
  * @param vastaus - joukkoon lisättävä vastaus
  */
     public void lisaaVastausSanajoukkoon (String vastaus) {
-        if (! vastausOnJoukossa(vastaus)) {
+        if (! trimmattuVastausOnJoukossa(vastaus)) {
             vastaukset.add(vastaus);
         }    
     }    
@@ -65,26 +73,43 @@ public class Sanajoukko {
  * @return  true, jos vastaus oli joukossa, muuten false 
  */
 // huom. seuraavassa voisi olla isojen ja pienien kirjainten samaistaminen
-    public boolean vastausOnJoukossa (String vastaus) {
-         return vastaukset.contains(vastaus);
+//  HUOM. SEURAAVASSA TRIM !!!!
+    public boolean trimmattuVastausOnJoukossa (String vastaus) {
+//         return vastaukset.contains(vastaus);
+         return vastaukset.contains(vastaus.trim()); // LISÄTTY TRIM
     }
-        
+/**
+ * @return oikeiden vastausten määrä sanajoukkokohtaisesti
+ */        
     public int getOikeidenVastaustenLukumaara() {
         return oikeidenVastaustenLukumaara;
     }
     
+/**
+ * oikeiden vastausten määrän asettaminen sanajoukkokohtaisesti
+ * @return asetettu lukumäärä (esim. nollaus)
+ */        
     public void setOikeidenVastaustenLukumaara(int lkm) {
         oikeidenVastaustenLukumaara = lkm;
     }
     
+/**
+ * @return väärien vastausten määrä sanajoukkokohtaisesti
+ */        
     public int getVaarienVastaustenLukumaara() {
         return vaarienVastaustenLukumaara;
     }
     
+/**
+ * väärien vastausten määrän asettaminen sanajoukkokohtaisesti
+ * @return asetettu lukumäärä (esim. nollaus)
+ */        
     public void setVaarienVastaustenLukumaara(int lkm) {
         vaarienVastaustenLukumaara = lkm;
     }
-    
+   /**
+    * @return sanajoukon merkkiesitys muodossa [a,b,c] 
+    */ 
     public String toString() {
         String tulos = "[";
         if (! vastauksetTyhja() ) {

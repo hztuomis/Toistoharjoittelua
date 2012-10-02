@@ -26,10 +26,19 @@ public class Sanajoukkolista {
         // kun kaikille on saatu oikea vastaus, ohjelma päättyy (tai sitten
         // palautetaan kaikki sanat uudelleen kyseltäviksi tms.)
             
+/**
+ * @return palauttaa koko sanajoukkolistan
+ */
     public HashMap<String,Sanajoukko> getJoukkoLista() {
         return joukkoLista;
     }
     
+/**
+ *  palauttaa sanajoukkolistan tietyn sanajoukon käyttäen 
+ *      avaimena sanajoukkoon liittyvää kysymystä
+ * @param avain
+ * @return 
+ */
     public Sanajoukko getJoukkoListasta(String avain) {
         return joukkoLista.get(avain);
     }
@@ -48,6 +57,7 @@ public class Sanajoukkolista {
         j.lisaaVastausSanajoukkoon(vastaus);
         joukkoLista.put(kysymys,j);
     }    
+
     /**
      * Sanaparilistan alkioiden lkm
      * 
@@ -72,10 +82,18 @@ public class Sanajoukkolista {
         return r;
     }
       
+    /**
+     * 
+     * @return ilmoittaa, montako kyseltävää sanaa vielä on
+     */
     public int getKyseltaviaSanojaJaljella() {
         return kyseltaviaSanojaJaljella;
     }
     
+    /**
+     * 
+     * @param lkm asettaa kyseltävien sanojen määrän, esim. vähentäminen 
+     */
     public void setKyseltaviaSanojaJaljella(int lkm) {
         kyseltaviaSanojaJaljella = lkm;
     }

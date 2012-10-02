@@ -93,6 +93,5 @@ public class SanajoukkolistaTest {
         assertEquals(rmin, 0);
         assertEquals(rmax, 19);
     }    
-        
-               
+                    
 }    

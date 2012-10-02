@@ -9,7 +9,7 @@ package toistoharjoittelua;
  * @author hztuomis
  *
  */
-//import Kayttoliittyma.Kayttoliittyma;
+
 import java.util.Scanner;
 
 public class Toistoharjoittelua {
@@ -18,7 +18,8 @@ public class Toistoharjoittelua {
      * Pääohjelma:
      *      - syötteen lukeminen
      *      - kysymys ja vastaus -listan tulostaminen
-     *      - kysely ja vastausten tarkastaminen
+     *      - kysely ja vastausten tarkastaminen, sisältää
+     *              virheiden raportoinnin kyselykierroksen lopuksi
      * 
      * @param args the command line arguments, ei käytetä tässä ohjelmassa
      *
