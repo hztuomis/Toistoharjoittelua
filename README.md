@@ -1,4 +1,4 @@
 Toistoharjoittelua
 ==================
 
-Ohjelma sanaparien opettamista varten. Soveltuu esim. vieraan kielen sanojen opiskeluun. Ohjelmaan rakennetaan "pedagogisuutta" oppimisen tehostamiseksi. Ohjelman syöte luetaan tiedostosta, joten sitä voidaan käyttää erilaisiin opetustarkoituksiin. 
+Ohjelma sanaparien opettamista varten - soveltuu esim. vieraan kielen sanojen opiskeluun. Kysyttävällä sanalla voi olla monta vastinetta. Kyseltävä aineisto luetaan joko näppäimistöltä tai tiedostosta. Ohjelmaan on rakennettu pedagoginen toistologiikka oppimisen tehostamiseksi.
