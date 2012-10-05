@@ -11,13 +11,11 @@ package toistoharjoittelua;
 import Kayttoliittyma.Kayttoliittyma;
 import java.util.Scanner;
 import java.io.*;
-import java.util.ArrayList;
-
 
 public class Tiedosto {
     private Scanner lukija = new Scanner(System.in);
-    private Sanajoukkolista joukkoLista = new Sanajoukkolista();
-    private Kayttoliittyma kl = new Kayttoliittyma(joukkoLista);
+    private Sanajoukkolista joukkolista = new Sanajoukkolista();
+    private Kayttoliittyma kl = new Kayttoliittyma(joukkolista);
     
     Tiedosto() {        
     }
@@ -37,13 +35,13 @@ public class Tiedosto {
 //                "D:\\Omat Tiedostot\\GitHub\\Toistoharjoittelua\\" 
 //                + "Toistoharjoittelua\\src\\toistoharjoittelua\\" 
                 lukija.nextLine();                       
-        File nykytiedostoKahva = new File (nykytiedosto);
-        if (!nykytiedostoKahva.exists()) {
+        File nykytiedostokahva = new File (nykytiedosto);
+        if (!nykytiedostokahva.exists()) {
             kl.ohje_tiedostoaEiLoydy(nykytiedosto);
             return null;
         } else {
             kl.ohje_tiedostoLoytyi(nykytiedosto);
-            return nykytiedostoKahva;
+            return nykytiedostokahva;
         }    
     }
 
@@ -55,34 +53,34 @@ public class Tiedosto {
      *  kutsuvalle ohjelmalle
      */
     public Sanajoukkolista lueJaKasitteleTiedostonRivit() {
-        Sanajoukkolista joukkoLista = new Sanajoukkolista();
+        Sanajoukkolista joukkolista = new Sanajoukkolista();
 
-        File nykytiedostoKahva = null;
+        File nykytiedostokahva = null;
         try {
-            nykytiedostoKahva = lueTiedostoJaEtsi();
+            nykytiedostokahva = lueTiedostoJaEtsi();
         } catch (FileNotFoundException e) {
-            kl.ohje_syottoTiedostoaEiVoituAvata();
+            kl.ohje_syottotiedostoaEiVoituAvata();
             return null;
         }    
 
-        if (nykytiedostoKahva != null) {
+        if (nykytiedostokahva != null) {
             try {
-                Scanner syottotiedosto = new Scanner(nykytiedostoKahva);
+                Scanner syottotiedosto = new Scanner(nykytiedostokahva);
                     
                 while ( syottotiedosto.hasNextLine() ) {
                     String rivi = syottotiedosto.nextLine();
-                    joukkoLista = 
+                    joukkolista = 
                         lisaaTiedostonSanapariTrimmattunaSanajoukkoon(rivi);
                 }    
                 syottotiedosto.close();
-                return joukkoLista;
+                return joukkolista;
                     
             } catch (FileNotFoundException e) {
-                kl.ohje_syottoTiedostoaEiVoituAvata();
+                kl.ohje_syottotiedostoaEiVoituAvata();
                 return null;
             }    
         }
-        return joukkoLista;
+        return joukkolista;
     }
 
     /**
@@ -94,8 +92,8 @@ public class Tiedosto {
      */
     public Sanajoukkolista lisaaTiedostonSanapariTrimmattunaSanajoukkoon(
             String rivi) {     
-        int pos = rivi.indexOf("/");
-        if (pos < 0) return joukkoLista; // <<<<<<<< virhe, poistutaan!
+        int pos = rivi.indexOf("/"); // (ensimmäisen) kauttaviivan positio
+        if (pos < 0) return joukkolista; // <<<<<<<< virhe, poistutaan!
 
         // HUOM. TRIM SEURAAVASSA
         String kysymys = rivi.substring(0, pos).trim();
@@ -104,9 +102,9 @@ public class Tiedosto {
         Sanapari sanapari = new Sanapari(kysymys, vastaus);
                     
         if ((!sanapari.kysymysTyhja()) && (!sanapari.vastausTyhja())) {
-            joukkoLista.lisaaSanapariJoukkolistaan(/*sanapari.getKysymys(), 
+            joukkolista.lisaaSanapariJoukkolistaan(/*sanapari.getKysymys(), 
                     sanapari.getVastaus()*/ kysymys, vastaus);
         }
-        return joukkoLista;   
+        return joukkolista;   
     }
 }

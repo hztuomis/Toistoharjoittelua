@@ -35,6 +35,7 @@ public class Ohjaus {
     }
 
     /**
+     * Ilmoittaa, onko käsiteltävä sanalista tyhjä
      * 
      * @param jl tarkasteltava sanajoukkolista
      * @return true, jos listassa on alkioita, muuten false
@@ -84,8 +85,9 @@ public class Ohjaus {
         }   
         return joukkoLista;
     }
+    
+    
     /**
-     * 
      * Toteutetaan sanajoukkolistan sanojen kyselykierros. Otetaan  
      * huomioon käyttäjän antama tieto siitä, montako sanakohtaista oikeaa 
      * vastausta vaaditaan, jotta sana katsottaisiin osatuksi.

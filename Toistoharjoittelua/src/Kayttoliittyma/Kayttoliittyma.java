@@ -45,11 +45,9 @@ public class Kayttoliittyma {
     }
        
     /**
-     * 
      * Yksittäisen sanaparin lukeminen ja tulostaminen näkyviin
      * 
      * @return  luettu sanapari
-     * 
      */
     public Sanapari lueSanapariTrimmaten () {    
         
@@ -57,11 +55,9 @@ public class Kayttoliittyma {
         String vastine = "";
         System.out.print("Anna kysyttävä sana: ");
         String sana = lukija.nextLine().trim();
-//        System.out.println("Sana oli: " + sana);
         if (! sana.equals("")) {
             System.out.print("Anna vastine: ");
             vastine = lukija.nextLine().trim();
-//            System.out.println("Vastine oli: " + vastine);
         } else {
             vastine = "";
         }
@@ -78,7 +74,6 @@ public class Kayttoliittyma {
      * 
      * @param  jl   käsiteltävä sanajoukkolista
      */
-    
     public void tulostaSanajoukkoLista(Sanajoukkolista jl) {
         System.out.println("Listan sisältö");
         System.out.println(jl);
@@ -86,7 +81,7 @@ public class Kayttoliittyma {
     }    
 
     /**
-     *  Kysytään käyttäjältä ohjaava paramentriarvo, montako
+     *  Kysytään käyttäjältä ohjaava parametriarvo, montako
      *  peräkkäistä oikeaa vastausta kysymykseen on saatava, ennen 
      *  kuin se katsotaan osatuksi. Luvut 1 - 3 kelpaavat.
      * 
@@ -213,7 +208,7 @@ public class Kayttoliittyma {
                 System.out.println("Oikeat vastaukset ovat: " + sj);
                 sj.setVaarienVastaustenLukumaara(
                     sj.getVaarienVastaustenLukumaara() + 1);
-//              === HUOM. KO. KYSYMYKSEN OIKEIDEN VASTAUSTEM KERÄILY 
+//              === HUOM. KO. KYSYMYKSEN OIKEIDEN VASTAUSTEN KERÄILY 
 //                          ALOITETAAM ALUSTA ELI LASKURI --> 0
                 sj.setOikeidenVastaustenLukumaara(0);              
             }
@@ -288,7 +283,7 @@ public class Kayttoliittyma {
     /**
      *  ilmoitetaan, että syöttötiedoston avaus ei onnistunut
      */
-    public void ohje_syottoTiedostoaEiVoituAvata() {
+    public void ohje_syottotiedostoaEiVoituAvata() {
         System.out.println("Syöttötiedostoa ei voitu avata");
     }
 
