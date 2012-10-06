@@ -5,13 +5,14 @@
 package toistoharjoittelua;
 
 import Kayttoliittyma.Kayttoliittyma;
-
+import toistoharjoittelua.Nappaimisto;
 /**
  *
  * @author Heikki Tuomisto
  */
 public class Ohjaus {
     private Sanajoukkolista jl;
+    Nappaimisto na = new Nappaimisto(jl);
     Kayttoliittyma kl = new Kayttoliittyma(jl);
     Tiedosto ti = new Tiedosto();
 
@@ -44,7 +45,7 @@ public class Ohjaus {
         if (jl.listanAlkioidenLkm() > 0){
             return true;
         } else {
-            kl.ohje_ilmoitaTyhjastaSyotteesta();
+            na.ohje_ilmoitaTyhjastaSyotteesta();
             return false;
         }
     }
@@ -77,11 +78,11 @@ public class Ohjaus {
     public Sanajoukkolista lueSanaparitJoukkolistaan () {
         Sanapari sanapari = new Sanapari();
         Sanajoukkolista joukkoLista = new Sanajoukkolista();
-        sanapari = kl.lueSanapariTrimmaten();
+        sanapari = na.lueSanapariTrimmaten();
         while ((!sanapari.kysymysTyhja()) && (!sanapari.vastausTyhja())) {
             joukkoLista.lisaaSanapariJoukkolistaan(sanapari.getKysymys(),
                     sanapari.getVastaus());
-            sanapari = kl.lueSanapariTrimmaten();   
+            sanapari = na.lueSanapariTrimmaten();   
         }   
         return joukkoLista;
     }
@@ -103,7 +104,7 @@ public class Ohjaus {
         
         jl.setKyseltaviaSanojaJaljella(lkm);
         int perakkaisiaOikeitaVastauksiaVaaditaan =
-                kl.montakoPerakkaistaOikeaaVastaustaVaaditaan();
+            na.montakoPerakkaistaOikeaaVastaustaVaaditaan();
 
         while (jatkuu) {
             jatkuu = kyseleJaTarkastaArvottuKysymys(jl, 
@@ -112,7 +113,7 @@ public class Ohjaus {
         }
 
         // päättyneen kierroksen tilastointi
-        kl.listaaVirheidenMaaratKysymyskohtaisesti(jl);
+        na.listaaVirheidenMaaratKysymyskohtaisesti(jl);
         
         // laskurien nollaus
         for (String avain : jl.getJoukkoLista().keySet()) {
@@ -120,7 +121,7 @@ public class Ohjaus {
             jl.getJoukkoListasta(avain).setVaarienVastaustenLukumaara(0);
         } 
              
-        return kl.kysellaankoUusiKierros();
+        return na.kysellaankoUusiKierros();
     }
    
     /**
@@ -144,7 +145,7 @@ public class Ohjaus {
                     // järjestysluku i on yhtä kuin parametrina annettu
                     // arvottu järjestysluku; huom. jos arvottu kysymys
                     // on jo "vastattu valmiiksi", sitä ei kysytä, vaan
-                    // mennnään arpomaan seuraava; TARKASTA TÄTÄ VIELÄ!!!
+                    // mennään arpomaan seuraava; TARKASTA TÄTÄ VIELÄ!!!
                     // arvonta ks. arvottuListanAlkionJarjestysnumero
                     // luokassa Sanajoukkolista    
         for (String avain : jl.getJoukkoLista().keySet()) {
@@ -152,7 +153,7 @@ public class Ohjaus {
                (jl.getJoukkoListasta(avain).getOikeidenVastaustenLukumaara()
                      < perakkaisiaOikeitaVastauksiaVaaditaan) ) {
                 
-                boolean jatkuu = kl.kyseleJaTarkastaVastaus(avain,
+                boolean jatkuu = na.kyseleJaTarkastaVastaus(avain,
                     jl.getJoukkoListasta(avain));
                 if (!jatkuu) {
                     return false; // <<<<<<<<<<< poistutaan                        
@@ -161,7 +162,7 @@ public class Ohjaus {
                 paivitaJaljellaOlevienKyseltavienSanojenMaara(jl, avain,
                         perakkaisiaOikeitaVastauksiaVaaditaan);
 
-                if (! kl.onVielaKyseltaviaSanoja(jl,
+                if (! na.onVielaKyseltaviaSanoja(jl,
                         perakkaisiaOikeitaVastauksiaVaaditaan)) {
                     return false;
                 }    

@@ -4,7 +4,7 @@
  */
 package toistoharjoittelua;
 
-import Kayttoliittyma.*;
+import Kayttoliittyma.Kayttoliittyma;
 import java.util.Scanner;
 import toistoharjoittelua.Sanapari;
 import toistoharjoittelua.Sanajoukko;
@@ -16,6 +16,7 @@ import toistoharjoittelua.Sanajoukkolista;
  */
 public class Nappaimisto {
     private Sanajoukkolista joukkoLista;
+    private Kayttoliittyma kl = new Kayttoliittyma(joukkoLista); 
   
     public Nappaimisto(Sanajoukkolista joukkoLista){
     }
@@ -24,7 +25,7 @@ public class Nappaimisto {
      * Kysytään käyttäjältä, mistä syöte saadaan (tiedosto/näppäimistö)
      * 
      * @return true=tiedosto, false=näppäimistö 
-     */
+     *
     public boolean syoteTiedostosta_EiNappaimistolta() {
         Scanner lukija = new Scanner(System.in);
         while (true) {
@@ -36,15 +37,17 @@ public class Nappaimisto {
             System.out.println("Vastaus ei kelpaa, vastaa t tai n");
         }       
     }
+    */
     
     /**
     * Opastetaan käyttäjää sanaparilistan manuaalisessa täyttämisessä
-    */    
+    *    
     public void ohje_lueSanaparitJoukkolistaan(){
         System.out.println("Muodostetaan sanajoukkojen lista kyselemällä" +
                 " sanapareja\n" + "Tyhjä arvo lopettaa");
     }
-       
+    */
+    
     /**
      * Yksittäisen sanaparin lukeminen ja tulostaminen näkyviin
      * 
@@ -54,18 +57,21 @@ public class Nappaimisto {
         
         Scanner lukija = new Scanner(System.in);
         String vastine = "";
-        System.out.print("Anna kysyttävä sana: ");
+        kl.ohje_annaKysyttavaSana();
+//        System.out.print("Anna kysyttävä sana: ");
         String sana = lukija.nextLine().trim();
         if (! sana.equals("")) {
-            System.out.print("Anna vastine: ");
+            kl.ohje_annaVastine();
+            //System.out.print("Anna vastine: ");
             vastine = lukija.nextLine().trim();
         } else {
             vastine = "";
         }
       
         Sanapari sp = new Sanapari(sana, vastine);
-        System.out.println("Syötetty: " + sp);
-                  
+//        System.out.println("Syötetty: " + sp);
+        kl.naytaSyotettySanapari(sp);
+        
         return sp; 
     }
     
@@ -74,12 +80,13 @@ public class Nappaimisto {
      * Näytetään sanajoukkolistan sisältö
      * 
      * @param  jl   käsiteltävä sanajoukkolista
-     */
+     
     public void tulostaSanajoukkoLista(Sanajoukkolista jl) {
         System.out.println("Listan sisältö");
         System.out.println(jl);
         System.out.println("Kyseltäviä sanoja: " + jl.listanAlkioidenLkm());
-    }    
+    } 
+    */
 
     /**
      *  Kysytään käyttäjältä ohjaava parametriarvo, montako
@@ -87,13 +94,14 @@ public class Nappaimisto {
      *  kuin se katsotaan osatuksi. Luvut 1 - 3 kelpaavat.
      * 
      * @return   oikeiden vastausten määrä
-     */    
+     */   
     public int montakoPerakkaistaOikeaaVastaustaVaaditaan() {
         Scanner lukija = new Scanner(System.in);
-        int maara = 1;
+        int maara = 0;
         while (true) {
-            System.out.print("Montako peräkkäistä oikeaa vastausta " +
-                "vaaditaan (luvut 1-3 kelpaavat)?: ");
+            kl.ohje_montakoOikeaaVastausta();
+//            System.out.print("Montako peräkkäistä oikeaa vastausta " +
+//                "vaaditaan (luvut 1-3 kelpaavat)?: ");
             try {
                 maara = Integer.parseInt(lukija.nextLine());
             }
@@ -101,18 +109,20 @@ public class Nappaimisto {
                 maara = -1; //dummy-arvo, joka jää kiinni alla testissä
             }
             if ((maara >= 1) && (maara <= 3) ) return maara;
-            System.out.println("Vastaus ei kelpaa, anna luku välillä 1-3");
+            kl.ohje_montakoOikeaaVastausta_VastausEiKelpaa();
+//            System.out.println("Vastaus ei kelpaa, anna luku välillä 1-3");
         }       
     }     
     
+    
     /**
     * opastetaan käyttäjää listan kysymyksiin vastaamisessa
-    */       
+         
     public void ohje_kyseleJaTarkastaSanajoukkoLista(){
         System.out.println("Kysellään listan kysymyksiä \n" +
                 "Tyhjä vastaus lopettaa");
     }    
-
+*/
     /**
      * Tulostetaan lista kysymyksistä, joihin on vastattu virheellisesti.
      * Listalla on myös virheiden lukumäärä. Listan järjestys on käänteinen, 
@@ -122,13 +132,15 @@ public class Nappaimisto {
      */
     public void listaaVirheidenMaaratKysymyskohtaisesti(
             Sanajoukkolista jl) {
-        System.out.println("Virheellisten vastausten lkm/kysymys: ");
+//        System.out.println("Virheellisten vastausten lkm/kysymys: ");
+        kl.otsikkoVirheellistenVastaustenLkm();
         for (int i = jl.korkeinVirhemaaraSanajoukkolistanAlkiolla();
                 i > 0; --i) {
             for (String avain : jl.getJoukkoLista().keySet()) {
                 if (jl.getJoukkoListasta(avain).
                         getVaarienVastaustenLukumaara() == i) {
-                    System.out.println(i + "\t" + avain);
+//                    System.out.println(i + "\t" + avain);
+                    kl.naytaVirheellistenVastaustenLkm(i,avain);
                 }
             }
         }

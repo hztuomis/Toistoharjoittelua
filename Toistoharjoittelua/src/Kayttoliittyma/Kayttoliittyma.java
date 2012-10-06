@@ -18,7 +18,15 @@ public class Kayttoliittyma {
   
     public Kayttoliittyma(Sanajoukkolista joukkoLista){
     }
-
+    
+    /**
+    * Opastetaan käyttäjää sanaparilistan manuaalisessa täyttämisessä    
+    public void ohje_lueSanaparitJoukkolistaan(){
+        System.out.println("Muodostetaan sanajoukkojen lista kyselemällä" +
+                " sanapareja\n" + "Tyhjä arvo lopettaa");
+    }
+    */
+    
     /**
      * Kysytään käyttäjältä, mistä syöte saadaan (tiedosto/näppäimistö)
      * 
@@ -48,7 +56,7 @@ public class Kayttoliittyma {
      * Yksittäisen sanaparin lukeminen ja tulostaminen näkyviin
      * 
      * @return  luettu sanapari
-     */
+     *
     public Sanapari lueSanapariTrimmaten () {    
         
         Scanner lukija = new Scanner(System.in);
@@ -67,7 +75,21 @@ public class Kayttoliittyma {
                   
         return sp; 
     }
+    */
     
+        public void ohje_annaKysyttavaSana() {
+            System.out.print("Anna kysyttävä sana: ");
+        }    
+            
+        public void ohje_annaVastine() {
+            System.out.print("Anna vastine: ");
+        }
+      
+        public void naytaSyotettySanapari(Sanapari sp){
+            System.out.println("Syötetty: " + sp);
+        }
+        
+
     /**
      * 
      * Näytetään sanajoukkolistan sisältö
@@ -86,7 +108,6 @@ public class Kayttoliittyma {
      *  kuin se katsotaan osatuksi. Luvut 1 - 3 kelpaavat.
      * 
      * @return   oikeiden vastausten määrä
-     */    
     public int montakoPerakkaistaOikeaaVastaustaVaaditaan() {
         Scanner lukija = new Scanner(System.in);
         int maara = 1;
@@ -102,8 +123,18 @@ public class Kayttoliittyma {
             if ((maara >= 1) && (maara <= 3) ) return maara;
             System.out.println("Vastaus ei kelpaa, anna luku välillä 1-3");
         }       
-    }     
+    }
+    */
     
+    public void ohje_montakoOikeaaVastausta(){
+        System.out.print("Montako peräkkäistä oikeaa vastausta " +
+            "vaaditaan (luvut 1-3 kelpaavat)?: ");
+    }    
+    
+    public void ohje_montakoOikeaaVastausta_VastausEiKelpaa() {
+        System.out.println("Vastaus ei kelpaa, anna luku välillä 1-3");
+    }    
+  
     /**
     * opastetaan käyttäjää listan kysymyksiin vastaamisessa
     */       
@@ -118,7 +149,7 @@ public class Kayttoliittyma {
      * ts. eniten virheellisiä vastauksia saanut kysymys on listan
      * alussa.
      * @param  jl   käsiteltävä sanajoukkolista
-     */
+     *
     public void listaaVirheidenMaaratKysymyskohtaisesti(
             Sanajoukkolista jl) {
         System.out.println("Virheellisten vastausten lkm/kysymys: ");
@@ -132,7 +163,15 @@ public class Kayttoliittyma {
             }
         }
     }
+    */
     
+    public void otsikkoVirheellistenVastaustenLkm() {    
+        System.out.println("Virheellisten vastausten lkm/kysymys: ");
+    }
+    
+    public void naytaVirheellistenVastaustenLkm(int i, String avain) {
+        System.out.println(i + "\t" + avain);
+    }    
     
     /**
     * 
