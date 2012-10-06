@@ -72,7 +72,8 @@ public class Tiedosto {
                 while ( syottotiedosto.hasNextLine() ) {
                     String rivi = syottotiedosto.nextLine();
                     joukkolista = 
-                        lisaaTiedostonSanapariTrimmattunaSanajoukkoon(rivi);
+                        lisaaTiedostonSanapariTrimmattunaJoukkolistaan(
+                            rivi);
                 }    
                 syottotiedosto.close();
                 return joukkolista;
@@ -92,9 +93,10 @@ public class Tiedosto {
      * @param rivi tiedostosta luettu rivi
      * @return päivitetty sanajoukkolista
      */
-    public Sanajoukkolista lisaaTiedostonSanapariTrimmattunaSanajoukkoon(
+    public Sanajoukkolista 
+            lisaaTiedostonSanapariTrimmattunaJoukkolistaan(
             String rivi) {     
-        int pos = rivi.indexOf("/"); // (ensimmäisen) kauttaviivan positio
+        int pos = rivi.indexOf("/"); //ensimmäisen kauttaviivan positio
         if (pos < 0) return joukkolista; // <<<<<<<< virhe, poistutaan!
 
         // HUOM. TRIM SEURAAVASSA
@@ -104,8 +106,9 @@ public class Tiedosto {
         Sanapari sanapari = new Sanapari(kysymys, vastaus);
                     
         if ((!sanapari.kysymysTyhja()) && (!sanapari.vastausTyhja())) {
-            joukkolista.lisaaSanapariJoukkolistaan(/*sanapari.getKysymys(), 
-                    sanapari.getVastaus()*/ kysymys, vastaus);
+            joukkolista.lisaaSanapariJoukkolistaan(
+                    /*sanapari.getKysymys(), sanapari.getVastaus()*/
+                    kysymys, vastaus);
         }
         return joukkolista;   
     }
