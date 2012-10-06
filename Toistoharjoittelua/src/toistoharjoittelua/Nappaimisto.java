@@ -6,12 +6,12 @@ package toistoharjoittelua;
 
 import Kayttoliittyma.Kayttoliittyma;
 import java.util.Scanner;
-import toistoharjoittelua.Sanapari;
-import toistoharjoittelua.Sanajoukko;
-import toistoharjoittelua.Sanajoukkolista;
 
 /**
- *
+ * Luokka, joka toteuttaa Ohjaus-luokalta saamiaan tehtäviä ja
+ * välittää niitä Käyttöliittymäluokalle. Näppäimistö-luokalle rinnakkainen
+ * on Tiedosto-luokka.
+ * 
  * @author hztuomis
  */
 public class Nappaimisto {
@@ -20,15 +20,6 @@ public class Nappaimisto {
   
     public Nappaimisto(Sanajoukkolista joukkoLista){
     }
-
-    /**
-    * Opastetaan käyttäjää sanaparilistan manuaalisessa täyttämisessä
-    *    
-    public void ohje_lueSanaparitJoukkolistaan(){
-        System.out.println("Muodostetaan sanajoukkojen lista kyselemällä" +
-                " sanapareja\n" + "Tyhjä arvo lopettaa");
-    }
-    */
     
     /**
      * Yksittäisen sanaparin lukeminen ja tulostaminen näkyviin
@@ -40,18 +31,16 @@ public class Nappaimisto {
         Scanner lukija = new Scanner(System.in);
         String vastine = "";
         kl.ohje_annaKysyttavaSana();
-//        System.out.print("Anna kysyttävä sana: ");
-        String sana = kl.getSana(); // lukija.nextLine().trim();
+        String sana = kl.getSana(); 
         if (! sana.equals("")) {
             kl.ohje_annaVastine();
-            //System.out.print("Anna vastine: ");
-            vastine = kl.getSana(); //lukija.nextLine().trim();
+            vastine = kl.getSana();
         } else {
             vastine = "";
         }
       
         Sanapari sp = new Sanapari(sana, vastine);
-        System.out.println("Syötetty: " + sp);
+        kl.naytaSanapari(sp);
         
         return sp; 
     }
@@ -68,17 +57,11 @@ public class Nappaimisto {
         int maara = 0;
         while (true) {
             kl.ohje_montakoOikeaaVastausta();
-            try {
-                maara = Integer.parseInt(lukija.nextLine());
-            }
-            catch (NumberFormatException e) {
-                maara = -1; //dummy-arvo, joka jää kiinni alla testissä
-            }
+            maara = kl.annaRajalukumaara();
             if ((maara >= 1) && (maara <= 3) ) return maara;
             kl.ohje_montakoOikeaaVastausta_VastausEiKelpaa();
         }       
     }     
-    
     
     /**
      * Tulostetaan lista kysymyksistä, joihin on vastattu virheellisesti.
@@ -89,14 +72,12 @@ public class Nappaimisto {
      */
     public void listaaVirheidenMaaratKysymyskohtaisesti(
             Sanajoukkolista jl) {
-//        System.out.println("Virheellisten vastausten lkm/kysymys: ");
         kl.otsikkoVirheellistenVastaustenLkm();
         for (int i = jl.korkeinVirhemaaraSanajoukkolistanAlkiolla();
                 i > 0; --i) {
             for (String avain : jl.getJoukkoLista().keySet()) {
                 if (jl.getJoukkoListasta(avain).
                         getVaarienVastaustenLukumaara() == i) {
-//                    System.out.println(i + "\t" + avain);
                     kl.naytaVirheellistenVastaustenLkm(i,avain);
                 }
             }
@@ -116,17 +97,15 @@ public class Nappaimisto {
     */      
     public boolean onVielaKyseltaviaSanoja(Sanajoukkolista jl,
              int perakkaisiaOikeitaVastauksiaVaaditaan) {
-                System.out.println("Kyseltäviä sanoja jäljellä: " + 
-                        jl.getKyseltaviaSanojaJaljella());
-                
-                if (jl.getKyseltaviaSanojaJaljella() <= 0) {
-                    System.out.println("Kaikkiin kysymyksiin on saatu "+
-                            perakkaisiaOikeitaVastauksiaVaaditaan +
-                            " peräkkäistä oikeata vastausta");
-                    return false; 
-                } else {
-                    return true;
-                }
+        kl.naytaKyseltaviaSanojaJaljella(
+            jl.getKyseltaviaSanojaJaljella());
+        if (jl.getKyseltaviaSanojaJaljella() <= 0) {
+            kl.naytaEttaOikeatVastauksetSaatu(
+                    perakkaisiaOikeitaVastauksiaVaaditaan);
+            return false; 
+        } else {
+            return true;
+        }
     }
     
     /**
@@ -139,16 +118,15 @@ public class Nappaimisto {
     * @return  palautetaan tieto siitä, osuiko kohdalleen
     */
     public boolean kyseleJaTarkastaVastaus(String avain, Sanajoukko sj) {
-        kysy(avain); 
-        String ehdotus = ehdotettuVastaus();
+        kl.kysy(avain); 
+        String ehdotus = kl.ehdotettuVastaus();
         if (!(ehdotus.equals(""))) {
             if (sj.trimmattuVastausOnJoukossa(ehdotus)) {
-                System.out.println("Oikein");
+                kl.ilmoitaOikeastaVastauksesta();
                 sj.setOikeidenVastaustenLukumaara(
                     sj.getOikeidenVastaustenLukumaara() + 1);
             } else {
-                System.out.println("Väärin");
-                System.out.println("Oikeat vastaukset ovat: " + sj);
+                kl.ilmoitaVaarastaVastauksesta(sj);
                 sj.setVaarienVastaustenLukumaara(
                     sj.getVaarienVastaustenLukumaara() + 1);
 //              === HUOM. KO. KYSYMYKSEN OIKEIDEN VASTAUSTEN KERÄILY 
@@ -156,43 +134,13 @@ public class Nappaimisto {
                 sj.setOikeidenVastaustenLukumaara(0);              
             }
             
-            ilmoitaOikeidenJaVaarienLukumaara(sj);
+            kl.ilmoitaOikeidenJaVaarienLukumaara(
+                    sj.getOikeidenVastaustenLukumaara(),
+                    sj.getVaarienVastaustenLukumaara());
 
             return true;
         }
         return false;
     }
     
-    /**
-    * raportoidaan, montako oikeata ja väärää vastausta sanajoukkoon on
-    *  kirjattu
-    * 
-    * @param sj tarkasteltava sanajoukko
-    */    
-    public void ilmoitaOikeidenJaVaarienLukumaara(Sanajoukko sj){
-        System.out.println("Tämän sanajoukon oikeiden vastausten "+
-                "lukumäärä: " + sj.getOikeidenVastaustenLukumaara());
-        System.out.println("Tämän sanajoukon väärien vastausten "+
-                "lukumäärä:  " + sj.getVaarienVastaustenLukumaara());
-    }
-
-    /**
-    * Esitetään käyttäjälle kysymys (sana) vastattavaksi
-    * 
-    * @param avain kysyttävä sana
-    */
-    public void kysy(String avain) {
-        System.out.print(avain + " ?: ");
-    }
-
-    /**
-    * Käyttäjän antaman vastauksen lukeminen
-    * 
-    * @return palauttaa käyttäjän antaman vastauksen
-    */
-    public String ehdotettuVastaus() {      
-        Scanner lukija = new Scanner(System.in);
-        return lukija.nextLine();
-    }
-
 }

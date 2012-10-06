@@ -10,7 +10,12 @@ import toistoharjoittelua.Sanajoukko;
 import toistoharjoittelua.Sanajoukkolista;
 
 /**
- *
+ * Käyttöliittymätoiminnot:
+ * - tulostaminen standarditulostusvirtaan - 
+ *  huom. tässä käytetään myös Sanapari- Sanajoukko- ja Sanajoukkolista-
+ *          -tietorakenteita
+ * - näppäimistöltä lukeminen
+ * 
  * @author hztuomis
  */
 public class Kayttoliittyma {
@@ -57,54 +62,33 @@ public class Kayttoliittyma {
             System.out.print("Anna vastine: ");
         }
 
+        /**
+         * sanan lukeminen näppäimistöltä
+         * @return luettu sana
+         */
         public String getSana() {    
             Scanner lukija = new Scanner(System.in);
             return lukija.nextLine().trim();
         } 
         
-//        public void naytaSyotettySanapari(String kysymys, String vastaus) {
-//            System.out.println(kysymys + " --> " + vastaus);
-//        }
-
     /**
-     * Yksittäisen sanaparin lukeminen ja tulostaminen näkyviin
-     * 
-     * @return  luettu sanapari
+     * näytetään sanapari
+     **************************************** 
+     * TÄSSÄ AINAKIN TARVITAAN Sanaparia
+     ****************************************
      */
-//    public Sanapari lueSanapariTrimmaten () {    
-//        
-//        Scanner lukija = new Scanner(System.in);
-//        String vastine = "";
-//        ohje_annaKysyttavaSana();
-////        System.out.print("Anna kysyttävä sana: ");
-//        String sana = lukija.nextLine().trim();
-//        if (! sana.equals("")) {
-//            ohje_annaVastine();
-//            System.out.print("Anna vastine: ");
-//            vastine = lukija.nextLine().trim();
-//        } else {
-//            vastine = "";
-//        }
-//      
-//        Sanapari sp = new Sanapari(sana, vastine);
-//        System.out.println("Syötetty: " + sp);
-//        naytaSyotettySanapari(sp);
-//        
-//        return sp; 
-//    }
-
-//      /**      
-//       * syötetyn sanaparin näyttäminen käyttöliittymässä 
-//       */ 
-//        public void naytaSyotettySanapari(Sanapari sp){
-//            System.out.println("Syötetty: " + sp);
-//        }
-        
-    /**
+        public void naytaSanapari(Sanapari sp) {
+            System.out.println("Syötetty: " + sp);
+        }       
+     /**
      * 
      * Näytetään sanajoukkolistan sisältö
      * 
      * @param  jl   käsiteltävä sanajoukkolista
+     * 
+     * ***********************************************************
+     * TÄSSÄ AINAKIN TARVITAAN Sanajoukkolistaa !!!
+     * ***********************************************************
      */
     public void tulostaSanajoukkoLista(Sanajoukkolista jl) {
         System.out.println("Listan sisältö");
@@ -121,6 +105,23 @@ public class Kayttoliittyma {
             "vaaditaan (luvut 1-3 kelpaavat)?: ");
     }    
     
+/**
+ * montako oikeata vastausta vaaditaan?
+ * 
+ * @return vaadittava lukumäärä
+ */
+    public int annaRajalukumaara(){
+        Scanner lukija = new Scanner(System.in);
+        int maara = -1;
+        try {
+            maara = Integer.parseInt(lukija.nextLine());
+        }
+        catch (NumberFormatException e) {
+                maara = -1; //dummy-arvo, joka jää kiinni alla testissä
+        }
+        return maara;
+    }   
+
     /**
      * ilmoitus, että vastaus ei kelpaa
      */
@@ -136,12 +137,40 @@ public class Kayttoliittyma {
                 "Tyhjä vastaus lopettaa");
     }    
 
+    /**
+     * virheellisten vastausten tilaston otsikko
+     */
     public void otsikkoVirheellistenVastaustenLkm() {    
         System.out.println("Virheellisten vastausten lkm/kysymys: ");
     }
     
+    /**
+     * virheellisten vastausten tilaston rivi
+     * @param i virheiden kappalemäärä
+     * @param avain kysymys, johon virheet liittyvät
+     */
     public void naytaVirheellistenVastaustenLkm(int i, String avain) {
         System.out.println(i + "\t" + avain);
+    }    
+    
+    /**
+     * montako sanaa on vielä kyseltävänä?
+     * @param kpl kyseltävien määrä
+     */
+    public void naytaKyseltaviaSanojaJaljella(int kpl) {
+        System.out.println("Kyseltäviä sanoja jäljellä: " + kpl);
+    }    
+
+    /**
+     * kerrotaan, että kaikkiin kysymksiin on vastattu
+     * 
+     * @param perakkaisiaOikeitaVastauksiaVaaditaan 
+     */
+    public void naytaEttaOikeatVastauksetSaatu( 
+            int perakkaisiaOikeitaVastauksiaVaaditaan) {
+        System.out.println("Kaikkiin kysymyksiin on saatu "+
+            perakkaisiaOikeitaVastauksiaVaaditaan +
+            " peräkkäistä oikeata vastausta");
     }    
     
     /**
@@ -168,79 +197,39 @@ public class Kayttoliittyma {
             System.out.println("Vastaus ei kelpaa, vastaa k tai e");
         }       
     }     
-    
-    
-    /**
-    * Raportoidaan, onko kyseltäviä sanoja vielä listassa ottaen huomioon,
-    * montako perättäistä oikeaa vastausta vaaditaan
-    * 
-    * @param jl    käsiteltävä joukkolista
-    * @param perakkaisiaOikeitaVastauksiaVaaditaan 
-    *          peräkkäisten oikeiden vastausten vaadittu minimilukumäärä.
-    *          huom. väärä vastaus nollaa oikeiden vastausten laskurin ja
-    *          minimilukumäärää täytyy alkaa tavoitella alusta alkaen
-    * @return true, jos vielä on kyseltäviä sanoja, false jos lista on tyhjä
-    */      
-    public boolean onVielaKyseltaviaSanoja(Sanajoukkolista jl,
-             int perakkaisiaOikeitaVastauksiaVaaditaan) {
-                System.out.println("Kyseltäviä sanoja jäljellä: " + 
-                        jl.getKyseltaviaSanojaJaljella());
-                
-                if (jl.getKyseltaviaSanojaJaljella() <= 0) {
-                    System.out.println("Kaikkiin kysymyksiin on saatu "+
-                            perakkaisiaOikeitaVastauksiaVaaditaan +
-                            " peräkkäistä oikeata vastausta");
-                    return false; 
-                } else {
-                    return true;
-                }
+        
+/**
+ * ilmoitus oikeasta vastauksesta
+ */
+    public void ilmoitaOikeastaVastauksesta() {
+        System.out.println("Oikein");
     }
     
-    /**
-    * Kysytään käyttäjältä sanan vastinetta ja tarkastetaan, 
-    * menikö oikein
-    * 
-    * @param avain kysyttävä sana
-    * @param sj    vastineiden joukko
-    * 
-    * @return  palautetaan tieto siitä, osuiko kohdalleen
-    */
-    public boolean kyseleJaTarkastaVastaus(String avain, Sanajoukko sj) {
-        kysy(avain); 
-        String ehdotus = ehdotettuVastaus();
-        if (!(ehdotus.equals(""))) {
-            if (sj.trimmattuVastausOnJoukossa(ehdotus)) {
-                System.out.println("Oikein");
-                sj.setOikeidenVastaustenLukumaara(
-                    sj.getOikeidenVastaustenLukumaara() + 1);
-            } else {
-                System.out.println("Väärin");
-                System.out.println("Oikeat vastaukset ovat: " + sj);
-                sj.setVaarienVastaustenLukumaara(
-                    sj.getVaarienVastaustenLukumaara() + 1);
-//              === HUOM. KO. KYSYMYKSEN OIKEIDEN VASTAUSTEN KERÄILY 
-//                          ALOITETAAM ALUSTA ELI LASKURI --> 0
-                sj.setOikeidenVastaustenLukumaara(0);              
-            }
-            
-            ilmoitaOikeidenJaVaarienLukumaara(sj);
-
-            return true;
-        }
-        return false;
+/**
+ * ilmoitus väärästä vastauksesta
+ * 
+ * @param sj käsiteltävä sanajoukko
+ * ****************************************
+ * HUOM.TÄSSÄ AINAKIN TARVITAAN Sanajoukkoa
+ * ****************************************
+ */
+    public void ilmoitaVaarastaVastauksesta(Sanajoukko sj) {
+        System.out.println("Väärin");
+        System.out.println("Oikeat vastaukset ovat: " + sj);
     }
     
-    /**
+   /**
     * raportoidaan, montako oikeata ja väärää vastausta sanajoukkoon on
     *  kirjattu
     * 
-    * @param sj tarkasteltava sanajoukko
+    * @param oikeat  oikeiden vastausten lkm
+    * @param vaarat  väärien vastausten lkm
     */    
-    public void ilmoitaOikeidenJaVaarienLukumaara(Sanajoukko sj){
+    public void ilmoitaOikeidenJaVaarienLukumaara(int oikeat, int vaarat){
         System.out.println("Tämän sanajoukon oikeiden vastausten "+
-                "lukumäärä: " + sj.getOikeidenVastaustenLukumaara());
+                "lukumäärä: " + oikeat);
         System.out.println("Tämän sanajoukon väärien vastausten "+
-                "lukumäärä:  " + sj.getVaarienVastaustenLukumaara());
+                "lukumäärä:  " + vaarat);
     }
 
     /**
