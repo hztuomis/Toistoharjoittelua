@@ -7,7 +7,8 @@ package toistoharjoittelua;
 import Kayttoliittyma.Kayttoliittyma;
 import toistoharjoittelua.Nappaimisto;
 /**
- *
+ * Ottaa ohjeet Toistoharjoittelua-pääohjelmalta ja välittää ne 
+ *      Nappaimisto- ja Kayttoliittyma-luokille
  * @author Heikki Tuomisto
  */
 public class Ohjaus {
@@ -46,22 +47,13 @@ public class Ohjaus {
         if (jl.listanAlkioidenLkm() > 0){
             return true;
         } else {
-            na.ohje_ilmoitaTyhjastaSyotteesta();
+            kl.ohje_ilmoitaTyhjastaSyotteesta();
             return false;
         }
     }
     
     /**
-     * käynnistetään sanaparien syötön ohjeiden antaminen käyttöliittymässä
-     * EI TARVITA?
-     *
-    public void kaynnista_ohje_lueSanaparitJoukkolistaan(){
-        kl.ohje_lueSanaparitJoukkolistaan();
-    }
-    */ 
-    
-    /**
-     * käynnistetään sanojen kyselyn ohjeiden antaminen käyttöliittymässä
+     * käynnistetään sanakyselyn ohjeiden antaminen käyttöliittymässä
      */
     public void kaynnista_ohje_kyseleJaTarkastaSanajoukkoLista(){
         kl.ohje_kyseleJaTarkastaSanajoukkoLista();
@@ -124,7 +116,7 @@ public class Ohjaus {
             jl.getJoukkoListasta(avain).setVaarienVastaustenLukumaara(0);
         } 
              
-        return na.kysellaankoUusiKierros();
+        return kl.kysellaankoUusiKierros();
     }
    
     /**

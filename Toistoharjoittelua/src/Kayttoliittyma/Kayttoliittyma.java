@@ -20,14 +20,6 @@ public class Kayttoliittyma {
     }
     
     /**
-    * Opastetaan käyttäjää sanaparilistan manuaalisessa täyttämisessä    
-    public void ohje_lueSanaparitJoukkolistaan(){
-        System.out.println("Muodostetaan sanajoukkojen lista kyselemällä" +
-                " sanapareja\n" + "Tyhjä arvo lopettaa");
-    }
-    */
-    
-    /**
      * Kysytään käyttäjältä, mistä syöte saadaan (tiedosto/näppäimistö)
      * 
      * @return true=tiedosto, false=näppäimistö 
@@ -51,45 +43,63 @@ public class Kayttoliittyma {
         System.out.println("Muodostetaan sanajoukkojen lista kyselemällä" +
                 " sanapareja\n" + "Tyhjä arvo lopettaa");
     }
-       
+    
+    /**
+     * Kysyttävän sanan kyselyn kehote
+     */
+        public void ohje_annaKysyttavaSana() {
+            System.out.print("Anna kysyttävä sana: ");
+        }    
+     /**
+      * oikean vastauksen  kyselyn kehote
+      */       
+        public void ohje_annaVastine() {
+            System.out.print("Anna vastine: ");
+        }
+
+        public String getSana() {    
+            Scanner lukija = new Scanner(System.in);
+            return lukija.nextLine().trim();
+        } 
+        
+//        public void naytaSyotettySanapari(String kysymys, String vastaus) {
+//            System.out.println(kysymys + " --> " + vastaus);
+//        }
+
     /**
      * Yksittäisen sanaparin lukeminen ja tulostaminen näkyviin
      * 
      * @return  luettu sanapari
-     *
-    public Sanapari lueSanapariTrimmaten () {    
-        
-        Scanner lukija = new Scanner(System.in);
-        String vastine = "";
-        System.out.print("Anna kysyttävä sana: ");
-        String sana = lukija.nextLine().trim();
-        if (! sana.equals("")) {
-            System.out.print("Anna vastine: ");
-            vastine = lukija.nextLine().trim();
-        } else {
-            vastine = "";
-        }
-      
-        Sanapari sp = new Sanapari(sana, vastine);
-        System.out.println("Syötetty: " + sp);
-                  
-        return sp; 
-    }
-    */
-    
-        public void ohje_annaKysyttavaSana() {
-            System.out.print("Anna kysyttävä sana: ");
-        }    
-            
-        public void ohje_annaVastine() {
-            System.out.print("Anna vastine: ");
-        }
-      
-        public void naytaSyotettySanapari(Sanapari sp){
-            System.out.println("Syötetty: " + sp);
-        }
-        
+     */
+//    public Sanapari lueSanapariTrimmaten () {    
+//        
+//        Scanner lukija = new Scanner(System.in);
+//        String vastine = "";
+//        ohje_annaKysyttavaSana();
+////        System.out.print("Anna kysyttävä sana: ");
+//        String sana = lukija.nextLine().trim();
+//        if (! sana.equals("")) {
+//            ohje_annaVastine();
+//            System.out.print("Anna vastine: ");
+//            vastine = lukija.nextLine().trim();
+//        } else {
+//            vastine = "";
+//        }
+//      
+//        Sanapari sp = new Sanapari(sana, vastine);
+//        System.out.println("Syötetty: " + sp);
+//        naytaSyotettySanapari(sp);
+//        
+//        return sp; 
+//    }
 
+//      /**      
+//       * syötetyn sanaparin näyttäminen käyttöliittymässä 
+//       */ 
+//        public void naytaSyotettySanapari(Sanapari sp){
+//            System.out.println("Syötetty: " + sp);
+//        }
+        
     /**
      * 
      * Näytetään sanajoukkolistan sisältö
@@ -101,36 +111,19 @@ public class Kayttoliittyma {
         System.out.println(jl);
         System.out.println("Kyseltäviä sanoja: " + jl.listanAlkioidenLkm());
     }    
-
-    /**
-     *  Kysytään käyttäjältä ohjaava parametriarvo, montako
-     *  peräkkäistä oikeaa vastausta kysymykseen on saatava, ennen 
-     *  kuin se katsotaan osatuksi. Luvut 1 - 3 kelpaavat.
-     * 
-     * @return   oikeiden vastausten määrä
-    public int montakoPerakkaistaOikeaaVastaustaVaaditaan() {
-        Scanner lukija = new Scanner(System.in);
-        int maara = 1;
-        while (true) {
-            System.out.print("Montako peräkkäistä oikeaa vastausta " +
-                "vaaditaan (luvut 1-3 kelpaavat)?: ");
-            try {
-                maara = Integer.parseInt(lukija.nextLine());
-            }
-            catch (NumberFormatException e) {
-                maara = -1; //dummy-arvo, joka jää kiinni alla testissä
-            }
-            if ((maara >= 1) && (maara <= 3) ) return maara;
-            System.out.println("Vastaus ei kelpaa, anna luku välillä 1-3");
-        }       
-    }
-    */
     
+    /**
+     * kehote vastaamaan kysymykseen, montako oikeaa vastausta
+     * vaaditaan ennen kuin kysymystä lakataan kysymästä
+     */
     public void ohje_montakoOikeaaVastausta(){
         System.out.print("Montako peräkkäistä oikeaa vastausta " +
             "vaaditaan (luvut 1-3 kelpaavat)?: ");
     }    
     
+    /**
+     * ilmoitus, että vastaus ei kelpaa
+     */
     public void ohje_montakoOikeaaVastausta_VastausEiKelpaa() {
         System.out.println("Vastaus ei kelpaa, anna luku välillä 1-3");
     }    
@@ -143,28 +136,6 @@ public class Kayttoliittyma {
                 "Tyhjä vastaus lopettaa");
     }    
 
-    /**
-     * Tulostetaan lista kysymyksistä, joihin on vastattu virheellisesti.
-     * Listalla on myös virheiden lukumäärä. Listan järjestys on käänteinen, 
-     * ts. eniten virheellisiä vastauksia saanut kysymys on listan
-     * alussa.
-     * @param  jl   käsiteltävä sanajoukkolista
-     *
-    public void listaaVirheidenMaaratKysymyskohtaisesti(
-            Sanajoukkolista jl) {
-        System.out.println("Virheellisten vastausten lkm/kysymys: ");
-        for (int i = jl.korkeinVirhemaaraSanajoukkolistanAlkiolla();
-                i > 0; --i) {
-            for (String avain : jl.getJoukkoLista().keySet()) {
-                if (jl.getJoukkoListasta(avain).
-                        getVaarienVastaustenLukumaara() == i) {
-                    System.out.println(i + "\t" + avain);
-                }
-            }
-        }
-    }
-    */
-    
     public void otsikkoVirheellistenVastaustenLkm() {    
         System.out.println("Virheellisten vastausten lkm/kysymys: ");
     }

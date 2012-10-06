@@ -22,24 +22,6 @@ public class Nappaimisto {
     }
 
     /**
-     * Kysytään käyttäjältä, mistä syöte saadaan (tiedosto/näppäimistö)
-     * 
-     * @return true=tiedosto, false=näppäimistö 
-     *
-    public boolean syoteTiedostosta_EiNappaimistolta() {
-        Scanner lukija = new Scanner(System.in);
-        while (true) {
-            System.out.print("Syöte tiedostosta vai näppäimistöltä" +
-                    " (t/n)?: ");
-            String vastaus = lukija.nextLine();
-            if (vastaus.equals("t")) return true; // <<<<<<<< poistutaan
-            if (vastaus.equals("n")) return false; // <<<<<<< poistutaan
-            System.out.println("Vastaus ei kelpaa, vastaa t tai n");
-        }       
-    }
-    */
-    
-    /**
     * Opastetaan käyttäjää sanaparilistan manuaalisessa täyttämisessä
     *    
     public void ohje_lueSanaparitJoukkolistaan(){
@@ -59,35 +41,21 @@ public class Nappaimisto {
         String vastine = "";
         kl.ohje_annaKysyttavaSana();
 //        System.out.print("Anna kysyttävä sana: ");
-        String sana = lukija.nextLine().trim();
+        String sana = kl.getSana(); // lukija.nextLine().trim();
         if (! sana.equals("")) {
             kl.ohje_annaVastine();
             //System.out.print("Anna vastine: ");
-            vastine = lukija.nextLine().trim();
+            vastine = kl.getSana(); //lukija.nextLine().trim();
         } else {
             vastine = "";
         }
       
         Sanapari sp = new Sanapari(sana, vastine);
-//        System.out.println("Syötetty: " + sp);
-        kl.naytaSyotettySanapari(sp);
+        System.out.println("Syötetty: " + sp);
         
         return sp; 
     }
     
-    /**
-     * 
-     * Näytetään sanajoukkolistan sisältö
-     * 
-     * @param  jl   käsiteltävä sanajoukkolista
-     
-    public void tulostaSanajoukkoLista(Sanajoukkolista jl) {
-        System.out.println("Listan sisältö");
-        System.out.println(jl);
-        System.out.println("Kyseltäviä sanoja: " + jl.listanAlkioidenLkm());
-    } 
-    */
-
     /**
      *  Kysytään käyttäjältä ohjaava parametriarvo, montako
      *  peräkkäistä oikeaa vastausta kysymykseen on saatava, ennen 
@@ -100,8 +68,6 @@ public class Nappaimisto {
         int maara = 0;
         while (true) {
             kl.ohje_montakoOikeaaVastausta();
-//            System.out.print("Montako peräkkäistä oikeaa vastausta " +
-//                "vaaditaan (luvut 1-3 kelpaavat)?: ");
             try {
                 maara = Integer.parseInt(lukija.nextLine());
             }
@@ -110,19 +76,10 @@ public class Nappaimisto {
             }
             if ((maara >= 1) && (maara <= 3) ) return maara;
             kl.ohje_montakoOikeaaVastausta_VastausEiKelpaa();
-//            System.out.println("Vastaus ei kelpaa, anna luku välillä 1-3");
         }       
     }     
     
     
-    /**
-    * opastetaan käyttäjää listan kysymyksiin vastaamisessa
-         
-    public void ohje_kyseleJaTarkastaSanajoukkoLista(){
-        System.out.println("Kysellään listan kysymyksiä \n" +
-                "Tyhjä vastaus lopettaa");
-    }    
-*/
     /**
      * Tulostetaan lista kysymyksistä, joihin on vastattu virheellisesti.
      * Listalla on myös virheiden lukumäärä. Listan järjestys on käänteinen, 
@@ -145,34 +102,7 @@ public class Nappaimisto {
             }
         }
     }
-    
-    
-    /**
-    * 
-    * Kysytään, haluaako käyttäjä aloittaa uuden kyselykierroksen.
-    * 
-    * @return jatketaanko uudella kierroksella?
-    */
-    public boolean kysellaankoUusiKierros() {
-        Scanner lukija = new Scanner(System.in);
-        boolean uusiKierros = false;
-        System.out.println("==================KIERROS PÄÄTTYI============="+
-                "=====");
-        System.out.println("============= JATKETAANKO? VASTAA k/e ========"+
-                "=====");
-        System.out.println("=============================================="+
-                "=====");
-        while (true) {
-            System.out.print("Jatketaanko uudella kierroksella (k/e): ");
-            String vastaus = lukija.nextLine();
-            if (vastaus.equals("k")) return true; // <<<<<<<<< poistutaan
-            if (vastaus.equals("e")/* || vastaus.isEmpty()*/) 
-                return false; // <<<< poistutaan
-            System.out.println("Vastaus ei kelpaa, vastaa k tai e");
-        }       
-    }     
-    
-    
+        
     /**
     * Raportoidaan, onko kyseltäviä sanoja vielä listassa ottaen huomioon,
     * montako perättäistä oikeaa vastausta vaaditaan
@@ -263,51 +193,6 @@ public class Nappaimisto {
     public String ehdotettuVastaus() {      
         Scanner lukija = new Scanner(System.in);
         return lukija.nextLine();
-    }
-
-    
-//******************************************************************    
-//  Tästä eteen päin tiedostokäsittelyn metodit    
-//******************************************************************    
-
- /**
- *  pyydetään käyttäjää antamaan tiedoston nimi
- */
-    public void ohje_annaTiedostonNimi() {
-        System.out.print("Anna tiedoston nimi: ");
-    }
-
-/**
- * ilmoitetaan, että tiedostoa ei ole olemassa
- * @param nykytiedosto tiedosto, jota yritetään löytää
- */    
-    public void ohje_tiedostoaEiLoydy(String nykytiedosto) {
-        System.out.println("Tiedostoa " + nykytiedosto + " ei löydy");;
-    }
-
-/**
- * ilmoitetaan, että tiedosto on olemassa
- * @param nykytiedosto tiedosto, jota yritetään löytää
- */    
-    public void ohje_tiedostoLoytyi(String nykytiedosto) {
-        System.out.println("Tiedosto " + nykytiedosto + " löytyi");
-    }
-
-    /**
-     *  ilmoitetaan, että syöttötiedoston avaus ei onnistunut
-     */
-    public void ohje_syottotiedostoaEiVoituAvata() {
-        System.out.println("Syöttötiedostoa ei voitu avata");
-    }
-
-    /**
-     * ilmoitetaan, että syötettä ei ole saatu tiedostosta tai 
-     *      näppäimistöltä
-     */
-    public void ohje_ilmoitaTyhjastaSyotteesta() {
-        System.out.println("==============================================");
-        System.out.println("== Ohjelmalla ei ole syötettä, keskeytetään ==");
-        System.out.println("==============================================");
     }
 
 }

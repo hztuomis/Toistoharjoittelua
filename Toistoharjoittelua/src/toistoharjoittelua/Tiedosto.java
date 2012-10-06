@@ -50,9 +50,9 @@ public class Tiedosto {
      * @return palauttaa valmiiksi päivitetyn sanajoukkolistan 
      *  kutsuvalle ohjelmalle
      * 
-     * ****************************************************************
-     * HUOM. TÄSSÄ ON INPUT TIEDOSTOSTA, EI KAI KUULU KÄYTTÖLIITTYMÄÄN?
-     * ****************************************************************
+     * ***************************************************************
+     * HUOM. SYÖTE LUETAAN TIEDOSTOSTA, EI KAI KUULU KÄYTTÖLIITTYMÄÄN?
+     * ***************************************************************
      */
     public Sanajoukkolista lueJaKasitteleTiedostonRivit() {
         Sanajoukkolista joukkolista = new Sanajoukkolista();
