@@ -31,10 +31,8 @@ public class Tiedosto {
 //===================================================== 
     public File lueTiedostoJaEtsi() throws FileNotFoundException {
         kl.ohje_annaTiedostonNimi();  // anna: eka.txt
-        String nykytiedosto =
-//                "D:\\Omat Tiedostot\\GitHub\\Toistoharjoittelua\\" 
-//                + "Toistoharjoittelua\\src\\toistoharjoittelua\\" 
-                lukija.nextLine();                       
+        
+        String nykytiedosto = kl.getNykyTiedosto();           
         File nykytiedostokahva = new File (nykytiedosto);
         if (!nykytiedostokahva.exists()) {
             kl.ohje_tiedostoaEiLoydy(nykytiedosto);
@@ -51,6 +49,10 @@ public class Tiedosto {
      * 
      * @return palauttaa valmiiksi päivitetyn sanajoukkolistan 
      *  kutsuvalle ohjelmalle
+     * 
+     * ****************************************************************
+     * HUOM. TÄSSÄ ON INPUT TIEDOSTOSTA, EI KAI KUULU KÄYTTÖLIITTYMÄÄN?
+     * ****************************************************************
      */
     public Sanajoukkolista lueJaKasitteleTiedostonRivit() {
         Sanajoukkolista joukkolista = new Sanajoukkolista();

@@ -2,8 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Kayttoliittyma;
+package toistoharjoittelua;
 
+import Kayttoliittyma.*;
 import java.util.Scanner;
 import toistoharjoittelua.Sanapari;
 import toistoharjoittelua.Sanajoukko;
@@ -13,10 +14,10 @@ import toistoharjoittelua.Sanajoukkolista;
  *
  * @author hztuomis
  */
-public class Kayttoliittyma {
+public class Nappaimisto {
     private Sanajoukkolista joukkoLista;
   
-    public Kayttoliittyma(Sanajoukkolista joukkoLista){
+    public Nappaimisto(Sanajoukkolista joukkoLista){
     }
 
     /**
@@ -297,17 +298,4 @@ public class Kayttoliittyma {
         System.out.println("==============================================");
     }
 
-/**
- * lukee tiedoston nimen näppäimistöltä
- * @return tiedoston nimi
- */
-    public String getNykyTiedosto() { 
-        Scanner lukija = new Scanner(System.in);
-        String nykytiedosto = 
-//                "D:\\Omat Tiedostot\\GitHub\\Toistoharjoittelua\\" 
-//                + "Toistoharjoittelua\\src\\toistoharjoittelua\\" 
-                lukija.nextLine();
-        return nykytiedosto;
-    }
-    
 }
