@@ -87,7 +87,7 @@ public class Tiedosto {
 
     /**
      * Lisää tiedostosta luetun yksittäisen rivin tiedot 
-     * sanajoukkolistaan
+     * sanajoukkolistaan ***Sanapari***
      * 
      * @param rivi tiedostosta luettu rivi
      * @return päivitetty sanajoukkolista

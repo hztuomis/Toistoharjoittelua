@@ -56,7 +56,7 @@ public class Kayttoliittyma {
             System.out.print("Anna kysyttävä sana: ");
         }    
      /**
-      * oikean vastauksen  kyselyn kehote
+      * vastauksen  kyselyn kehote
       */       
         public void ohje_annaVastine() {
             System.out.print("Anna vastine: ");
@@ -72,7 +72,8 @@ public class Kayttoliittyma {
         } 
         
     /**
-     * näytetään sanapari
+     * näytetään sanapari ***Sanapari***
+     * 
      **************************************** 
      * TÄSSÄ AINAKIN TARVITAAN Sanaparia
      ****************************************
@@ -82,7 +83,7 @@ public class Kayttoliittyma {
         }       
      /**
      * 
-     * Näytetään sanajoukkolistan sisältö
+     * Näytetään sanajoukkolistan sisältö ***Sanajoukkolista***
      * 
      * @param  jl   käsiteltävä sanajoukkolista
      * 
@@ -206,7 +207,7 @@ public class Kayttoliittyma {
     }
     
 /**
- * ilmoitus väärästä vastauksesta
+ * ilmoitus väärästä vastauksesta ***Sanajoukko***
  * 
  * @param sj käsiteltävä sanajoukko
  * ****************************************
@@ -264,6 +265,19 @@ public class Kayttoliittyma {
     }
 
 /**
+ * lukee tiedoston nimen näppäimistöltä
+ * @return tiedoston nimi
+ */
+    public String getNykyTiedosto() { 
+        Scanner lukija = new Scanner(System.in);
+        String nykytiedosto = 
+//                "D:\\Omat Tiedostot\\GitHub\\Toistoharjoittelua\\" 
+//                + "Toistoharjoittelua\\src\\toistoharjoittelua\\" 
+                lukija.nextLine();
+        return nykytiedosto;
+    }
+
+/**
  * ilmoitetaan, että tiedostoa ei ole olemassa
  * @param nykytiedosto tiedosto, jota yritetään löytää
  */    
@@ -294,19 +308,6 @@ public class Kayttoliittyma {
         System.out.println("==============================================");
         System.out.println("== Ohjelmalla ei ole syötettä, keskeytetään ==");
         System.out.println("==============================================");
-    }
-
-/**
- * lukee tiedoston nimen näppäimistöltä
- * @return tiedoston nimi
- */
-    public String getNykyTiedosto() { 
-        Scanner lukija = new Scanner(System.in);
-        String nykytiedosto = 
-//                "D:\\Omat Tiedostot\\GitHub\\Toistoharjoittelua\\" 
-//                + "Toistoharjoittelua\\src\\toistoharjoittelua\\" 
-                lukija.nextLine();
-        return nykytiedosto;
     }
     
 }

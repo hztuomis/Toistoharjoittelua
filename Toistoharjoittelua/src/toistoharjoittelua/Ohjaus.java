@@ -5,7 +5,7 @@
 package toistoharjoittelua;
 
 import Kayttoliittyma.Kayttoliittyma;
-import toistoharjoittelua.Nappaimisto;
+import java.util.Scanner;
 /**
  * Ottaa ohjeet Toistoharjoittelua-pääohjelmalta ja välittää ne 
  *      Nappaimisto- ja Kayttoliittyma-luokille
@@ -13,7 +13,6 @@ import toistoharjoittelua.Nappaimisto;
  */
 public class Ohjaus {
     private Sanajoukkolista jl;
-    Nappaimisto na = new Nappaimisto(jl);
     Kayttoliittyma kl = new Kayttoliittyma(jl);
     Tiedosto ti = new Tiedosto();
 
@@ -25,11 +24,10 @@ public class Ohjaus {
      * 
      * @return sanajoukkolista tai null
      */
-    public Sanajoukkolista syotteenLukeminen() {
+    public Sanajoukkolista syotteenLukeminenTiedostostaTaiNappaimistolta(){
         if (kl.syoteTiedostosta_EiNappaimistolta()) {
             jl = ti.lueJaKasitteleTiedostonRivit();
         } else {
-//            kaynnista_ohje_lueSanaparitJoukkolistaan(); // toimintaohje
             kl.ohje_lueSanaparitJoukkolistaan(); // toimintaohje
             // sanajoukkolistan kyseleminen
             jl = lueSanaparitJoukkolistaan();
@@ -73,11 +71,11 @@ public class Ohjaus {
     public Sanajoukkolista lueSanaparitJoukkolistaan () {
         Sanapari sanapari = new Sanapari();
         Sanajoukkolista joukkoLista = new Sanajoukkolista();
-        sanapari = na.lueSanapariTrimmaten();
+        sanapari = lueSanapariTrimmaten();
         while ((!sanapari.kysymysTyhja()) && (!sanapari.vastausTyhja())) {
             joukkoLista.lisaaSanapariJoukkolistaan(sanapari.getKysymys(),
                     sanapari.getVastaus());
-            sanapari = na.lueSanapariTrimmaten();   
+            sanapari = lueSanapariTrimmaten();   
         }   
         return joukkoLista;
     }
@@ -99,7 +97,7 @@ public class Ohjaus {
         
         jl.setKyseltaviaSanojaJaljella(lkm);
         int perakkaisiaOikeitaVastauksiaVaaditaan =
-            na.montakoPerakkaistaOikeaaVastaustaVaaditaan();
+            montakoPerakkaistaOikeaaVastaustaVaaditaan();
 
         while (jatkuu) {
             jatkuu = kyseleJaTarkastaArvottuKysymys(jl, 
@@ -108,7 +106,7 @@ public class Ohjaus {
         }
 
         // päättyneen kierroksen tilastointi
-        na.listaaVirheidenMaaratKysymyskohtaisesti(jl);
+        listaaVirheidenMaaratKysymyskohtaisesti(jl);
         
         // laskurien nollaus
         for (String avain : jl.getJoukkoLista().keySet()) {
@@ -148,7 +146,7 @@ public class Ohjaus {
                (jl.getJoukkoListasta(avain).getOikeidenVastaustenLukumaara()
                      < perakkaisiaOikeitaVastauksiaVaaditaan) ) {
                 
-                boolean jatkuu = na.kyseleJaTarkastaVastaus(avain,
+                boolean jatkuu = kyseleJaTarkastaVastaus(avain,
                     jl.getJoukkoListasta(avain));
                 if (!jatkuu) {
                     return false; // <<<<<<<<<<< poistutaan                        
@@ -157,7 +155,7 @@ public class Ohjaus {
                 paivitaJaljellaOlevienKyseltavienSanojenMaara(jl, avain,
                         perakkaisiaOikeitaVastauksiaVaaditaan);
 
-                if (! na.onVielaKyseltaviaSanoja(jl,
+                if (! onVielaKyseltaviaSanoja(jl,
                         perakkaisiaOikeitaVastauksiaVaaditaan)) {
                     return false;
                 }    
@@ -182,6 +180,128 @@ public class Ohjaus {
             jl.setKyseltaviaSanojaJaljella(
                     jl.getKyseltaviaSanojaJaljella() - 1);
         }
+    }
+    
+     /**
+     * Yksittäisen sanaparin lukeminen ja tulostaminen näkyviin
+     * 
+     * @return  luettu sanapari
+     */
+    public Sanapari lueSanapariTrimmaten () {    
+        
+        Scanner lukija = new Scanner(System.in);
+        String vastine = "";
+        kl.ohje_annaKysyttavaSana();
+        String sana = kl.getSana(); 
+        if (! sana.equals("")) {
+            kl.ohje_annaVastine();
+            vastine = kl.getSana();
+        } else {
+            vastine = "";
+        }
+      
+        Sanapari sp = new Sanapari(sana, vastine);
+        kl.naytaSanapari(sp);
+        
+        return sp; 
+    }
+    
+    /**
+     *  Kysytään käyttäjältä ohjaava parametriarvo, montako
+     *  peräkkäistä oikeaa vastausta kysymykseen on saatava, ennen 
+     *  kuin se katsotaan osatuksi. Luvut 1 - 3 kelpaavat.
+     * 
+     * @return   oikeiden vastausten määrä
+     */   
+    public int montakoPerakkaistaOikeaaVastaustaVaaditaan() {
+        Scanner lukija = new Scanner(System.in);
+        int maara = 0;
+        while (true) {
+            kl.ohje_montakoOikeaaVastausta();
+            maara = kl.annaRajalukumaara();
+            if ((maara >= 1) && (maara <= 3) ) return maara;
+            kl.ohje_montakoOikeaaVastausta_VastausEiKelpaa();
+        }       
+    }     
+    
+    /**
+     * Tulostetaan lista kysymyksistä, joihin on vastattu virheellisesti.
+     * Listalla on myös virheiden lukumäärä. Listan järjestys on käänteinen, 
+     * ts. eniten virheellisiä vastauksia saanut kysymys on listan
+     * alussa.
+     * @param  jl   käsiteltävä sanajoukkolista
+     */
+    public void listaaVirheidenMaaratKysymyskohtaisesti(
+            Sanajoukkolista jl) {
+        kl.otsikkoVirheellistenVastaustenLkm();
+        for (int i = jl.korkeinVirhemaaraSanajoukkolistanAlkiolla();
+                i > 0; --i) {
+            for (String avain : jl.getJoukkoLista().keySet()) {
+                if (jl.getJoukkoListasta(avain).
+                        getVaarienVastaustenLukumaara() == i) {
+                    kl.naytaVirheellistenVastaustenLkm(i,avain);
+                }
+            }
+        }
+    }
+        
+    /**
+    * Raportoidaan, onko kyseltäviä sanoja vielä listassa ottaen huomioon,
+    * montako perättäistä oikeaa vastausta vaaditaan
+    * 
+    * @param jl    käsiteltävä joukkolista
+    * @param perakkaisiaOikeitaVastauksiaVaaditaan 
+    *          peräkkäisten oikeiden vastausten vaadittu minimilukumäärä.
+    *          huom. väärä vastaus nollaa oikeiden vastausten laskurin ja
+    *          minimilukumäärää täytyy alkaa tavoitella alusta alkaen
+    * @return true, jos vielä on kyseltäviä sanoja, false jos lista on tyhjä
+    */      
+    public boolean onVielaKyseltaviaSanoja(Sanajoukkolista jl,
+             int perakkaisiaOikeitaVastauksiaVaaditaan) {
+        kl.naytaKyseltaviaSanojaJaljella(
+            jl.getKyseltaviaSanojaJaljella());
+        if (jl.getKyseltaviaSanojaJaljella() <= 0) {
+            kl.naytaEttaOikeatVastauksetSaatu(
+                    perakkaisiaOikeitaVastauksiaVaaditaan);
+            return false; 
+        } else {
+            return true;
+        }
+    }
+    
+    /**
+    * Kysytään käyttäjältä sanan vastinetta ja tarkastetaan, 
+    * menikö oikein
+    * 
+    * @param avain kysyttävä sana
+    * @param sj    vastineiden joukko
+    * 
+    * @return  palautetaan tieto siitä, osuiko kohdalleen
+    */
+    public boolean kyseleJaTarkastaVastaus(String avain, Sanajoukko sj) {
+        kl.kysy(avain); 
+        String ehdotus = kl.ehdotettuVastaus();
+        if (!(ehdotus.equals(""))) {
+            if (sj.trimmattuVastausOnJoukossa(ehdotus)) {
+                kl.ilmoitaOikeastaVastauksesta();
+                sj.setOikeidenVastaustenLukumaara(
+                    sj.getOikeidenVastaustenLukumaara() + 1);
+            } else {
+                kl.ilmoitaVaarastaVastauksesta(sj);
+                sj.setVaarienVastaustenLukumaara(
+                    sj.getVaarienVastaustenLukumaara() + 1);
+//              === HUOM. KO. KYSYMYKSEN OIKEIDEN VASTAUSTEN KERÄILY 
+//                          ALOITETAAM ALUSTA ELI LASKURI --> 0
+                sj.setOikeidenVastaustenLukumaara(0);              
+            }
+            
+            kl.ilmoitaOikeidenJaVaarienLukumaara(
+                    sj.getOikeidenVastaustenLukumaara(),
+                    sj.getVaarienVastaustenLukumaara());
+
+            return true;
+        }
+        return false;
     }
  
 }
