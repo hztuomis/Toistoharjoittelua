@@ -10,6 +10,7 @@ package toistoharjoittelua;
  *
  */
 
+// voisi olla näinkin: import Kayttoliittyma.Kayttoliittyma;
 import java.util.Scanner;
 
 public class Toistoharjoittelua {
@@ -28,6 +29,7 @@ public class Toistoharjoittelua {
     public static void main(String[] args) {
         Sanajoukkolista jl = new Sanajoukkolista();
         Ohjaus oh = new Ohjaus(jl);
+// voisi olla näinkin: Kayttoliittyma kl = new Kayttoliittyma(jl);
         
         // syöte luetaan joko tiedostosta tai näppäimistöltä
         jl = oh.syotteenLukeminen();
@@ -35,9 +37,11 @@ public class Toistoharjoittelua {
         if (oh.syoteEiOleTyhja(jl)) {
             // tulostetaan listan sisältö
             oh.kaynnista_tulostaSanajoukkoLista(jl);
+// voisi olla näinkin: kl.tulostaSanajoukkoLista(jl);
         
             // kyselyvaiheen toimintaohje
             oh.kaynnista_ohje_kyseleJaTarkastaSanajoukkoLista(); 
+// voisi olla näinkin: kl.ohje_kyseleJaTarkastaSanajoukkoLista(); 
             // kyseleminen, tarkastaminen ja tilastointi
             while (oh.kyseleJaTarkastaSanajoukkoLista(jl)) {} // end while
         }

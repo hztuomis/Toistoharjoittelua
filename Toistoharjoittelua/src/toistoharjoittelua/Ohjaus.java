@@ -28,7 +28,8 @@ public class Ohjaus {
         if (kl.syoteTiedostosta_EiNappaimistolta()) {
             jl = ti.lueJaKasitteleTiedostonRivit();
         } else {
-            kaynnista_ohje_lueSanaparitJoukkolistaan(); // toimintaohje
+//            kaynnista_ohje_lueSanaparitJoukkolistaan(); // toimintaohje
+            kl.ohje_lueSanaparitJoukkolistaan(); // toimintaohje
             // sanajoukkolistan kyseleminen
             jl = lueSanaparitJoukkolistaan();
         }
@@ -52,11 +53,13 @@ public class Ohjaus {
     
     /**
      * käynnistetään sanaparien syötön ohjeiden antaminen käyttöliittymässä
-     */
+     * EI TARVITA?
+     *
     public void kaynnista_ohje_lueSanaparitJoukkolistaan(){
         kl.ohje_lueSanaparitJoukkolistaan();
     }
-       
+    */ 
+    
     /**
      * käynnistetään sanojen kyselyn ohjeiden antaminen käyttöliittymässä
      */
