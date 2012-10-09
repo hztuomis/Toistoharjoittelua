@@ -24,7 +24,8 @@ public class Ohjaus {
      * 
      * @return sanajoukkolista tai null
      */
-    public Sanajoukkolista syotteenLukeminenTiedostostaTaiNappaimistolta(){
+    public Sanajoukkolista 
+                syotteenLukeminenTiedostostaTaiNappaimistolta(){
         if (kl.syoteTiedostosta_EiNappaimistolta()) {
             jl = ti.lueJaKasitteleTiedostonRivit();
         } else {

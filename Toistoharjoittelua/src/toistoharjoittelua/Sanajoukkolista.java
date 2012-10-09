@@ -43,7 +43,7 @@ public class Sanajoukkolista {
         return joukkoLista.get(avain);
     }
     /**
-     * Lisätään sanapari (Sanapari-)joukkolistaan
+     * Lisätään sanapari Sanajoukkolistaan
      * 
      * @param kysymys  talletettava kysymys
      * @param vastaus  talletettava vastaus
@@ -59,7 +59,7 @@ public class Sanajoukkolista {
     }    
 
     /**
-     * Sanaparilistan alkioiden lkm
+     * Sanajoukkolistan alkioiden lkm
      * 
      * @return alkioiden lkm
      */    

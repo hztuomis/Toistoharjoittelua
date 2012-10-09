@@ -86,4 +86,10 @@ public class SanapariTest {
         Assert.assertEquals("heihei", s.getVastaus());
     }
                 
+    @Test
+    public void sanaParinToStringOikein(){
+        Sanapari s = new Sanapari("hei","heihei");
+        Assert.assertEquals("hei  ->  heihei", s.toString());       
+    }
+    
 }

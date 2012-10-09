@@ -61,20 +61,6 @@ public class SanajoukkoTest {
     }
     
     @Test
-    public void tyhjanVastauksenTallennusJoukkoonOnnistuu(){
-        Sanajoukko sj = new Sanajoukko();
-        sj.lisaaVastausSanajoukkoon("");
-        assertEquals(sj.getVastaus(0),"");
-    }
-
-    @Test
-    public void alkioidenMaaraOikeinKunOnSyotettyTyhjaSana(){
-        Sanajoukko sj = new Sanajoukko();
-        sj.lisaaVastausSanajoukkoon("");
-        assertEquals(sj.vastaustenLukumaaraJoukossa(),1);
-    }
-    
-    @Test
     public void tuplatalletusEiKasvataAlkioidenMaaraa(){
         Sanajoukko sj = new Sanajoukko();
         sj.lisaaVastausSanajoukkoon("A");
@@ -88,8 +74,8 @@ public class SanajoukkoTest {
         Sanajoukko sj = new Sanajoukko();
         sj.lisaaVastausSanajoukkoon("A");
         sj.lisaaVastausSanajoukkoon("B");
-        assertEquals(sj.trimmattuVastausOnJoukossa("A"),true);
-        assertEquals(sj.trimmattuVastausOnJoukossa("B"),true);
+        assertEquals(sj.trimmattuVastausOnJoukossa("    A"),true);
+        assertEquals(sj.trimmattuVastausOnJoukossa(" B  "),true);
     }
     
     @Test
@@ -97,6 +83,33 @@ public class SanajoukkoTest {
         Sanajoukko sj = new Sanajoukko();
         sj.lisaaVastausSanajoukkoon("A");
         assertEquals(sj.trimmattuVastausOnJoukossa("B"),false);
+    }
+    
+    @Test
+    public void sanajoukonToStringOikein(){
+        Sanajoukko sj = new Sanajoukko();
+        sj.lisaaVastausSanajoukkoon("A");
+        sj.lisaaVastausSanajoukkoon("B");
+        assertEquals("[A,B]",sj.toString());
+    }
+    
+/**
+ *  huom. tyhjän kysymyksen ja/tai vastauksen tallennusta ei käytännössä
+ *  esiinny, sillä tyhjä on keskeytyksen merkki. Kuitenkin Sanajoukko 
+ *  yleisenä rakenteena sallii tyhjät merkkijonot.
+ */
+    @Test
+    public void tyhjanVastauksenTallennusJoukkoonOnnistuu(){
+        Sanajoukko sj = new Sanajoukko();
+        sj.lisaaVastausSanajoukkoon("");
+        assertEquals(sj.getVastaus(0),"");
+    }
+
+    @Test
+    public void alkioidenMaaraOikeinKunOnSyotettyTyhjaSana(){
+        Sanajoukko sj = new Sanajoukko();
+        sj.lisaaVastausSanajoukkoon("");
+        assertEquals(sj.vastaustenLukumaaraJoukossa(),1);
     }
     
     @Test
@@ -115,7 +128,7 @@ public class SanajoukkoTest {
     public void tyhjaSanaOnJoukossaJohonOnSyotettyTyhjaSana(){
         Sanajoukko sj = new Sanajoukko();
         sj.lisaaVastausSanajoukkoon("");
-        assertEquals(sj.trimmattuVastausOnJoukossa(""),true);
+        assertEquals(sj.trimmattuVastausOnJoukossa("     "),true);
     }
 
 }

@@ -66,19 +66,47 @@ public class SanajoukkolistaTest {
     }
     
     @Test
-    public void JoukkolistaanLisattyEriSanapari() {
-        Sanajoukkolista jl = new Sanajoukkolista();
-        jl.lisaaSanapariJoukkolistaan("a", "b");
-        jl.lisaaSanapariJoukkolistaan("b", "c");
-        assertEquals(jl.listanAlkioidenLkm(),2);    
-    }
-    
-    @Test
-    public void JoukkolistaanLisattySamaKysymysUudestaan() {
+    public void JoukkolistaanLisattySamaKysymysUudestaan_1() {
         Sanajoukkolista jl = new Sanajoukkolista();
         jl.lisaaSanapariJoukkolistaan("a", "b");
         jl.lisaaSanapariJoukkolistaan("a", "c");
         assertEquals(jl.listanAlkioidenLkm(),1);    
+    }
+    
+    @Test
+    public void JoukkolistaanLisattySamaKysymysUudestaan_2() {
+        Sanajoukkolista jl = new Sanajoukkolista();
+        jl.lisaaSanapariJoukkolistaan("a", "b");
+        jl.lisaaSanapariJoukkolistaan("a", "c");
+        assertEquals("c", jl.getJoukkoListasta("a").getVastaus(1));    
+    }
+    
+    @Test
+    public void joukkolistanMaksimiVirhemaara() {
+        Sanajoukkolista jl = new Sanajoukkolista();
+        jl.lisaaSanapariJoukkolistaan("a", "b");
+        jl.getJoukkoListasta("a").setVaarienVastaustenLukumaara(5);
+        jl.lisaaSanapariJoukkolistaan("b", "c");
+        jl.getJoukkoListasta("b").setVaarienVastaustenLukumaara(2);       
+        assertEquals(5,jl.korkeinVirhemaaraSanajoukkolistanAlkiolla());   
+    }
+
+    @Test
+    public void JoukkolistanToStringOikein_1() {
+        Sanajoukkolista jl = new Sanajoukkolista();
+        jl.lisaaSanapariJoukkolistaan("a", "b");
+        jl.lisaaSanapariJoukkolistaan("a", "c");
+        assertEquals("a --> [b,c]",jl.toString());    
+    }
+    
+    @Test
+    // huom. seuraavassa HashMapin antama järjestys on käänteinen
+    public void JoukkolistanToStringOikein_2() {
+        Sanajoukkolista jl = new Sanajoukkolista();
+        jl.lisaaSanapariJoukkolistaan("a", "b");
+        jl.lisaaSanapariJoukkolistaan("a", "c");
+        jl.lisaaSanapariJoukkolistaan("b", "d");        
+        assertEquals("b --> [d]\na --> [b,c]",jl.toString());
     }
     
     @Test
