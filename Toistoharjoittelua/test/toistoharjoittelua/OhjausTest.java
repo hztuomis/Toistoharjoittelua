@@ -44,7 +44,9 @@ public class OhjausTest {
     Sanajoukkolista jl = new Sanajoukkolista(); 
     Ohjaus oh = new Ohjaus(jl); 
 /**
- * ks. seuraava testi
+ * ***********************
+ *  vrt. seuraava testi  *
+ * ***********************
  * @param jl
  * @param avain
  * @param perakkaisiaOikeitaVastauksiaVaaditaan 
